@@ -15,7 +15,7 @@ export default function LoginPage() {
           UHNK — Universidade <br /> Heineken
         </h1>
         <p className="text-heineken-light/80 text-xs mt-2 tracking-[0.2em] font-medium uppercase">
-          Brewing Knowledge Excellence
+          Login de Acesso 
         </p>
       </div>
 
@@ -27,7 +27,7 @@ export default function LoginPage() {
         
         {/* Footer */}
         <p className="text-center text-heineken-light/50 text-[10px] mt-12 uppercase tracking-widest">
-          © 2024 Heineken Heritage Learning
+          © 2026 Heineken Heritage Learning
         </p>
       </main>
     </div>
