@@ -3,7 +3,7 @@ import LoginForm from "./components/LoginForm";
 export default function LoginPage() {
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-heineken-green overflow-hidden">
-      {/* Estrela Decorativa de Fundo (Marca d'água) */}
+      {/* (Marca d'água) */}
       <div className="absolute top-[-10%] right-[-5%] text-heineken-dark opacity-20 select-none pointer-events-none">
         <span className="text-[40rem] leading-none">★</span>
       </div>
