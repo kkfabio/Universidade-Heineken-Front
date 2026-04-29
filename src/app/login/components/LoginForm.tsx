@@ -11,7 +11,7 @@ export default function LoginForm() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulação de login - aqui você conectaria com sua API futuramente
+    // Simulação de login - aqui vamos conectaria com sua API futuramente
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log("Login tentado");
