@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-heineken-green: #008200;
-  --color-heineken-dark: #005a35;
+  
+  --color-heineken-green: #008200; 
+  --color-heineken-dark: #005e00; 
+
   --color-heineken-red: #FF2B00;
   --color-heineken-light: #F4F4F4;
   --color-heineken-white: #FFFFFF;
