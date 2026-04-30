@@ -11,8 +11,8 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
 
-  // Definimos quais rotas NÃO devem ter a Sidebar
-  const isPublicPage = pathname === "/login";
+  
+const isPublicPage = pathname === "/login" || pathname === "/forgot-password";
 
   return (
     <html lang="pt-br">

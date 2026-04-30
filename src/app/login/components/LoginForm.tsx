@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import Link from "next/link";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,7 +12,6 @@ export default function LoginForm() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulação de login - aqui vamos conectaria com sua API futuramente
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log("Login tentado");
@@ -79,14 +79,14 @@ export default function LoginForm() {
         )}
       </button>
 
-      {/* Link Esqueci Senha */}
+      {/* Link Esqueci Senha - Atualizado para /forgot-password */}
       <div className="text-center">
-        <a 
-          href="#" 
+        <Link 
+          href="/forgot-password" 
           className="text-white/80 text-xs hover:text-white underline-offset-4 hover:underline transition-all"
         >
           Esqueci minha senha
-        </a>
+        </Link>
       </div>
     </form>
   );
