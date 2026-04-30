@@ -1,9 +1,27 @@
+"use client";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import LoginForm from "./components/LoginForm";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const router = useRouter();
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+  
+    if (email.toLowerCase().endsWith("@heineken.com")) {
+      
+      router.push("/dashboard"); 
+    } else {
+      alert("Acesso restrito: utilize seu e-mail @heineken.com");
+    }
+  };
+
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-heineken-green overflow-hidden">
-      {/* (Marca d'água) */}
+      {/* Estrela (Marca d'água) */}
       <div className="absolute top-[-10%] right-[-5%] text-heineken-dark opacity-20 select-none pointer-events-none">
         <span className="text-[40rem] leading-none">★</span>
       </div>
@@ -19,10 +37,14 @@ export default function LoginPage() {
         </p>
       </div>
 
-      {/* Card do Formulário */}
+      {/* Card do Formulário com efeito de vidro */}
       <main className="z-10 w-full max-w-[400px] px-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl">
-          <LoginForm />
+          <LoginForm 
+            email={email} 
+            setEmail={setEmail} 
+            onSubmit={handleLogin} 
+          />
         </div>
         
         {/* Footer */}

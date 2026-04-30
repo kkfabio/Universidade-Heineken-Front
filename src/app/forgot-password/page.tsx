@@ -23,7 +23,7 @@ export default function ForgotPasswordPage() {
 
         <div className="relative z-10 max-w-md space-y-4">
           <h1 className="text-5xl font-serif text-white leading-tight">
-            Patrimônio em constante <br /> 
+            Patrimônio em constante 
             <span className="italic font-light">evolução.</span>
           </h1>
           <p className="text-heineken-light/80 text-sm leading-relaxed">
