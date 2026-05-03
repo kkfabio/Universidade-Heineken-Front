@@ -72,33 +72,36 @@ export default function CursosPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                {featuredCourses.map((course, index) => (
-                  <article
+               {featuredCourses.map((course, index) => (
+                 <article
                     key={course.id}
-                    className={`overflow-hidden rounded-[24px] p-6 text-white transition duration-200 hover:-translate-y-1 hover:shadow-md ${
-                      index === 0 ? "bg-[#116B3A]" : "bg-[#6E7C3A]"
+                   className={`overflow-hidden rounded-[24px] p-6 text-white transition duration-200 hover:-translate-y-1 hover:shadow-md ${
+                   index === 0 ? "bg-[#116B3A]" : "bg-[#6E7C3A]"
                     }`}
-                  >
-                    <span className="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
+                   >
+                   <span className="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                       Curso em destaque
-                    </span>
+                   </span>
 
-                    <div className="mt-20">
-                      <h3 className="text-2xl font-bold">{course.title}</h3>
-                      <p className="mt-2 text-sm text-white/80">
+                   <div className="mt-20">
+                     <h3 className="text-2xl font-bold">{course.title}</h3>
+
+                     <p className="mt-2 text-sm text-white/80">
                         {course.subtitle}
-                      </p>
+                     </p>
 
-                      <Link
-                        href={`/cursos/${course.id}`}
-                        className="mt-6 inline-flex rounded-full bg-white px-4 py-2 text-sm font-semibold text-[#0B5D2A]"
-                      >
-                        {course.action}
-                      </Link>
+                     <Link
+                       href={`/cursos/${course.id}`}
+                       className="mt-6 inline-block rounded-full bg-white px-4 py-2"
+                       >
+                       <span className="block text-sm font-semibold text-[#0B5D2A]">
+                         Ver curso
+                       </span>
+                     </Link>
                     </div>
-                  </article>
-                ))}
-              </div>
+                   </article>
+                   ))}
+               </div>
             </div>
 
             <div className="mt-10">
