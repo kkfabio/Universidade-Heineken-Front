@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
+@plugin "tailwindcss-animate";
 
 @theme {
   --color-heineken-green: #007042;
