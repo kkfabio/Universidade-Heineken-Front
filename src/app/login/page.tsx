@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LoginForm from "./components/LoginForm";
+import Link from "next/link"; // Importamos o Link para navegação otimizada
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -10,9 +11,7 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-  
     if (email.toLowerCase().endsWith("@heineken.com")) {
-      
       router.push("/dashboard"); 
     } else {
       alert("Acesso restrito: utilize seu e-mail @heineken.com");
@@ -45,6 +44,16 @@ export default function LoginPage() {
             setEmail={setEmail} 
             onSubmit={handleLogin} 
           />
+          
+          {/* Botão Esqueci minha senha */}
+          <div className="mt-6 text-center">
+            <Link 
+              href="/forgot-password" 
+              className="text-white/60 hover:text-white text-xs font-medium uppercase tracking-widest transition-colors inline-block"
+            >
+              Esqueci minha senha
+            </Link>
+          </div>
         </div>
         
         {/* Footer */}
