@@ -2,101 +2,69 @@
 'use client';
 import { useState } from 'react';
 
-interface AddTalentModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const AddTalentModal: React.FC<AddTalentModalProps> = ({ isOpen, onClose }) => {
-  // Estado para o Status clicável
+export default function AddTalentModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const [isActive, setIsActive] = useState(true);
-  
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-      <div className="bg-white w-full max-w-md rounded-[40px] shadow-2xl overflow-hidden border border-slate-100">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+      <div className="bg-white w-full max-w-lg rounded-[30px] shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 bg-[#bd2c1a] p-2 text-white text-xs">★</div>
         
-        {/* Header com a Estrela do Figma */}
-        <div className="relative p-8 text-center border-b border-slate-50">
-          <div className="absolute top-6 right-8 text-[#E32D2D] text-xl">★</div>
-          <h2 className="text-2xl font-serif font-bold text-[#004d2c]">Adicionar Novo Talento</h2>
-          <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mt-2">Cadastro Corporativo UHNK</p>
-        </div>
+        <div className="p-10">
+          <h2 className="text-3xl font-serif font-bold text-[#1a1a1a] mb-1">Adicionar Novo Talento</h2>
+          <p className="text-sm text-slate-400 mb-8">Inicie o processo de integração corporativa UHNK.</p>
 
-        <form className="p-8 space-y-5" onSubmit={(e) => e.preventDefault()}>
-          {/* Nome */}
-          <div>
-            <label className="block text-[9px] font-black text-slate-300 uppercase tracking-tighter mb-2">Nome Completo</label>
-            <input type="text" placeholder="Ex: Jean-François van Boxmeer" className="w-full bg-slate-50 border-none p-4 rounded-2xl text-sm focus:ring-2 focus:ring-[#00b140] transition" />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label className="block text-[9px] font-black text-slate-300 uppercase tracking-tighter mb-2">E-mail Corporativo</label>
-            <input type="email" placeholder="nome@heineken.com.br" className="w-full bg-slate-50 border-none p-4 rounded-2xl text-sm focus:ring-2 focus:ring-[#00b140]" />
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {/* Função/Perfil (NOVO) */}
+          <form className="space-y-6">
             <div>
-              <label className="block text-[9px] font-black text-slate-300 uppercase tracking-tighter mb-2">Função | Perfil</label>
-              <select className="w-full bg-slate-50 border-none p-4 rounded-2xl text-xs font-bold text-slate-600 appearance-none cursor-pointer">
-                <option>Consultor Sênior</option>
-                <option>Gestor de Unidade</option>
-                <option>Analista de Logística</option>
-                <option>Trade Marketing</option>
-              </select>
+              <label className="block text-[10px] font-bold text-[#3d6e35] uppercase mb-2">Nome Completo</label>
+              <input type="text" placeholder="Ex: Jean-François van Boxmeer" className="w-full bg-[#f8f9f8] border-none p-4 rounded-xl text-sm" />
             </div>
 
-            {/* Status Clicável (NOVO) */}
             <div>
-              <label className="block text-[9px] font-black text-slate-300 uppercase tracking-tighter mb-2">Status da Conta</label>
-              <div 
-                onClick={() => setIsActive(!isActive)}
-                className="flex items-center justify-between bg-slate-50 p-3 rounded-2xl cursor-pointer hover:bg-slate-100 transition group"
-              >
-                <span className={`text-[10px] font-bold ${isActive ? 'text-[#00b140]' : 'text-slate-400'}`}>
-                  {isActive ? 'ATIVO' : 'INATIVO'}
-                </span>
-                <div className={`w-8 h-4 rounded-full relative transition-colors ${isActive ? 'bg-[#00b140]' : 'bg-slate-300'}`}>
-                  <div className={`absolute top-1 w-2 h-2 bg-white rounded-full transition-all ${isActive ? 'right-1' : 'left-1'}`}></div>
+              <label className="block text-[10px] font-bold text-[#3d6e35] uppercase mb-2">E-mail Corporativo</label>
+              <input type="email" placeholder="nome@heineken.com" className="w-full bg-[#f8f9f8] border-none p-4 rounded-xl text-sm" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-[10px] font-bold text-[#3d6e35] uppercase mb-2">Senha Temporária</label>
+                <div className="bg-[#f8f9f8] p-4 rounded-xl text-sm font-bold text-slate-500 flex justify-between">
+                  <span>HKN-2024-TMP</span> 👁️
+                </div>
+              </div>
+              <div>
+                <label className="block text-[10px] font-bold text-[#3d6e35] uppercase mb-2">Status Inicial</label>
+                <div 
+                  onClick={() => setIsActive(!isActive)}
+                  className="bg-[#f8f9f8] p-4 rounded-xl flex items-center gap-3 cursor-pointer"
+                >
+                  <div className={`w-8 h-4 rounded-full relative transition-colors ${isActive ? 'bg-[#00b140]' : 'bg-slate-300'}`}>
+                    <div className={`absolute top-1 w-2 h-2 bg-white rounded-full transition-all ${isActive ? 'right-1' : 'left-1'}`}></div>
+                  </div>
+                  <span className="text-xs font-bold text-slate-700">{isActive ? 'Ativo' : 'Inativo'}</span>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Senha Temporária */}
-          <div>
-            <label className="block text-[9px] font-black text-slate-300 uppercase tracking-tighter mb-2">Senha Temporária de Acesso</label>
-            <div className="bg-slate-100 p-4 rounded-2xl flex justify-between items-center">
-              <code className="text-xs font-bold text-slate-500">HKN-2026-TMP</code>
-              <span className="text-[10px] text-slate-300 cursor-pointer hover:text-[#00b140]">Copiar</span>
+            <div>
+              <label className="block text-[10px] font-bold text-[#3d6e35] uppercase mb-2">Função / Perfil</label>
+              <select className="w-full bg-[#f8f9f8] border-none p-4 rounded-xl text-sm appearance-none cursor-pointer">
+                <option>Usuário (Colaborador)</option>
+                <option>Gestor de Unidade</option>
+              </select>
             </div>
-          </div>
 
-          {/* Botões de Ação */}
-          <div className="flex gap-3 pt-6">
-            <button 
-              type="button"
-              onClick={onClose}
-              className="flex-1 py-4 text-xs font-bold text-slate-400 hover:text-slate-600 transition"
-            >
-              Cancelar
-            </button>
-            <button 
-              type="submit"
-              className="flex-1 py-4 bg-[#24522e] text-white text-xs font-bold rounded-2xl shadow-lg shadow-[#24522e]/20 hover:bg-[#004d2c] transition active:scale-95"
-            >
-              Confirmar Cadastro
-            </button>
-          </div>
-        </form>
-        
-        <p className="text-[8px] text-center pb-6 text-slate-300 font-bold tracking-[0.2em]">🛡️ SECURITY PROTOCOL • LGPD COMPLIANT</p>
+            <div className="flex gap-4 pt-6">
+              <button type="button" onClick={onClose} className="flex-1 py-4 border border-slate-200 rounded-xl font-bold text-slate-400">Cancelar</button>
+              <button type="button" className="flex-1 py-4 bg-[#24522e] text-white rounded-xl font-bold hover:bg-[#004d2c] transition">Confirmar Cadastro</button>
+            </div>
+          </form>
+        </div>
+        <div className="bg-[#f8f9f8] py-4 text-center text-[9px] font-bold text-slate-400 uppercase tracking-widest border-t">
+          🛡️ Segurança Heineken UHNK em conformidade com LGPD
+        </div>
       </div>
     </div>
   );
-};
-
-export default AddTalentModal;
+}
