@@ -1,117 +1,151 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
+"use client"
+
+import * as React from "react"
+import { useState } from "react"
+import { 
+  Bell, 
+  Lock, 
+  User, 
+  ShieldCheck, 
+  Moon, 
+  Globe,
+  Save
+} from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
-import { Button } from "../../components/ui/button"
-import { Label } from "../../components/ui/label"
 import { Switch } from "../../components/ui/switch"
-import { Bell, Lock, Globe, HelpCircle, User, ShieldCheck } from "lucide-react"
+import { Button } from "../../components/ui/button"
 
+/**
+ * SettingsPage Component
+ * Responsável pela gestão de preferências do usuário e segurança da conta.
+ * Implementa princípios de Clean UI e tratamento de estado local.
+ */
 export default function SettingsPage() {
+  // Estados para simular a interação com o sistema
+  const [notifications, setNotifications] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
+  const [twoFactor, setTwoFactor] = useState(false)
+
+  // Handler para persistência de dados
+  const handleSaveSettings = () => {
+    // Lógica futura: Integração com API de backend
+    console.log("Salvando configurações...", { notifications, darkMode, twoFactor })
+    alert("Configurações atualizadas com sucesso!")
+  }
+
   return (
-    <div className="p-6 md:p-12 space-y-10 bg-[#F9FAFB] min-h-screen">
-      
-      {/* Header Estilizado */}
-      <header className="space-y-2">
-        <h1 className="text-4xl font-serif font-bold text-university-900 tracking-tight">
-          Configurações
-        </h1>
-        <p className="text-gray-500 text-lg">
-          Gerencie sua experiência educacional e preferências de segurança na Universidade UHNK.
-        </p>
-      </header>
-
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
-        
-        {/* COLUNA ESQUERDA (Notificações e Segurança) */}
-        <div className="xl:col-span-2 space-y-8">
-          
-          {/* Card de Notificações */}
-          <Card className="border-none shadow-sm">
-            <CardHeader className="flex flex-row items-center gap-4 border-b pb-4">
-              <Bell className="w-6 h-6 text-university-900" />
-              <CardTitle className="font-serif text-2xl">Notificações</CardTitle>
-            </CardHeader>
-            <CardContent className="pt-6 space-y-6">
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <p className="font-semibold text-gray-800">Notificações por e-mail</p>
-                  <p className="text-sm text-gray-500">Receba atualizações sobre suas aulas e prazos.</p>
-                </div>
-                <Switch defaultChecked className="data-[state=checked]:bg-university-900" />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="space-y-1">
-                  <p className="font-semibold text-gray-800">Alertas de segurança</p>
-                  <p className="text-sm text-gray-500">Seja avisado sobre acessos suspeitos na sua conta.</p>
-                </div>
-                <Switch className="data-[state=checked]:bg-university-900" />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Grid de Senha e Privacidade */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="border-none shadow-sm">
-              <CardHeader className="flex flex-row items-center gap-3">
-                <Lock className="w-5 h-5 text-university-900" />
-                <CardTitle className="font-serif text-xl">Alterar Senha</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Input type="password" placeholder="Senha Atual" className="bg-gray-50 border-gray-200" />
-                <Input type="password" placeholder="Nova Senha" className="bg-gray-50 border-gray-200" />
-                <Button className="w-full bg-university-900 hover:bg-university-800 transition-colors">
-                  Atualizar Senha
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-sm">
-              <CardHeader className="flex flex-row items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-university-900" />
-                <CardTitle className="font-serif text-xl">Privacidade</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4 text-center py-6">
-                <p className="text-sm text-gray-500 mb-4">Sua conta está protegida por criptografia de ponta a ponta.</p>
-                <Button variant="outline" className="w-full border-university-900 text-university-900 hover:bg-university-50">
-                  Ver Relatório
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+    <div className="flex-1 space-y-6 p-8 pt-6 bg-[#FBFBFB]">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold tracking-tight text-[#003321]">Configurações</h2>
+          <p className="text-sm text-slate-500">
+            Gerencie as diretrizes da sua conta e preferências de sistema.
+          </p>
         </div>
+        <Button 
+          onClick={handleSaveSettings}
+          className="bg-[#007041] hover:bg-[#005a34] text-white flex items-center gap-2"
+        >
+          <Save className="h-4 w-4" />
+          Salvar Alterações
+        </Button>
+      </div>
 
-        {/* COLUNA DIREITA (Perfil e Ajuda) */}
-        <div className="space-y-8">
-          {/* Card de Perfil Verde (Destaque do Figma) */}
-          <Card className="bg-university-900 text-white border-none shadow-xl overflow-hidden">
-            <CardContent className="p-10 flex flex-col items-center text-center space-y-6">
-              <div className="relative">
-                <div className="w-28 h-28 bg-gray-200 rounded-full flex items-center justify-center border-4 border-white/10">
-                  <User className="w-12 h-12 text-gray-400" />
-                </div>
-                <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-2 border-university-900 rounded-full" />
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-2xl font-serif font-bold">Lucas Silveira</h3>
-                <p className="text-gray-300 font-light">Estudante de Engenharia</p>
-              </div>
-              <Button variant="secondary" className="w-full font-bold py-6 hover:bg-gray-100">
-                Editar Perfil
-              </Button>
-            </CardContent>
-          </Card>
+      <div className="grid gap-6 md:grid-cols-2">
+        {/* Gestão de Perfil */}
+        <Card className="shadow-sm border-slate-200">
+          <CardHeader className="space-y-1">
+            <div className="flex items-center gap-2">
+              <User className="h-5 w-5 text-[#007041]" />
+              <CardTitle className="text-lg">Informações Pessoais</CardTitle>
+            </div>
+            <CardDescription>Dados de identificação do colaborador.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="grid gap-2">
+              <label htmlFor="name" className="text-xs font-semibold uppercase text-slate-500">Nome Completo</label>
+              <Input id="name" placeholder="Hugo Cavalcanti" className="focus-visible:ring-[#007041]" />
+            </div>
+            <div className="grid gap-2">
+              <label htmlFor="email" className="text-xs font-semibold uppercase text-slate-500">E-mail</label>
+              <Input id="email" type="email" placeholder="hugo@universidade.com" />
+            </div>
+          </CardContent>
+        </Card>
 
-          {/* Card de Ajuda (Dashed) */}
-          <Card className="border-2 border-dashed border-gray-200 bg-transparent">
-            <CardContent className="p-8 flex flex-col items-center text-center space-y-4">
-              <HelpCircle className="w-12 h-12 text-gray-300" />
-              <h4 className="font-bold text-gray-700">Precisa de ajuda?</h4>
-              <p className="text-sm text-gray-500">Confira nossa central de ajuda para dúvidas comuns.</p>
-              <Button variant="link" className="text-university-900 underline font-semibold">
-                Acessar FAQ
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
+        {/* Segurança da Conta */}
+        <Card className="shadow-sm border-slate-200">
+          <CardHeader className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Lock className="h-5 w-5 text-[#007041]" />
+              <CardTitle className="text-lg">Segurança</CardTitle>
+            </div>
+            <CardDescription>Parâmetros de proteção e acesso.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="flex items-center justify-between rounded-lg border p-3">
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium">Autenticação (2FA)</p>
+                <p className="text-xs text-slate-500">Dobrar a segurança do login.</p>
+              </div>
+              <Switch checked={twoFactor} onCheckedChange={setTwoFactor} />
+            </div>
+            <div className="flex items-center justify-between rounded-lg border p-3">
+              <div className="space-y-0.5">
+                <p className="text-sm font-medium">Alertas de Login</p>
+                <p className="text-xs text-slate-500">Notificar novos acessos por e-mail.</p>
+              </div>
+              <Switch defaultChecked />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Preferências de Interface */}
+        <Card className="shadow-sm border-slate-200">
+          <CardHeader className="space-y-1">
+            <div className="flex items-center gap-2">
+              <Globe className="h-5 w-5 text-[#007041]" />
+              <CardTitle className="text-lg">Sistema</CardTitle>
+            </div>
+            <CardDescription>Configurações de interface e idioma.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Moon className="h-4 w-4 text-slate-400" />
+                <span className="text-sm font-medium">Modo Escuro</span>
+              </div>
+              <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Bell className="h-4 w-4 text-slate-400" />
+                <span className="text-sm font-medium">Notificações Push</span>
+              </div>
+              <Switch checked={notifications} onCheckedChange={setNotifications} />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Governança de Dados */}
+        <Card className="shadow-sm border-slate-200">
+          <CardHeader className="space-y-1">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5 text-[#007041]" />
+              <CardTitle className="text-lg">Privacidade</CardTitle>
+            </div>
+            <CardDescription>Termos e conformidade com a LGPD.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-xs leading-relaxed text-slate-500">
+              Seus dados são protegidos por criptografia de ponta a ponta e seguem as normas globais de segurança da Heineken.
+            </p>
+            <Button variant="link" className="p-0 h-auto text-[#007041] text-xs">
+              Acessar Central de Privacidade
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )
