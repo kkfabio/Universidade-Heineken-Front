@@ -16,11 +16,7 @@ import { Input } from "../../components/ui/input"
 import { Switch } from "../../components/ui/switch"
 import { Button } from "../../components/ui/button"
 
-/**
- * SettingsPage Component
- * Responsável pela gestão de preferências do usuário e segurança da conta.
- * Implementa princípios de Clean UI e tratamento de estado local.
- */
+
 export default function SettingsPage() {
   // Estados para simular a interação com o sistema
   const [notifications, setNotifications] = useState(true)
