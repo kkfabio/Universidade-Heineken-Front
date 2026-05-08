@@ -9,39 +9,44 @@ import {
   ShieldCheck, 
   Moon, 
   Globe,
-  Save
+  Save,
+  Sun
 } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Switch } from "../../components/ui/switch"
 import { Button } from "../../components/ui/button"
+import { SettingSection } from "../../components/SettingSection"
 
-
+/**
+ * SettingsPage - Versão Funcional e Modular
+ */
 export default function SettingsPage() {
-  // Estados para simular a interação com o sistema
-  const [notifications, setNotifications] = useState(true)
   const [darkMode, setDarkMode] = useState(false)
+  const [notifications, setNotifications] = useState(true)
   const [twoFactor, setTwoFactor] = useState(false)
 
-  // Handler para persistência de dados
-  const handleSaveSettings = () => {
-    // Lógica futura: Integração com API de backend
-    console.log("Salvando configurações...", { notifications, darkMode, twoFactor })
-    alert("Configurações atualizadas com sucesso!")
+  const handleSave = () => {
+    console.log("Configurações salvas:", { darkMode, notifications, twoFactor })
+    alert("As configurações do perfil de João Silva foram atualizadas.")
   }
 
   return (
-    <div className="flex-1 space-y-6 p-8 pt-6 bg-[#FBFBFB]">
+    <div className={`flex-1 min-h-screen space-y-6 p-8 pt-6 transition-colors duration-500 ${
+      darkMode ? "bg-[#121212] text-white" : "bg-[#FBFBFB] text-slate-900"
+    }`}>
+      
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-[#003321]">Configurações</h2>
-          <p className="text-sm text-slate-500">
-            Gerencie as diretrizes da sua conta e preferências de sistema.
+          <h2 className={`text-2xl font-bold tracking-tight ${darkMode ? "text-[#00A35C]" : "text-[#003321]"}`}>
+            Configurações
+          </h2>
+          <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
+            Painel de controle - Universidade Heineken
           </p>
         </div>
         <Button 
-          onClick={handleSaveSettings}
-          className="bg-[#007041] hover:bg-[#005a34] text-white flex items-center gap-2"
+          onClick={handleSave}
+          className="bg-[#007041] hover:bg-[#005a34] text-white flex items-center gap-2 shadow-md active:scale-95 transition-all"
         >
           <Save className="h-4 w-4" />
           Salvar Alterações
@@ -49,99 +54,83 @@ export default function SettingsPage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Gestão de Perfil */}
-        <Card className="shadow-sm border-slate-200">
-          <CardHeader className="space-y-1">
-            <div className="flex items-center gap-2">
-              <User className="h-5 w-5 text-[#007041]" />
-              <CardTitle className="text-lg">Informações Pessoais</CardTitle>
-            </div>
-            <CardDescription>Dados de identificação do colaborador.</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2">
-              <label htmlFor="name" className="text-xs font-semibold uppercase text-slate-500">Nome Completo</label>
-              <Input id="name" placeholder="Hugo Cavalcanti" className="focus-visible:ring-[#007041]" />
-            </div>
-            <div className="grid gap-2">
-              <label htmlFor="email" className="text-xs font-semibold uppercase text-slate-500">E-mail</label>
-              <Input id="email" type="email" placeholder="hugo@universidade.com" />
-            </div>
-          </CardContent>
-        </Card>
+        <SettingSection 
+          title="Informações Pessoais" 
+          description="Identificação do colaborador." 
+          icon={User}
+          isDark={darkMode}
+        >
+          <div className="grid gap-2">
+            <label className="text-xs font-bold uppercase opacity-70">Nome Completo</label>
+            <Input 
+              placeholder="João Silva" 
+              className={darkMode ? "bg-[#2A2A2A] border-slate-700 text-white" : ""}
+            />
+          </div>
+          <div className="grid gap-2">
+            <label className="text-xs font-bold uppercase opacity-70">E-mail Corporativo</label>
+            <Input 
+              type="email" 
+              placeholder="joaosilva@heineken.com" 
+              className={darkMode ? "bg-[#2A2A2A] border-slate-700 text-white" : ""}
+            />
+          </div>
+        </SettingSection>
 
-        {/* Segurança da Conta */}
-        <Card className="shadow-sm border-slate-200">
-          <CardHeader className="space-y-1">
-            <div className="flex items-center gap-2">
-              <Lock className="h-5 w-5 text-[#007041]" />
-              <CardTitle className="text-lg">Segurança</CardTitle>
+        <SettingSection 
+          title="Segurança" 
+          description="Proteção de conta." 
+          icon={Lock}
+          isDark={darkMode}
+        >
+          <div className={`flex items-center justify-between rounded-lg border p-3 ${darkMode ? "border-slate-800" : "border-slate-100"}`}>
+            <div className="space-y-0.5">
+              <p className="text-sm font-medium">Autenticação (2FA)</p>
+              <p className="text-xs opacity-70">Verificação em duas etapas.</p>
             </div>
-            <CardDescription>Parâmetros de proteção e acesso.</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="flex items-center justify-between rounded-lg border p-3">
-              <div className="space-y-0.5">
-                <p className="text-sm font-medium">Autenticação (2FA)</p>
-                <p className="text-xs text-slate-500">Dobrar a segurança do login.</p>
-              </div>
-              <Switch checked={twoFactor} onCheckedChange={setTwoFactor} />
-            </div>
-            <div className="flex items-center justify-between rounded-lg border p-3">
-              <div className="space-y-0.5">
-                <p className="text-sm font-medium">Alertas de Login</p>
-                <p className="text-xs text-slate-500">Notificar novos acessos por e-mail.</p>
-              </div>
-              <Switch defaultChecked />
-            </div>
-          </CardContent>
-        </Card>
+            <Switch checked={twoFactor} onCheckedChange={setTwoFactor} />
+          </div>
+        </SettingSection>
 
-        {/* Preferências de Interface */}
-        <Card className="shadow-sm border-slate-200">
-          <CardHeader className="space-y-1">
+        <SettingSection 
+          title="Interface" 
+          description="Ajustes visuais." 
+          icon={Globe}
+          isDark={darkMode}
+        >
+          <div className="flex items-center justify-between px-1">
             <div className="flex items-center gap-2">
-              <Globe className="h-5 w-5 text-[#007041]" />
-              <CardTitle className="text-lg">Sistema</CardTitle>
+              {darkMode ? <Moon className="h-4 w-4 text-yellow-400" /> : <Sun className="h-4 w-4 text-orange-400" />}
+              <span className="text-sm font-medium">Modo Escuro</span>
             </div>
-            <CardDescription>Configurações de interface e idioma.</CardDescription>
-          </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Moon className="h-4 w-4 text-slate-400" />
-                <span className="text-sm font-medium">Modo Escuro</span>
-              </div>
-              <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+            <Switch checked={darkMode} onCheckedChange={setDarkMode} />
+          </div>
+          <div className="flex items-center justify-between px-1">
+            <div className="flex items-center gap-2">
+              <Bell className={`h-4 w-4 ${notifications ? "text-[#007041]" : "text-slate-400"}`} />
+              <span className="text-sm font-medium">Notificações Push</span>
             </div>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Bell className="h-4 w-4 text-slate-400" />
-                <span className="text-sm font-medium">Notificações Push</span>
-              </div>
-              <Switch checked={notifications} onCheckedChange={setNotifications} />
-            </div>
-          </CardContent>
-        </Card>
+            <Switch checked={notifications} onCheckedChange={setNotifications} />
+          </div>
+        </SettingSection>
 
-        {/* Governança de Dados */}
-        <Card className="shadow-sm border-slate-200">
-          <CardHeader className="space-y-1">
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="h-5 w-5 text-[#007041]" />
-              <CardTitle className="text-lg">Privacidade</CardTitle>
-            </div>
-            <CardDescription>Termos e conformidade com a LGPD.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-xs leading-relaxed text-slate-500">
-              Seus dados são protegidos por criptografia de ponta a ponta e seguem as normas globais de segurança da Heineken.
-            </p>
-            <Button variant="link" className="p-0 h-auto text-[#007041] text-xs">
-              Acessar Central de Privacidade
-            </Button>
-          </CardContent>
-        </Card>
+        <SettingSection 
+          title="Privacidade" 
+          description="Termos e LGPD." 
+          icon={ShieldCheck}
+          isDark={darkMode}
+        >
+          <p className="text-xs leading-relaxed opacity-70">
+            Seus dados são processados de acordo com a Política de Segurança da Informação.
+          </p>
+          <Button 
+            variant="link" 
+            onClick={() => alert("Acessando Termos...")}
+            className={`p-0 h-auto text-xs justify-start hover:no-underline font-semibold ${darkMode ? "text-[#00A35C]" : "text-[#007041]"}`}
+          >
+            Ver Política de Privacidade
+          </Button>
+        </SettingSection>
       </div>
     </div>
   )
