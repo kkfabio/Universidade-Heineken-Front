@@ -1,9 +1,10 @@
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 
+
 const news = [
   {
-    id: 1,
+    id: 1, 
     title: "Metas 2030: O caminho para o impacto zero na nossa produção.",
     description:
       "Conheça o plano da empresa para acelerar sustentabilidade, eficiência e inovação industrial.",

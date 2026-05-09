@@ -83,7 +83,7 @@ export default function CursosPage() {
                       Curso em destaque
                    </span>
 
-                   <div className="mt-20">
+                   <div className="mt-12">
                      <h3 className="text-2xl font-bold">{course.title}</h3>
 
                      <p className="mt-2 text-sm text-white/80">
@@ -92,7 +92,7 @@ export default function CursosPage() {
 
                      <Link
                        href={`/cursos/${course.id}`}
-                       className="mt-6 inline-block rounded-full bg-white px-4 py-2"
+                       className="mt-6 inline-block rounded-full bg-white px-4 py-2 transition hover:bg-[#F3F6F0]"
                        >
                        <span className="block text-sm font-semibold text-[#0B5D2A]">
                          Ver curso
@@ -105,37 +105,64 @@ export default function CursosPage() {
             </div>
 
             <div className="mt-10">
-              <h2 className="mb-4 text-lg font-semibold text-neutral-900">
-                Em andamento
-              </h2>
+              <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-400">
+                    Jornada
+                  </p>
+                  <h2 className="mt-1 text-lg font-semibold text-neutral-900">
+                    Em andamento
+                  </h2>
+                </div>
+            
+                <span className="text-sm text-neutral-400">
+                  {inProgressCourses.length} cursos
+                </span>
+              </div>
 
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="grid auto-rows-fr grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {inProgressCourses.map((course) => (
                   <article
                     key={course}
-                    className="rounded-[20px] border border-black/5 bg-[#F7F7F4] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
+                    className="h-full rounded-[20px] border border-black/5 bg-[#F7F7F4] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
                   >
-                    <span className="text-xs font-semibold uppercase tracking-wide text-[#0B5D2A]">
+                    <span className="inline-flex rounded-full bg-[#E8F3EC] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0B5D2A]">
                       Em progresso
                     </span>
-                    <h3 className="mt-3 text-base font-semibold text-neutral-900">
+                  
+                    <h3 className="mt-4 text-base font-semibold leading-snug text-neutral-900">
                       {course}
                     </h3>
+                  
+                    <p className="mt-2 text-sm text-neutral-500">
+                      Continue de onde parou
+                    </p>
                   </article>
                 ))}
               </div>
             </div>
 
             <div className="mt-10">
-              <h2 className="mb-4 text-lg font-semibold text-neutral-900">
-                Não iniciados
-              </h2>
+              <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-400">
+                    Próximos passos
+                  </p>
+                  <h2 className="mt-1 text-lg font-semibold text-neutral-900">
+                    Não iniciados
+                  </h2>
+                </div>
+            
+                <span className="text-sm text-neutral-400">
+                  {notStartedCourses.length} cursos
+                </span>
+              </div>
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 {notStartedCourses.map((course) => (
                   <article
                     key={course}
-                    className="rounded-[20px] border border-black/5 bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md"
+                    className="h-full rounded-[20px] border border-black/5 bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md"
                   >
                     <img
                     src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
@@ -145,9 +172,13 @@ export default function CursosPage() {
                     <h3 className="mt-4 text-base font-semibold text-neutral-900">
                       {course}
                     </h3>
+                    <p className="mt-2 text-sm text-neutral-500">
+                      Disponível para começar
+                    </p>
+                    
                     <Link
                       href="/cursos/curso-01"
-                      className="mt-4 inline-flex rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A]"
+                      className="mt-4 inline-flex items-center justify-center rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition duration-200 hover:bg-[#d8ebdf] hover:text-[#08461f] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5D2A] focus-visible:ring-offset-2"
                     >
                       Ver curso
                     </Link>
@@ -157,22 +188,36 @@ export default function CursosPage() {
             </div>
 
             <div className="mt-10">
-              <h2 className="mb-4 text-lg font-semibold text-neutral-900">
-                Concluídos
-              </h2>
+              <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-neutral-400">
+                    Histórico
+                  </p>
+                  <h2 className="mt-1 text-lg font-semibold text-neutral-900">
+                    Concluídos
+                  </h2>
+                </div>
+            
+                <span className="text-sm text-neutral-400">
+                  {completedCourses.length} cursos
+                </span>
+              </div>
 
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="grid auto-rows-fr grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {completedCourses.map((course) => (
                   <article
                     key={course}
-                    className="flex items-center gap-3 rounded-[20px] border border-black/5 bg-[#F7F7F4] p-4 transition duration-200 hover:-translate-y-1 hover:shadow-md"
+                    className="h-full flex items-center gap-3 rounded-[20px] border border-black/5 bg-[#F7F7F4] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
                   >
                     <div className="h-3 w-3 rounded-full bg-[#0B5D2A]" />
+
                     <div>
                       <p className="text-sm font-semibold text-neutral-900">
                         {course}
                       </p>
-                      <p className="text-xs text-neutral-500">Concluído</p>
+                      <p className="mt-1 text-xs uppercase tracking-[0.16em] text-neutral-500">
+                        Concluído
+                      </p>
                     </div>
                   </article>
                 ))}
