@@ -10,7 +10,8 @@ import {
   Moon, 
   Globe,
   Save,
-  Sun
+  Sun,
+  Loader2
 } from "lucide-react"
 import { Input } from "../../components/ui/input"
 import { Switch } from "../../components/ui/switch"
@@ -18,16 +19,29 @@ import { Button } from "../../components/ui/button"
 import { SettingSection } from "../../components/SettingSection"
 
 /**
- * SettingsPage - Versão Funcional e Modular
+ * SettingsPage - Versão Final de Entrega (ADS)
+ * Implementa lógica de persistência simulada e tratamento estrito de tipos.
  */
 export default function SettingsPage() {
+  // Estado de UI
+  const [isSaving, setIsSaving] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
+  
+  // Estados de Configuração
   const [notifications, setNotifications] = useState(true)
   const [twoFactor, setTwoFactor] = useState(false)
 
-  const handleSave = () => {
-    console.log("Configurações salvas:", { darkMode, notifications, twoFactor })
-    alert("As configurações do perfil de João Silva foram atualizadas.")
+  /**
+   * Simula o processo de persistência no backend da Universidade Heineken
+   */
+  const handleSave = async () => {
+    setIsSaving(true)
+    // Simula latência de rede (1.5 segundos)
+    await new Promise(resolve => setTimeout(resolve, 1500))
+    setIsSaving(false)
+    
+    console.log("Payload enviado:", { darkMode, notifications, twoFactor })
+    alert("Configurações de João Silva aplicadas com sucesso!")
   }
 
   return (
@@ -35,100 +49,117 @@ export default function SettingsPage() {
       darkMode ? "bg-[#121212] text-white" : "bg-[#FBFBFB] text-slate-900"
     }`}>
       
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b pb-6">
         <div>
-          <h2 className={`text-2xl font-bold tracking-tight ${darkMode ? "text-[#00A35C]" : "text-[#003321]"}`}>
+          <h2 className={`text-3xl font-extrabold tracking-tight ${darkMode ? "text-[#00A35C]" : "text-[#003321]"}`}>
             Configurações
           </h2>
-          <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
-            Painel de controle - Universidade Heineken
+          <p className={`text-sm font-medium ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
+            Universidade Heineken • Portal do Colaborador
           </p>
         </div>
         <Button 
           onClick={handleSave}
-          className="bg-[#007041] hover:bg-[#005a34] text-white flex items-center gap-2 shadow-md active:scale-95 transition-all"
+          disabled={isSaving}
+          className="bg-[#007041] hover:bg-[#005a34] text-white flex items-center gap-2 px-8 py-6 shadow-xl active:scale-95 transition-all disabled:opacity-70"
         >
-          <Save className="h-4 w-4" />
-          Salvar Alterações
+          {isSaving ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <Save className="h-4 w-4" />
+          )}
+          {isSaving ? "Salvando..." : "Salvar Alterações"}
         </Button>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
+        {/* Seção: Perfil */}
         <SettingSection 
-          title="Informações Pessoais" 
-          description="Identificação do colaborador." 
+          title="Perfil Profissional" 
+          description="Informações visíveis para a organização." 
           icon={User}
           isDark={darkMode}
         >
           <div className="grid gap-2">
-            <label className="text-xs font-bold uppercase opacity-70">Nome Completo</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest opacity-60">Nome Completo</label>
             <Input 
               placeholder="João Silva" 
-              className={darkMode ? "bg-[#2A2A2A] border-slate-700 text-white" : ""}
+              className={`h-11 ${darkMode ? "bg-[#2A2A2A] border-slate-700 text-white" : "bg-white"}`}
             />
           </div>
           <div className="grid gap-2">
-            <label className="text-xs font-bold uppercase opacity-70">E-mail Corporativo</label>
+            <label className="text-[10px] font-bold uppercase tracking-widest opacity-60">E-mail Corporativo</label>
             <Input 
               type="email" 
               placeholder="joaosilva@heineken.com" 
-              className={darkMode ? "bg-[#2A2A2A] border-slate-700 text-white" : ""}
+              className={`h-11 ${darkMode ? "bg-[#2A2A2A] border-slate-700 text-white" : "bg-white"}`}
             />
           </div>
         </SettingSection>
 
+        {/* Seção: Segurança */}
         <SettingSection 
           title="Segurança" 
-          description="Proteção de conta." 
+          description="Gerenciamento de credenciais e acesso." 
           icon={Lock}
           isDark={darkMode}
         >
-          <div className={`flex items-center justify-between rounded-lg border p-3 ${darkMode ? "border-slate-800" : "border-slate-100"}`}>
-            <div className="space-y-0.5">
-              <p className="text-sm font-medium">Autenticação (2FA)</p>
-              <p className="text-xs opacity-70">Verificação em duas etapas.</p>
+          <div className={`flex items-center justify-between rounded-xl border p-4 transition-colors ${
+            darkMode ? "border-slate-800 bg-[#222]" : "border-slate-100 bg-slate-50/50"
+          }`}>
+            <div className="space-y-1">
+              <p className="text-sm font-semibold">Autenticação (2FA)</p>
+              <p className="text-xs opacity-60">Ativar validação multifator.</p>
             </div>
             <Switch checked={twoFactor} onCheckedChange={setTwoFactor} />
           </div>
         </SettingSection>
 
+        {/* Seção: Preferências */}
         <SettingSection 
-          title="Interface" 
-          description="Ajustes visuais." 
+          title="Preferências" 
+          description="Personalização da interface e sistema." 
           icon={Globe}
           isDark={darkMode}
         >
           <div className="flex items-center justify-between px-1">
-            <div className="flex items-center gap-2">
-              {darkMode ? <Moon className="h-4 w-4 text-yellow-400" /> : <Sun className="h-4 w-4 text-orange-400" />}
-              <span className="text-sm font-medium">Modo Escuro</span>
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-full ${darkMode ? "bg-yellow-500/10 text-yellow-500" : "bg-orange-500/10 text-orange-500"}`}>
+                {darkMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+              </div>
+              <span className="text-sm font-semibold">Modo Escuro</span>
             </div>
             <Switch checked={darkMode} onCheckedChange={setDarkMode} />
           </div>
           <div className="flex items-center justify-between px-1">
-            <div className="flex items-center gap-2">
-              <Bell className={`h-4 w-4 ${notifications ? "text-[#007041]" : "text-slate-400"}`} />
-              <span className="text-sm font-medium">Notificações Push</span>
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-full ${notifications ? "bg-[#007041]/10 text-[#007041]" : "bg-slate-100 text-slate-400"}`}>
+                <Bell className="h-4 w-4" />
+              </div>
+              <span className="text-sm font-semibold">Notificações Push</span>
             </div>
             <Switch checked={notifications} onCheckedChange={setNotifications} />
           </div>
         </SettingSection>
 
+        {/* Seção: Governança */}
         <SettingSection 
           title="Privacidade" 
-          description="Termos e LGPD." 
+          description="Termos de uso e LGPD." 
           icon={ShieldCheck}
           isDark={darkMode}
         >
-          <p className="text-xs leading-relaxed opacity-70">
-            Seus dados são processados de acordo com a Política de Segurança da Informação.
-          </p>
+          <div className={`p-4 rounded-lg text-xs leading-relaxed ${darkMode ? "bg-slate-800/50 text-slate-400" : "bg-slate-50 text-slate-600"}`}>
+            Sua conta está em conformidade com as diretrizes de proteção de dados da Heineken Brasil.
+          </div>
           <Button 
-            variant="link" 
-            onClick={() => alert("Acessando Termos...")}
-            className={`p-0 h-auto text-xs justify-start hover:no-underline font-semibold ${darkMode ? "text-[#00A35C]" : "text-[#007041]"}`}
+            variant="outline" 
+            onClick={() => alert("Exibindo termos...")}
+            className={`w-full text-xs font-bold uppercase tracking-tight ${
+              darkMode ? "border-slate-700 hover:bg-slate-800" : "border-slate-200"
+            }`}
           >
-            Ver Política de Privacidade
+            Ver Política de Dados
           </Button>
         </SettingSection>
       </div>
