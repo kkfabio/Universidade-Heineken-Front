@@ -1,8 +1,18 @@
+'use client';
+
 import React from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
+  // Hide this sidebar on admin routes (the admin layout has its own sidebar)
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
-    <aside className="w-64 h-screen bg-[#007042] text-white p-6 flex flex-col hidden md:flex">
+    <aside className="w-64 h-screen bg-[#007042] text-white p-6 flex flex-col hidden md:flex shrink-0">
       <div className="mb-10">
         <h1 className="text-2xl font-bold italic">HEINEKEN</h1>
         <p className="text-xs opacity-70">Universidade Heineken</p>
