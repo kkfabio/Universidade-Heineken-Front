@@ -10,7 +10,6 @@ import { Button } from "../../components/ui/button"
 import { SettingSection } from "../../components/SettingSection"
 
 /**
- * SettingsPage - Versão Final de Alta Fidelidade
  * Usuário: Thiago Silva | Brand Manager - Supply Chain Excellence
  */
 export default function SettingsPage() {
@@ -19,7 +18,6 @@ export default function SettingsPage() {
   return (
     <div className={`min-h-screen p-8 md:p-16 transition-colors duration-500 ${darkMode ? "bg-[#121212]" : "bg-[#F8FAFB]"}`}>
       
-      {/* Header com Estrela Decorativa (Figma) */}
       <header className="relative mb-16">
         <h1 className="text-5xl font-black text-[#007041] mb-2 tracking-tighter">Configurações</h1>
         <p className="text-slate-500 text-lg font-medium">
@@ -30,10 +28,10 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         
-        {/* COLUNA PRINCIPAL (ESQUERDA) */}
+        {/* COLUNA PRINCIPAL DA ESQUERDA */}
         <div className="lg:col-span-8 space-y-10">
           
-          {/* Notificações com Interatividade */}
+          {/* Notificações */}
           <SettingSection title="Notificações" icon={Bell} isDark={darkMode}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-[#007041]/30 transition-colors">
@@ -102,7 +100,7 @@ export default function SettingsPage() {
           </div>
         </div>
 
-        {/* BARRA LATERAL (DIREITA) */}
+        {/* BARRA LATERAL DIREITA */}
         <div className="lg:col-span-4 space-y-10">
           
           {/* Card de Perfil Institucional */}
