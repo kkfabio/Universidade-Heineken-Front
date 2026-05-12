@@ -1,66 +1,78 @@
 "use client"
 
 import * as React from "react"
-import { Star, Search, Filter, Trophy } from "lucide-react"
-import { Input } from "../../components/ui/input"
-import { Button } from "../../components/ui/button"
 import { CertificateCard } from "../../components/CertificateCard"
+import { Button } from "../../components/ui/button"
+import { Download, ExternalLink, Trophy } from "lucide-react"
 
 export default function CertificadosPage() {
+  // Corrigido para 'date' para bater com a prop do componente
   const certificados = [
-    { id: 1, titulo: "Excelência em Supply Chain Excellence", data: "12/04/2026", carga: "40" },
-    { id: 2, titulo: "Gestão de Marcas e Identidade Visual", data: "05/03/2026", carga: "20" },
-    { id: 3, titulo: "Liderança e Gestão de Pessoas", data: "20/01/2026", carga: "15" },
+    { id: 1, titulo: "Cultura e Valores Heineken", date: "12 de Outubro, 2023" },
+    { id: 2, titulo: "Liderança de Alta Performance", date: "28 de Setembro, 2023" },
+    { id: 3, titulo: "Sustentabilidade: Brew a Better World", date: "15 de Agosto, 2023" },
+    { id: 4, titulo: "Fundamentos da Cadeia de Suprimentos", date: "02 de Julho, 2023" },
   ]
 
   return (
-    <div className="min-h-screen p-8 md:p-16 bg-[#F8FAFB]">
-      
-      {/* Header Identitário UHNK */}
-      <header className="relative mb-16">
-        <div className="flex items-center gap-4 mb-2">
-          <Trophy className="h-8 w-8 text-[#007041]" />
-          <h1 className="text-5xl font-black text-[#007041] tracking-tighter">Meus Certificados</h1>
-        </div>
-        <p className="text-slate-500 text-lg font-medium max-w-2xl">
-          Sua galeria de conquistas e competências validadas pela Universidade UHNK.
-        </p>
-        <Star className="absolute -top-10 right-0 h-40 w-40 text-slate-200 -z-10 opacity-20" />
-      </header>
+    <div className="min-h-screen p-8 md:p-12 bg-[#FBFBFB]">
+      {/* Header com Estatísticas (Figma) */}
+      <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
+        <header>
+          <p className="text-[#007041] font-bold text-xs tracking-[3px] mb-2 uppercase">01 / Achievement</p>
+          <h1 className="text-5xl font-black text-slate-900 mb-4 tracking-tighter">Meus Certificados</h1>
+          <p className="text-slate-500 max-w-md text-sm leading-relaxed font-medium">
+            Bem-vindo ao seu repositório de excelência da Heineken Academy.
+          </p>
+        </header>
 
-      {/* Barra de Ações Rápidas */}
-      <div className="flex flex-col md:flex-row gap-4 mb-12">
-        <div className="relative flex-1">
-          <Search className="absolute left-5 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-300" />
-          <Input 
-            placeholder="Buscar por curso ou palavra-chave..." 
-            className="pl-14 h-16 rounded-[20px] border-none shadow-sm bg-white text-slate-600 font-medium placeholder:text-slate-300 focus:ring-2 focus:ring-[#007041]"
-          />
+        {/* Badges de Performance */}
+        <div className="flex gap-3">
+          <div className="bg-[#007041] p-4 rounded-xl text-white text-center min-w-25 shadow-lg shadow-[#007041]/20">
+            <p className="text-2xl font-black">12</p>
+            <p className="text-[8px] font-bold uppercase tracking-widest opacity-70">Concluídos</p>
+          </div>
+          <div className="bg-[#003321] p-4 rounded-xl text-white text-center min-w-25">
+            <p className="text-2xl font-black text-[#5CFF9B]">84%</p>
+            <p className="text-[8px] font-bold uppercase tracking-widest opacity-70">Progresso Geral</p>
+          </div>
         </div>
-        <Button variant="outline" className="h-16 px-8 rounded-[20px] border-slate-200 bg-white font-bold text-slate-500 gap-3 hover:bg-slate-50">
-          <Filter className="h-5 w-5" /> Filtrar por Ano
-        </Button>
       </div>
 
-      {/* Grid de Certificados */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {certificados.map((cert) => (
-          <CertificateCard 
-            key={cert.id}
-            title={cert.titulo}
-            date={cert.data}
-            hours={cert.carga}
-          />
-        ))}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Grid de Certificados Normais */}
+        <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {certificados.map((cert) => (
+            <CertificateCard key={cert.id} title={cert.titulo} date={cert.date} />
+          ))}
+        </div>
 
-        {/* Card de Próxima Conquista (Gamificação) */}
-        <div className="border-4 border-dashed border-slate-200 rounded-[32px] p-10 flex flex-col items-center justify-center text-center opacity-50 hover:opacity-80 transition-all cursor-pointer">
-          <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-4">
-            <Star className="h-8 w-8 text-slate-300" />
+        {/* Card Master (Lateral Direita) */}
+        <div className="lg:col-span-4">
+          <div className="bg-[#003321] rounded-32 p-10 h-full text-white flex flex-col justify-between relative overflow-hidden shadow-2xl">
+            <div className="relative z-10">
+              <p className="text-[9px] font-bold uppercase tracking-[3px] text-[#5CFF9B] mb-6">Destaque de Carreira</p>
+              <h2 className="text-3xl font-black leading-tight mb-6">Mastering Heineken Global Supply</h2>
+              
+              <div className="bg-white/5 rounded-2xl p-6 border border-white/10 mb-8 flex items-center justify-center">
+                 <Trophy className="h-16 w-16 text-[#5CFF9B] opacity-50" />
+                 <p className="absolute text-[10px] font-bold uppercase mt-16 italic opacity-40">Certificado Master</p>
+              </div>
+              
+              <p className="text-sm opacity-60 leading-relaxed font-medium">
+                Este certificado reconhece a maestria em processos de logística global e gestão de inventário.
+              </p>
+            </div>
+
+            <div className="space-y-3 relative z-10 pt-10">
+              <Button className="w-full bg-[#00A35C] hover:bg-[#008f50] text-white font-black py-6 rounded-xl uppercase tracking-tighter text-xs">
+                Baixar PDF
+              </Button>
+              <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 py-6 rounded-xl font-bold uppercase tracking-tighter text-[10px]">
+                Visualizar Detalhes
+              </Button>
+            </div>
           </div>
-          <p className="font-black text-slate-400 uppercase tracking-widest text-xs">Em andamento</p>
-          <h4 className="text-lg font-bold text-slate-500 mt-2">Logística Reversa 4.0</h4>
-          <p className="text-xs text-slate-400 mt-1 italic">Conclua o módulo 5 para liberar</p>
         </div>
       </div>
     </div>
