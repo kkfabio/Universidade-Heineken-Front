@@ -1,22 +1,34 @@
 'use client';
 
+import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
+import { 
+  LayoutDashboard, 
+  PlusCircle, 
+  Users, 
+  TrendingUp, 
+  GraduationCap, 
+  Bot, 
+  Zap, 
+  LogOut, 
+  Bell,
+  BookOpen
+} from 'lucide-react';
 
 interface NavItem {
   href: string;
   label: string;
-  icon: string;
+  icon: React.ElementType;
 }
 
 const navItems: NavItem[] = [
-  { href: '/admin/dashboard', label: 'Dashboard', icon: '⊞' },
-  { href: '/admin/cursos/novo', label: 'Novo Curso', icon: '＋' },
-  { href: '/admin/usuarios', label: 'Usuários', icon: '👥' },
-  { href: '/admin/progresso', label: 'Progresso', icon: '📈' },
-  { href: '/admin/certificados', label: 'Certificados', icon: '🎓' },
-  { href: '/admin/ia-historico', label: 'Histórico IA', icon: '🤖' },
+  { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/cursos', label: 'Cursos', icon: BookOpen },
+  { href: '/admin/usuarios', label: 'Usuários', icon: Users },
+  { href: '/admin/backlog-ia', label: 'Backlog da IA', icon: Bot },
+  { href: '/admin/certificados', label: 'Certificados', icon: GraduationCap },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -41,8 +53,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
         {/* Admin badge */}
         <div className="px-6 py-3 bg-[#005a35]">
-          <span className="text-[10px] font-bold uppercase tracking-widest text-green-300">
-            ⚡ Painel do Instrutor
+          <span className="text-[10px] font-bold uppercase tracking-widest text-green-300 flex items-center gap-2">
+            <Zap size={12} className="fill-green-300" />
+            Painel do Instrutor
           </span>
         </div>
 
@@ -52,6 +65,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             const isActive =
               pathname === item.href ||
               (item.href !== '/admin/dashboard' && pathname.startsWith(item.href));
+            
+            const Icon = item.icon;
 
             return (
               <Link
@@ -63,7 +78,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                     : 'text-green-100 hover:bg-[#005a35] hover:text-white'
                 }`}
               >
-                <span className="text-base leading-none">{item.icon}</span>
+                <Icon size={18} className={isActive ? 'text-[#007042]' : 'text-green-200'} />
                 <span>{item.label}</span>
                 {isActive && (
                   <span className="ml-auto w-1.5 h-1.5 rounded-full bg-[#007042]" />
@@ -79,7 +94,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             href="/"
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-red-300 hover:bg-red-900/20 hover:text-red-200 transition-colors"
           >
-            <span>🚪</span>
+            <LogOut size={18} />
             <span>Sair</span>
           </Link>
         </div>
@@ -97,7 +112,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           </div>
           <div className="flex items-center gap-4">
             <button className="relative p-2 text-gray-500 hover:text-[#007042] transition-colors">
-              <span className="text-xl">🔔</span>
+              <Bell size={20} />
               <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#FF2B00]" />
             </button>
             <div className="flex items-center gap-2.5 pl-4 border-l border-gray-200">
