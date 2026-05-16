@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f3f3f3;
+  --sidebar: #0f5b2d;
+  --green: #008000;
+  --darkGreen: #115d2d;
+  --text: #222;
+  --muted: #888;
+  --border: #e8e8e8;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  background: var(--background);
+  overflow-x: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+}
+
+body {
+  display: flex;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.card {
+  background: white;
+  border-radius: 18px;
+  border: 1px solid #ededed;
+}
+
+.sidebar-item {
+  width: 100%;
+  height: 46px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-left: 18px;
+
+  color: #d9e6da;
+  font-size: 11px;
+  font-weight: 500;
+
+  transition: 0.2s;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sidebar-active {
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 4px solid #68ff7f;
+  color: white;
+}
+
+.title-serif {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.shadow-soft {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
