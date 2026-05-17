@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Bell,
   Settings,
@@ -10,31 +9,33 @@ import {
   Medal,
   Clock3,
   ChevronRight,
+  Sparkles,
+  Share2,
+  TrendingUp,
+  BookMarked,
+  MessageCircle,
 } from "lucide-react";
 
 export default function PerfilPage() {
   return (
-    <main className="w-screen min-h-screen bg-[#f3f3f3] flex overflow-hidden font-sans">
-      
-      {/* SIDEBAR - Utilizando suas classes do global.css */}
-      <aside className="w-[200px] bg-[#0f5b2d] min-h-screen flex flex-col justify-between shrink-0 shadow-xl">
+    <main className="w-screen min-h-screen bg-[#f3f3f3] flex overflow-hidden">
+      {/* ==================== SIDEBAR ==================== */}
+      <aside className="w-[200px] min-w-[200px] bg-[#0f5b2d] min-h-screen flex flex-col justify-between shrink-0 shadow-xl">
         <div>
-          {/* LOGO */}
           <div className="flex items-center gap-3 px-5 py-6 border-b border-white/10">
-            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center shrink-0">
-              <User size={18} color="white" />
+            <div className="w-9 h-9 rounded-full bg-[#0a3d1e] flex items-center justify-center shrink-0">
+              <User size={16} color="white" />
             </div>
             <div className="overflow-hidden">
-              <h1 className="text-white text-[11px] font-bold leading-tight truncate">
+              <h1 className="text-white text-[11px] font-bold leading-none truncate">
                 Learning Journey
               </h1>
-              <span className="text-[9px] text-[#a9c7ad] uppercase tracking-widest block">
+              <span className="text-[8px] text-[#a9c7ad] uppercase tracking-widest block">
                 Global Graduate
               </span>
             </div>
           </div>
 
-          {/* MENU */}
           <nav className="mt-6 flex flex-col">
             <div className="sidebar-item">
               <Home size={16} /> FEED
@@ -54,209 +55,357 @@ export default function PerfilPage() {
           </nav>
         </div>
 
-        {/* ASK AI */}
         <div className="p-4">
-          <button className="w-full h-11 rounded-xl bg-[#08b000] text-white text-xs font-bold hover:bg-[#07a000] transition-colors shadow-lg">
+          <button className="w-full h-10 rounded-xl bg-[#08b000] hover:bg-[#07a000] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+            <Sparkles size={14} />
             Ask AI
           </button>
         </div>
       </aside>
 
-      {/* CONTENT AREA */}
-      <section className="flex-1 flex flex-col h-screen overflow-y-auto">
-        
-        {/* TOPBAR */}
-        <header className="h-[60px] bg-white border-b border-[#ececec] flex items-center justify-between px-8 shrink-0">
-          <h1 className="text-[#165a2f] italic font-bold text-3xl title-serif tracking-tighter">
+      {/* ==================== CONTENT ==================== */}
+      <section className="flex-1 min-w-0 flex flex-col">
+        {/* Top Bar */}
+        <header className="h-[52px] bg-white border-b border-[#ececec] flex items-center justify-between px-6 shrink-0">
+          <h1 className="text-[#165a2f] italic font-bold text-[28px] title-serif">
             UHNK
           </h1>
-
-          <div className="flex items-center gap-5 text-gray-500">
-            <Bell size={20} className="cursor-pointer hover:text-gray-800 transition-colors" />
-            <Settings size={20} className="cursor-pointer hover:text-gray-800 transition-colors" />
-            <div className="w-9 h-9 rounded-full border-2 border-[#ff6b32] bg-[#3d8f95] overflow-hidden shadow-sm">
-              <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Thiago" alt="avatar" />
-            </div>
+          <div className="flex items-center gap-5">
+            <Bell
+              size={18}
+              className="text-gray-500 cursor-pointer hover:text-gray-700"
+            />
+            <Settings
+              size={18}
+              className="text-gray-500 cursor-pointer hover:text-gray-700"
+            />
+            <div className="w-9 h-9 rounded-full border-[3px] border-[#ff6b32] bg-[#3d8f95] cursor-pointer" />
           </div>
         </header>
 
-        {/* GREEN HERO HEADER */}
-        <div className="w-full bg-[#008000] px-12 py-8 flex items-center justify-between relative">
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <div className="w-24 h-24 rounded-full border-4 border-white bg-[#2d4554] overflow-hidden shadow-lg">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Thiago" alt="profile" />
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto">
+          {/* ========== GREEN HEADER ========== */}
+          <div className="w-full bg-gradient-to-r from-[#007000] to-[#009010] px-8 py-7 flex items-center justify-between">
+            <div className="flex items-center gap-5">
+              <div className="relative">
+                <div className="w-[76px] h-[76px] rounded-full border-[3px] border-white/80 bg-[#2d4554] flex items-center justify-center">
+                  <User size={32} color="white" />
+                </div>
+                <div className="absolute bottom-0.5 right-0.5 w-5 h-5 rounded-full bg-[#df3c00] border-2 border-white" />
               </div>
-              <div className="absolute bottom-1 right-1 w-6 h-6 rounded-full bg-[#df3c00] border-2 border-white flex items-center justify-center shadow-sm">
-                <span className="text-[10px] text-white font-bold">✎</span>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-white text-3xl font-bold">Thiago Silva</h2>
-              <p className="text-green-100/80 text-sm font-medium">
-                Brand Manager — Supply Chain Excellence
-              </p>
-            </div>
-          </div>
-
-          {/* XP PROGRESS CARD */}
-          <div className="w-[360px] rounded-2xl bg-white/10 backdrop-blur-sm p-4 border border-white/20 shadow-xl">
-            <div className="flex justify-between text-white text-[10px] font-bold uppercase tracking-wider mb-2">
-              <span>Nível 14 • Mestre Cervejeiro</span>
-              <span>12,450 XP</span>
-            </div>
-            <div className="w-full h-2 bg-black/20 rounded-full overflow-hidden relative">
-              <div className="w-[70%] h-full bg-green-400 rounded-full"></div>
-              {/* Star indicator on progress bar */}
-              <div className="absolute left-[70%] top-0 w-px h-full bg-white shadow-sm"></div>
-            </div>
-            <p className="text-[10px] text-white/70 text-center mt-2 font-medium">
-              Faltam 1,550 XP para o próximo nível
-            </p>
-          </div>
-        </div>
-
-        {/* MAIN BODY */}
-        <div className="p-8 max-w-7xl mx-auto w-full flex gap-8">
-          
-          {/* LEFT COLUMN: Info & Badges */}
-          <div className="w-[340px] flex flex-col gap-6 shrink-0">
-            
-            {/* PERSONAL INFO CARD */}
-            <div className="card shadow-soft p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-[#1d6a28] text-2xl font-bold title-serif leading-tight">
-                  Informações <br /> Pessoais
+              <div>
+                <h2 className="text-white text-[24px] font-bold leading-tight">
+                  Thiago Silva
                 </h2>
-                <Settings size={16} color="#aaa" className="cursor-pointer hover:text-gray-600" />
+                <p className="text-[#d0e8d2] text-[14px] mt-0.5">
+                  Brand Manager — Supply Chain Excellence
+                </p>
+              </div>
+            </div>
+
+            <div className="w-[320px] rounded-xl bg-[#006000]/50 backdrop-blur-sm px-5 py-3.5 border border-white/10">
+              <div className="flex justify-between text-white text-[10px] uppercase tracking-wider">
+                <span className="font-medium">
+                  Nível 14 • Mestre Cervejeiro
+                </span>
+                <span className="font-bold text-[12px]">12,450 XP</span>
+              </div>
+              <div className="w-full h-[6px] bg-white/20 rounded-full mt-2.5 overflow-hidden">
+                <div className="w-[70%] h-full bg-white rounded-full transition-all" />
+              </div>
+              <span className="text-[9px] text-white/60 mt-1.5 block text-right">
+                Faltam 1,550 XP para o próximo nível
+              </span>
+            </div>
+          </div>
+
+          {/* ========== BODY GRID ========== */}
+          <div className="px-6 py-6 flex gap-6">
+            {/* -------- LEFT COLUMN (Fixed width) -------- */}
+            <div className="w-[320px] min-w-[320px] flex flex-col gap-5 shrink-0">
+              {/* Informações Pessoais */}
+              <div className="card shadow-soft p-6">
+                <div className="flex items-start justify-between">
+                  <h2 className="text-[#1d6a28] text-[22px] font-bold leading-7 title-serif">
+                    Informações
+                    <br />
+                    Pessoais
+                  </h2>
+                  <Settings
+                    size={16}
+                    color="#bbb"
+                    className="cursor-pointer hover:text-gray-500 mt-1"
+                  />
+                </div>
+
+                <div className="mt-6 space-y-5">
+                  <div>
+                    <span className="text-[10px] uppercase text-[#9b9b9b] tracking-wider font-semibold">
+                      E-mail Corporativo
+                    </span>
+                    <p className="text-[14px] mt-1 text-[#333]">
+                      thiago.silva@heineken.com
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase text-[#9b9b9b] tracking-wider font-semibold">
+                      Localização
+                    </span>
+                    <p className="text-[14px] mt-1 text-[#333]">
+                      São Paulo, Brasil (HQ)
+                    </p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase text-[#9b9b9b] tracking-wider font-semibold">
+                      Data de Admissão
+                    </span>
+                    <p className="text-[14px] mt-1 text-[#333]">Março, 2021</p>
+                  </div>
+                  <div>
+                    <span className="text-[10px] uppercase text-[#9b9b9b] tracking-wider font-semibold">
+                      Idiomas
+                    </span>
+                    <div className="flex gap-2 mt-2 flex-wrap">
+                      {["Português", "English", "Dutch"].map((lang) => (
+                        <span
+                          key={lang}
+                          className="px-3 py-1 rounded-full bg-[#edf7ea] text-[#1c722d] text-[11px] font-semibold"
+                        >
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-6">
-                <InfoItem label="E-mail corporativo" value="thiago.silva@heineken.com" />
-                <InfoItem label="Localização" value="São Paulo, Brasil (HQ)" />
-                <InfoItem label="Data de admissão" value="Março, 2021" />
-                
-                <div>
-                  <span className="text-[10px] uppercase text-gray-400 font-bold block mb-2">
-                    Idiomas
-                  </span>
-                  <div className="flex gap-2 flex-wrap">
-                    {['Português', 'English', 'Dutch'].map(lang => (
-                      <span key={lang} className="px-3 py-1 rounded-full bg-[#edf7ea] text-[#1c722d] text-xs font-bold">
-                        {lang}
+              {/* Meus Badges */}
+              <div className="card shadow-soft p-6">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-[#1d6a28] text-[22px] font-bold title-serif">
+                    Meus Badges
+                  </h2>
+                  <button className="text-[#cf2900] text-[12px] font-semibold hover:underline">
+                    Ver todos
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 mt-5">
+                  {[
+                    { name: "Expert em Logística", locked: false },
+                    { name: "Sustentabilidade", locked: false },
+                    { name: "Inovação 2025", locked: false },
+                    { name: "Liderança", locked: false },
+                    { name: "QA Orientado", locked: false },
+                    { name: "Locked", locked: true },
+                  ].map((item, index) => (
+                    <div
+                      key={index}
+                      className={`h-[78px] rounded-xl flex flex-col items-center justify-center text-center p-2 transition-colors ${
+                        item.locked
+                          ? "bg-[#f0f0f0]"
+                          : "bg-[#f0f8ee] hover:bg-[#e4f2e0] cursor-pointer"
+                      }`}
+                    >
+                      <Medal
+                        size={22}
+                        color={item.locked ? "#ccc" : "#0d8d24"}
+                      />
+                      <span
+                        className={`text-[9px] mt-2 font-semibold leading-3 ${
+                          item.locked ? "text-[#ccc]" : "text-[#333]"
+                        }`}
+                      >
+                        {item.name}
                       </span>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* BADGES CARD */}
-            <div className="card shadow-soft p-6">
-              <div className="flex justify-between items-center mb-5">
-                <h2 className="text-[#1d6a28] text-2xl font-bold title-serif">
-                  Meus Badges
-                </h2>
-                <button className="text-[#cf2900] text-xs font-bold hover:underline">
-                  Ver todos
-                </button>
+            {/* -------- RIGHT COLUMN (Expande toda a tela) -------- */}
+            <div className="flex-1 min-w-0 flex flex-col gap-5">
+              {/* Título */}
+              <h2 className="text-[28px] font-bold text-[#222] title-serif">
+                Minha Atividade
+              </h2>
+
+              {/* ========== TIMELINE ========== */}
+              <div className="relative pl-6">
+                <div className="absolute left-[10px] top-2 bottom-2 w-[2px] bg-[#d4ecd6]" />
+
+                {/* Activity 1 */}
+                <div className="relative pb-5">
+                  <div className="absolute left-[-20px] top-1.5 w-[12px] h-[12px] rounded-full bg-[#0d8d24] border-[2px] border-white shadow-sm" />
+                  <div className="card shadow-soft p-5">
+                    <span className="text-[10px] text-[#aaa] font-bold tracking-wider uppercase">
+                      Hoje, 10:30 AM
+                    </span>
+                    <h4 className="text-[14px] font-bold text-[#222] mt-1.5">
+                      Concluiu o curso "O Legado Heineken: Cultura e Valores"
+                    </h4>
+                    <p className="text-[12px] text-[#888] mt-2 leading-5">
+                      Parabéns! Você finalizou todos os módulos e obteve a nota
+                      máxima na avaliação final. Este curso contribui para seu
+                      pilar de Cultura Organizacional.
+                    </p>
+                    <div className="flex gap-4 mt-3">
+                      <a
+                        href="#"
+                        className="text-[11px] text-[#0d8d24] font-semibold flex items-center gap-1.5 hover:underline"
+                      >
+                        <Share2 size={12} />
+                        Compartilhar no Feed
+                      </a>
+                      <a
+                        href="#"
+                        className="text-[11px] text-[#0d8d24] font-semibold flex items-center gap-1.5 hover:underline"
+                      >
+                        <Award size={12} />
+                        Certificado PDF
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Activity 2 */}
+                <div className="relative pb-5">
+                  <div className="absolute left-[-20px] top-1.5 w-[12px] h-[12px] rounded-full bg-[#ff6b32] border-[2px] border-white shadow-sm" />
+                  <div className="card shadow-soft p-5">
+                    <span className="text-[10px] text-[#aaa] font-bold tracking-wider uppercase">
+                      Ontem, 16:45 PM
+                    </span>
+                    <h4 className="text-[14px] font-bold text-[#222] mt-1.5">
+                      Novo Badge Conquistado: "Curador de Conhecimento"
+                    </h4>
+                    <p className="text-[12px] text-[#888] mt-2 leading-5">
+                      Você compartilhou mais de 10 artigos úteis na Wiki interna
+                      este mês. Continue contribuindo!
+                    </p>
+                  </div>
+                </div>
+
+                {/* Activity 3 */}
+                <div className="relative pb-5">
+                  <div className="absolute left-[-20px] top-1.5 w-[12px] h-[12px] rounded-full bg-[#0d8d24] border-[2px] border-white shadow-sm" />
+                  <div className="card shadow-soft p-5">
+                    <span className="text-[10px] text-[#aaa] font-bold tracking-wider uppercase">
+                      12 de Outubro
+                    </span>
+                    <h4 className="text-[14px] font-bold text-[#222] mt-1.5">
+                      Comentou em "Inovações em Embalagens Sustentáveis"
+                    </h4>
+                    <p className="text-[12px] text-[#888] mt-2 leading-5 italic">
+                      "Excelente abordagem sobre o uso de bioplásticos. Acredito
+                      que podemos aplicar esse piloto na região Sudeste em
+                      breve."
+                    </p>
+                  </div>
+                </div>
+
+                {/* Activity 4 */}
+                <div className="relative pb-5">
+                  <div className="absolute left-[-20px] top-1.5 w-[12px] h-[12px] rounded-full bg-[#3b82f6] border-[2px] border-white shadow-sm" />
+                  <div className="card shadow-soft p-5">
+                    <span className="text-[10px] text-[#aaa] font-bold tracking-wider uppercase">
+                      08 de Outubro
+                    </span>
+                    <h4 className="text-[14px] font-bold text-[#222] mt-1.5">
+                      Iniciou o curso "Supply Chain Analytics Avançado"
+                    </h4>
+                    <p className="text-[12px] text-[#888] mt-2 leading-5">
+                      Módulo 1 de 6 concluído. Progresso atual: 15%
+                    </p>
+                    <div className="w-full h-[5px] bg-gray-100 rounded-full mt-3 overflow-hidden">
+                      <div className="w-[15%] h-full bg-[#3b82f6] rounded-full" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Activity 5 */}
+                <div className="relative">
+                  <div className="absolute left-[-20px] top-1.5 w-[12px] h-[12px] rounded-full bg-[#0d8d24] border-[2px] border-white shadow-sm" />
+                  <div className="card shadow-soft p-5">
+                    <span className="text-[10px] text-[#aaa] font-bold tracking-wider uppercase">
+                      01 de Outubro
+                    </span>
+                    <h4 className="text-[14px] font-bold text-[#222] mt-1.5">
+                      Publicou artigo na Wiki: "Otimização de Rotas Logísticas"
+                    </h4>
+                    <p className="text-[12px] text-[#888] mt-2 leading-5">
+                      Seu artigo já recebeu 24 visualizações e 8 curtidas.
+                    </p>
+                    <div className="flex gap-4 mt-3">
+                      <span className="text-[11px] text-[#aaa] flex items-center gap-1">
+                        <BookMarked size={12} /> 24 views
+                      </span>
+                      <span className="text-[11px] text-[#aaa] flex items-center gap-1">
+                        <MessageCircle size={12} /> 3 comentários
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
-                {[
-                  { name: "Expert em Logística", locked: false },
-                  { name: "Sustentabilidade", locked: false },
-                  { name: "Inovação 2025", locked: false },
-                  { name: "Liderança", locked: false },
-                  { name: "QA Orientado", locked: false },
-                  { name: "Locked", locked: true },
-                ].map((badge, index) => (
-                  <div
-                    key={index}
-                    className={`h-20 rounded-xl flex flex-col items-center justify-center text-center p-2 transition-all ${
-                      badge.locked ? 'bg-gray-100 opacity-60' : 'bg-[#f7f7f7] hover:bg-green-50 border border-transparent hover:border-green-200'
-                    }`}
-                  >
-                    <Medal
-                      size={20}
-                      color={badge.locked ? "#ccc" : "#0d8d24"}
-                    />
-                    <span className="text-[9px] mt-2 font-bold leading-tight text-gray-600">
-                      {badge.name}
+              {/* ========== STATS CARDS ========== */}
+              <div className="grid grid-cols-3 gap-4 mt-2">
+                {/* Cursos Concluídos */}
+                <div className="rounded-[18px] bg-gradient-to-br from-[#008000] to-[#006800] p-6 flex flex-col justify-between text-white shadow-md h-[180px]">
+                  <Award size={24} className="opacity-70" />
+                  <div>
+                    <h1 className="text-[48px] font-bold leading-none">08</h1>
+                    <span className="uppercase tracking-[0.15em] text-[10px] mt-1 block text-white/70 font-semibold">
+                      Cursos Concluídos
                     </span>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                </div>
 
-          {/* RIGHT COLUMN: My Activity */}
-          <div className="flex-1">
-            <h1 className="text-4xl font-bold text-[#2b2b2b] mb-8 title-serif">
-              Minha Atividade
-            </h1>
-
-            {/* STATS GRID */}
-            <div className="flex gap-6 items-start">
-              
-              {/* Large Courses Completed Card */}
-              <div className="w-[260px] h-[220px] rounded-[24px] bg-[#008000] p-8 flex flex-col justify-end text-white shadow-lg">
-                <Award size={28} className="mb-auto" />
-                <h3 className="text-6xl font-black leading-none">08</h3>
-                <span className="uppercase tracking-widest text-xs font-bold mt-3 opacity-90">
-                  Cursos concluídos
-                </span>
-              </div>
-
-              {/* Vertical Stack for Ranking and Hours */}
-              <div className="flex flex-col gap-6">
-                
-                {/* Ranking Card */}
-                <div className="w-[260px] h-[100px] card shadow-soft p-6 flex items-center justify-between group cursor-pointer hover:border-green-400 transition-all">
+                {/* Ranking Global */}
+                <div className="card shadow-soft px-6 py-5 flex flex-col justify-between h-[180px]">
                   <div>
-                    <span className="text-[10px] uppercase text-gray-400 font-bold block tracking-wider">
+                    <span className="text-[10px] uppercase text-[#999] tracking-wider font-semibold">
                       Ranking Global
                     </span>
-                    <h2 className="text-[#198b27] text-3xl font-black mt-1">
+                    <h2 className="text-[#0d8d24] text-[32px] font-bold leading-tight mt-2">
                       #42nd Place
                     </h2>
                   </div>
-                  <ChevronRight color="#198b27" className="group-hover:translate-x-1 transition-transform" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] text-[#aaa]">
+                      Top 8% global
+                    </span>
+                    <div className="w-9 h-9 rounded-full bg-[#edf7ea] flex items-center justify-center">
+                      <TrendingUp size={18} color="#0d8d24" />
+                    </div>
+                  </div>
                 </div>
 
-                {/* Study Hours Card */}
-                <div className="w-[260px] h-[100px] rounded-[24px] bg-[#008000] p-6 flex items-center justify-between text-white shadow-lg">
+                {/* Horas de Estudo */}
+                <div className="rounded-[18px] bg-gradient-to-r from-[#008000] to-[#009010] px-6 py-5 flex flex-col justify-between text-white shadow-md h-[180px]">
                   <div>
-                    <span className="text-[10px] uppercase opacity-80 font-bold block tracking-wider">
-                      Horas de estudo
+                    <span className="text-[10px] uppercase opacity-60 tracking-wider font-semibold">
+                      Horas de Estudo
                     </span>
-                    <h2 className="text-3xl font-black mt-1">
+                    <h2 className="text-[32px] font-bold leading-tight mt-2">
                       124h 30m
                     </h2>
                   </div>
-                  <Clock3 size={28} className="opacity-80" />
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] text-white/50">
+                      +12h este mês
+                    </span>
+                    <div className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
+                      <Clock3 size={18} />
+                    </div>
+                  </div>
                 </div>
-                
               </div>
             </div>
           </div>
         </div>
       </section>
     </main>
-  );
-}
-
-// Helper Component for Info Items
-function InfoItem({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <span className="text-[10px] uppercase text-gray-400 font-bold block">
-        {label}
-      </span>
-      <p className="text-[15px] mt-1 font-medium text-slate-700">
-        {value}
-      </p>
-    </div>
   );
 }
