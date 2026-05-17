@@ -176,7 +176,7 @@ export default function WikiPage() {
             {/* ——— ROW 2 ——— */}
 
             {/* Card: Sustentabilidade */}
-            <div className="col-span-12 lg:col-span-5 card shadow-soft overflow-hidden flex flex-col cursor-pointer group h-[360px]">
+            <div className="col-span-12 lg:col-span-5 card shadow-soft overflow-hidden flex flex-col cursor-pointer group h-[420px]">
               <div className="h-[160px] bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center relative shrink-0">
                 <div className="w-16 h-16 rounded-full border-2 border-green-500/50 flex items-center justify-center text-green-500/60">
                   <Leaf size={30} />
@@ -218,10 +218,9 @@ export default function WikiPage() {
             </div>
 
             {/* Card: Processo de Fabricação */}
-            <div className="col-span-12 lg:col-span-7 flex flex-col gap-4 h-[360px]">
+            <div className="col-span-12 lg:col-span-7 flex flex-col gap-4 h-[420px]">
               {/* Header card com imagem de fundo */}
-              <div className="card shadow-soft overflow-hidden flex group cursor-pointer hover:shadow-md transition-shadow relative h-[100px]">
-                {/* Imagem de fundo */}
+              <div className="card shadow-soft overflow-hidden flex group cursor-pointer hover:shadow-md transition-shadow relative h-[110px]">
                 <div className="absolute inset-0 overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1532634922-8fe0b757fb13?auto=format&fit=crop&q=80&w=800"
@@ -229,8 +228,6 @@ export default function WikiPage() {
                     className="w-full h-full object-cover opacity-15 group-hover:opacity-25 group-hover:scale-105 transition-all duration-500"
                   />
                 </div>
-
-                {/* Conteúdo sobre a imagem */}
                 <div className="relative z-10 px-6 py-5 flex items-center justify-between w-full">
                   <div>
                     <span className="text-[#008000] text-[10px] font-bold uppercase tracking-widest block mb-1">
@@ -248,31 +245,36 @@ export default function WikiPage() {
 
               {/* Sub-cards row */}
               <div className="flex gap-4 flex-1 min-h-0">
-                {/* Puro Malto */}
+                {/* ===== PURO MALTE ===== */}
                 <div className="flex-1 card shadow-soft overflow-hidden flex flex-col cursor-pointer group hover:shadow-md transition-shadow">
-                  {/* Barra decorativa + imagem de fundo sutil */}
-                  <div className="h-[6px] bg-gradient-to-r from-[#008000] to-[#00a010] shrink-0" />
+                  {/* Imagem de malte */}
+                  <div className="h-[120px] relative shrink-0 overflow-hidden">
+                    <img
+                      src="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?auto=format&fit=crop&q=80&w=400"
+                      alt="Grãos de malte"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
-                  <div className="p-5 flex-1 flex flex-col justify-between relative">
-                    {/* Imagem de fundo sutil */}
-                    <div className="absolute top-0 right-0 w-[80px] h-[80px] overflow-hidden opacity-10 rounded-bl-3xl">
-                      <img
-                        src="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?auto=format&fit=crop&q=80&w=200"
-                        alt="Malte"
-                        className="w-full h-full object-cover"
-                      />
+                    {/* Number badge */}
+                    <div className="absolute top-3 left-3 w-7 h-7 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center shadow-sm">
+                      <span className="text-green-700 font-bold text-[11px]">
+                        01
+                      </span>
                     </div>
 
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center">
-                          <span className="text-green-700 font-bold text-[11px]">
-                            01
-                          </span>
-                        </div>
-                        <div className="h-[1px] flex-1 bg-gray-100" />
-                      </div>
+                    {/* Label */}
+                    <div className="absolute bottom-3 left-3">
+                      <span className="text-white/80 text-[8px] tracking-[0.15em] uppercase font-bold">
+                        Ingredientes
+                      </span>
+                    </div>
+                  </div>
 
+                  {/* Text */}
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
                       <h3 className="text-[17px] font-bold text-slate-800 leading-tight">
                         Puro Malte
                       </h3>
@@ -282,20 +284,20 @@ export default function WikiPage() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 mt-4 text-green-600 text-[11px] font-semibold group-hover:gap-3 transition-all relative z-10">
+                    <div className="flex items-center gap-2 mt-4 text-green-600 text-[11px] font-semibold group-hover:gap-3 transition-all">
                       Saiba mais
                       <ChevronRight size={13} />
                     </div>
                   </div>
                 </div>
 
-                {/* Fermentação A */}
+                {/* ===== FERMENTAÇÃO A ===== */}
                 <div className="flex-1 card shadow-soft overflow-hidden flex flex-col cursor-pointer group hover:shadow-md transition-shadow">
-                  {/* Imagem principal */}
-                  <div className="h-[140px] relative shrink-0 overflow-hidden">
+                  {/* Imagem de fermentação */}
+                  <div className="h-[120px] relative shrink-0 overflow-hidden">
                     <img
-                      src="https://images.unsplash.com/photo-1584225065152-4a17b667773d?auto=format&fit=crop&q=80&w=400"
-                      alt="Processo de Fermentação"
+                      src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?auto=format&fit=crop&q=80&w=400"
+                      alt="Tanques de fermentação"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     {/* Gradient overlay */}
@@ -308,9 +310,9 @@ export default function WikiPage() {
                       </span>
                     </div>
 
-                    {/* Label sobre a imagem */}
+                    {/* Label */}
                     <div className="absolute bottom-3 left-3">
-                      <span className="text-white/70 text-[8px] tracking-[0.15em] uppercase font-bold">
+                      <span className="text-white/80 text-[8px] tracking-[0.15em] uppercase font-bold">
                         Brewing Process
                       </span>
                     </div>
