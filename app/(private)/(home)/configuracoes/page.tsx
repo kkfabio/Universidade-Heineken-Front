@@ -5,9 +5,9 @@ import { useState } from "react"
 import { 
   Bell, Lock, ShieldCheck, Globe, HelpCircle, FileText, Headphones, Star 
 } from "lucide-react"
-import { Switch } from "../../components/ui/switch"
-import { Button } from "../../components/ui/button"
-import { SettingSection } from "../../components/SettingSection"
+import { Switch } from "@/components/ui/switch"
+import { Button } from "@/components/ui/button"
+import { SettingSection } from "@/components/common/SettingSection"
 
 /**
  * Usuário: Thiago Silva | Brand Manager - Supply Chain Excellence

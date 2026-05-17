@@ -1,15 +1,11 @@
 "use client"
 
 import * as React from "react"
-import { Trophy, Search, Filter, Download, ExternalLink, Star } from "lucide-react"
-import { Input } from "../../components/ui/input"
-import { Button } from "../../components/ui/button"
-import { CertificateCard } from "../../components/CertificateCard"
+import { Trophy, Search, Filter, Download, Star } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { CertificateCard } from "@/components/common/CertificateCard"
 
-/**
- * CertificadosPage - Versão de Alta Fidelidade com suporte a imagens
- * Corrigido com Export Default para o roteamento do Next.js
- */
 export default function CertificadosPage() {
   const certificados = [
     { 
@@ -20,13 +16,13 @@ export default function CertificadosPage() {
     },
     { 
       id: 2, 
-      titulo: "Lidere da forma Heiniken", 
+      titulo: "Liderança de Alta Performance", 
       date: "28 de Setembro, 2023",
       imageUrl: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800" 
     },
     { 
       id: 3, 
-      titulo: "Fundamentos de logística sustentável", 
+      titulo: "Sustentabilidade: Brew a Better World", 
       date: "15 de Agosto, 2023",
       imageUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=800" 
     },
@@ -41,7 +37,6 @@ export default function CertificadosPage() {
   return (
     <div className="min-h-screen p-8 md:p-16 bg-[#FBFBFB]">
       
-      {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start mb-12 gap-6">
         <header className="relative">
           <p className="text-[#007041] font-black text-xs tracking-[3px] mb-2 uppercase">01 / Achievement</p>
@@ -52,48 +47,43 @@ export default function CertificadosPage() {
           <Star className="absolute -top-10 -left-10 h-32 w-32 text-slate-200 -z-10 opacity-20" />
         </header>
 
-        {/* Badges de Performance (12 Concluídos / 84% Progresso) */}
         <div className="flex gap-4">
-          <div className="bg-[#007041] p-6 rounded-24px text-white text-center min-w-120px shadow-xl shadow-[#007041]/20">
+          <div className="bg-[#007041] p-6 rounded-[24px] text-white text-center min-w-[120px] shadow-xl shadow-[#007041]/20">
             <p className="text-3xl font-black">12</p>
             <p className="text-[9px] font-bold uppercase tracking-widest opacity-70">Concluídos</p>
           </div>
-          <div className="bg-[#003321] p-6 rounded-24px text-white text-center min-w-120px">
+          <div className="bg-[#003321] p-6 rounded-[24px] text-white text-center min-w-[120px]">
             <p className="text-3xl font-black text-[#5CFF9B]">84%</p>
             <p className="text-[9px] font-bold uppercase tracking-widest opacity-70">Progresso</p>
           </div>
         </div>
       </div>
 
-      {/* Busca e Filtros */}
       <div className="flex flex-col md:flex-row gap-4 mb-14">
         <div className="relative flex-1 group">
           <Search className="absolute left-6 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-300 group-focus-within:text-[#007041] transition-colors" />
           <Input 
             placeholder="Pesquisar certificados..." 
-            className="pl-16 h-16 rounded-24pxborder-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-white text-slate-600 font-bold placeholder:text-slate-300 focus:ring-2 focus:ring-[#007041]"
+            className="pl-16 h-16 rounded-[24px] border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-white text-slate-600 font-bold placeholder:text-slate-300 focus:ring-2 focus:ring-[#007041]"
           />
         </div>
-        <Button variant="outline" className="h-16 px-10 rounded-24pxborder-slate-100 bg-white font-black text-slate-500 gap-3 hover:bg-slate-50 uppercase text-[10px] tracking-widest">
+        <Button variant="outline" className="h-16 px-10 rounded-[24px] border-slate-100 bg-white font-black text-slate-500 gap-3 hover:bg-slate-50 uppercase text-[10px] tracking-widest">
           <Filter className="h-4 w-4" /> Filtrar
         </Button>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        
-        {/* Coluna de Certificados Normais (Grid 2x2) */}
         <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-8">
           {certificados.map((cert) => (
             <CertificateCard 
               key={cert.id} 
               title={cert.titulo} 
               date={cert.date} 
-              imageUrl={cert.imageUrl}
+              imageUrl={cert.imageUrl} 
             />
           ))}
         </div>
 
-        {/* Card de Destaque */}
         <div className="lg:col-span-4">
           <div className="bg-[#003321] rounded-[40px] p-12 h-full text-white flex flex-col justify-between shadow-2xl relative overflow-hidden group border border-white/5">
             <div className="relative z-10">
@@ -101,7 +91,7 @@ export default function CertificadosPage() {
               <p className="text-[10px] font-black uppercase tracking-[4px] text-[#5CFF9B] mb-4">Mastering Degree</p>
               <h2 className="text-4xl font-black leading-[1.1] mb-6 tracking-tight">Mastering Heineken Global Supply</h2>
               
-              <div className="bg-white/5 rounded-24px p-8 border border-white/10 mb-8 flex flex-col items-center justify-center">
+              <div className="bg-white/5 rounded-[24px] p-8 border border-white/10 mb-8 flex flex-col items-center justify-center">
                  <Trophy className="h-16 w-16 text-[#5CFF9B] opacity-40 mb-2" />
                  <p className="text-[9px] font-black uppercase tracking-widest opacity-30 italic">Certificado Master</p>
               </div>
