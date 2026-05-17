@@ -1,19 +1,12 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import './globals.css'
+import LayoutClient from './LayoutClient';
 
-export const metadata: Metadata = {
-  title: "UHNK Platform",
-  description: "Feed da empresa e catálogo de cursos",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
-      <body>{children}</body>
+    <html lang="pt-br">
+      <body className="bg-heineken-light">
+        <LayoutClient>{children}</LayoutClient>
+      </body>
     </html>
   );
 }
