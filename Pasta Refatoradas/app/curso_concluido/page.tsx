@@ -15,51 +15,41 @@ export default function CursoConcluidoPage() {
   return (
     <main className="w-screen min-h-screen bg-[#f3f3f3] flex overflow-hidden">
       {/* ==================== SIDEBAR ==================== */}
-      <aside className="w-[180px] min-w-[180px] bg-[#0f5b2d] min-h-screen flex flex-col justify-between">
+      <aside className="w-[200px] min-w-[200px] bg-[#0f5b2d] min-h-screen flex flex-col justify-between shrink-0 shadow-xl">
         <div>
-          {/* Logo */}
-          <div className="flex items-center gap-2 px-4 py-4 border-b border-white/10">
-            <div className="w-9 h-9 rounded-full bg-[#0a3d1e] flex items-center justify-center">
-              <User size={16} color="white" />
+          <div className="flex items-center gap-3 px-5 py-6 border-b border-white/10">
+            <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center shrink-0">
+              <User size={18} color="white" />
             </div>
-            <div>
-              <h1 className="text-white text-[11px] font-bold leading-none">
+            <div className="overflow-hidden">
+              <h1 className="text-white text-[11px] font-bold leading-tight truncate">
                 Learning Journey
               </h1>
-              <span className="text-[8px] text-[#a9c7ad] uppercase tracking-widest">
+              <span className="text-[9px] text-[#a9c7ad] uppercase tracking-widest block">
                 Global Graduate
               </span>
             </div>
           </div>
-
-          {/* Menu */}
-          <div className="mt-6 flex flex-col">
+          <nav className="mt-6 flex flex-col">
             <div className="sidebar-item">
-              <Home size={14} />
-              FEED
+              <Home size={16} /> FEED
             </div>
             <div className="sidebar-item sidebar-active">
-              <BookOpen size={14} />
-              COURSES
+              <BookOpen size={16} /> COURSES
             </div>
             <div className="sidebar-item">
-              <Globe size={14} />
-              WIKI
+              <Globe size={16} /> WIKI
             </div>
             <div className="sidebar-item">
-              <Award size={14} />
-              CERTIFICATES
+              <Award size={16} /> CERTIFICATES
             </div>
             <div className="sidebar-item">
-              <User size={14} />
-              PROFILE
+              <User size={16} /> PROFILE
             </div>
-          </div>
+          </nav>
         </div>
-
-        {/* Ask AI Button */}
-        <div className="p-3">
-          <button className="w-full h-10 rounded-xl bg-[#08b000] hover:bg-[#07a000] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+        <div className="p-4">
+          <button className="w-full h-11 rounded-xl bg-[#08b000] text-white text-xs font-bold hover:bg-[#07a000] transition-colors shadow-lg flex items-center justify-center gap-2">
             <Sparkles size={14} />
             Ask AI
           </button>
@@ -67,166 +57,237 @@ export default function CursoConcluidoPage() {
       </aside>
 
       {/* ==================== CONTENT ==================== */}
-      <section className="flex-1 min-w-0 flex flex-col">
+      <section className="flex-1 min-w-0 flex flex-col h-screen">
         {/* Top Bar */}
-        <header className="h-[52px] bg-white border-b border-[#ececec] flex items-center justify-between px-6 shrink-0">
-          <h1 className="text-[#165a2f] italic font-bold text-[28px] title-serif">
+        <header className="h-[60px] bg-white border-b border-[#ececec] flex items-center justify-between px-8 shrink-0">
+          <h1 className="text-[#165a2f] italic font-bold text-3xl title-serif tracking-tighter">
             UHNK
           </h1>
-          <div className="flex items-center gap-5">
-            <Bell size={18} className="text-gray-500 cursor-pointer hover:text-gray-700" />
-            <Settings size={18} className="text-gray-500 cursor-pointer hover:text-gray-700" />
-            <div className="w-9 h-9 rounded-full border-[3px] border-[#ff6b32] bg-[#3d8f95] cursor-pointer" />
+          <div className="flex items-center gap-5 text-gray-500">
+            <Bell
+              size={20}
+              className="cursor-pointer hover:text-gray-800 transition-colors"
+            />
+            <Settings
+              size={20}
+              className="cursor-pointer hover:text-gray-800 transition-colors"
+            />
+            <div className="w-9 h-9 rounded-full border-2 border-[#ff6b32] bg-[#3d8f95] overflow-hidden shadow-sm">
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Thiago"
+                alt="avatar"
+              />
+            </div>
           </div>
         </header>
 
         {/* Scrollable Body */}
-        <div className="flex-1 overflow-y-auto px-6 py-5">
-          {/* ========== HERO BANNER ========== */}
-          <div className="w-full rounded-[18px] bg-gradient-to-br from-[#115d2d] to-[#0e4d25] px-8 py-8 flex items-center justify-between gap-8 overflow-hidden">
-            {/* Left Text */}
-            <div className="max-w-[480px] flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1f7a3e]/60 text-white text-[11px] font-bold uppercase tracking-wide">
-                ⭐ Parabéns pelo sucesso
-              </div>
+        <div className="flex-1 overflow-y-auto px-10 py-10">
+          {/* ========== PAGE HEADER ========== */}
+          <div className="mb-8">
+            <span className="text-gray-400 text-[13px] font-medium">02</span>
+            <h1 className="title-serif text-[48px] font-bold text-slate-800 leading-[1.1] mt-1">
+              Curso Concluído
+            </h1>
+            <p className="text-gray-500 text-[15px] max-w-2xl leading-relaxed mt-3">
+              Completou com êxito o curso de Maestria em Logística Sustentável.
+              Continue explorando novos desafios!
+            </p>
+          </div>
 
-              <h1 className="title-serif text-white text-[36px] font-bold leading-[42px] mt-4">
-                Você é agora um Especialista Global!
-              </h1>
-
-              <p className="text-[#c8deca] text-[14px] mt-3 leading-6">
-                Completou com êxito o curso de Maestria em Logística
-                Sustentável. Continue explorando novos desafios!
-              </p>
-
-              <button className="mt-5 px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-semibold transition-colors">
-                Ver meu progresso
+          {/* ========== RESULTADO DO CURSO ========== */}
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-[18px] font-bold text-slate-800">
+                Resultado do Curso
+              </h2>
+              <button className="text-[13px] text-slate-800 font-semibold hover:underline flex items-center gap-1">
+                Ver todos →
               </button>
             </div>
 
-            {/* Right Certificate Preview */}
-            <div className="w-[180px] h-[210px] rounded-[16px] bg-[#2f7449]/60 p-3 relative shrink-0 hidden lg:block">
-              <div className="w-full h-full rounded-xl bg-[#f5f5f5] flex flex-col items-center justify-center gap-2">
-                <Award size={28} className="text-[#0b8c22]" />
-                <span className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
-                  Certificado
-                </span>
+            {/* Hero Cards */}
+            <div className="grid grid-cols-5 gap-5">
+              {/* Card 1 - Conclusão */}
+              <div className="col-span-3 h-[280px] rounded-[20px] relative overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                <img
+                  src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800"
+                  alt="Success"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a3d1e]/95 via-[#115d2d]/80 to-[#115d2d]/50" />
+                <div className="relative z-10 h-full p-8 flex flex-col justify-between">
+                  <div className="flex items-start justify-between">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-[11px] font-bold uppercase tracking-wide backdrop-blur-sm border border-white/15 text-white">
+                      ⭐ Parabéns pelo sucesso
+                    </span>
+                    <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl px-4 py-2 text-right">
+                      <span className="text-white/50 text-[9px] uppercase tracking-wider font-bold block">
+                        XP Ganho
+                      </span>
+                      <span className="text-white text-[18px] font-bold">
+                        +2,450
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-10 h-10 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center">
+                        <Award size={20} className="text-white" />
+                      </div>
+                      <div className="h-[1px] flex-1 bg-white/10" />
+                    </div>
+                    <h3 className="text-[28px] font-bold text-white leading-tight">
+                      Especialista Global
+                    </h3>
+                    <p className="text-white/50 text-[14px] mt-1">
+                      Maestria em Logística Sustentável
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <button className="px-6 py-2.5 rounded-xl bg-white text-[#115d2d] text-[12px] font-bold hover:bg-gray-100 transition-colors shadow-lg">
+                      Ver progresso
+                    </button>
+                    <button className="px-6 py-2.5 rounded-xl bg-white/10 backdrop-blur-sm border border-white/15 text-white text-[12px] font-bold hover:bg-white/20 transition-colors">
+                      Compartilhar
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-[#cb3200] flex items-center justify-center">
-                <CheckCircle2 size={14} color="white" />
+
+              {/* Card 2 - Certificado */}
+              <div className="col-span-2 h-[280px] rounded-[20px] relative overflow-hidden group cursor-pointer hover:shadow-xl transition-shadow">
+                <img
+                  src="https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&q=80&w=600"
+                  alt="Certificate"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#3a4a20]/95 via-[#5a6b3a]/80 to-[#5a6b3a]/50" />
+                <div className="relative z-10 h-full p-8 flex flex-col justify-between">
+                  <div className="flex items-start justify-between">
+                    <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-[11px] font-bold uppercase tracking-wide backdrop-blur-sm border border-white/15 text-white">
+                      Certificado Disponível
+                    </span>
+                    <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/15">
+                      <CheckCircle2 size={18} className="text-green-300" />
+                    </div>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-xl p-4 flex flex-col items-center gap-2">
+                    <div className="w-8 h-[1px] bg-white/30" />
+                    <h3 className="text-[22px] font-bold text-white text-center leading-tight">
+                      João Silva Pereira
+                    </h3>
+                    <span className="text-white/40 text-[10px] uppercase tracking-widest font-semibold">
+                      Certificado de Conclusão
+                    </span>
+                    <div className="w-8 h-[1px] bg-white/30" />
+                  </div>
+                  <button className="w-full py-3 rounded-xl bg-white text-[#4a5a2e] text-[12px] font-bold hover:bg-gray-100 transition-colors flex items-center justify-center gap-2 shadow-lg">
+                    <FileText size={14} />
+                    Acessar Certificado
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* ========== CONTENT GRID ========== */}
-          <div className="mt-7 flex gap-6">
-            {/* Left — Módulos */}
-            <div className="flex-1 min-w-0">
-              <div className="flex justify-between items-center mb-5">
-                <h2 className="text-[24px] title-serif font-bold text-[#222]">
-                  Conteúdo Concluído
-                </h2>
-                <span className="bg-[#0a8c21] text-white text-[11px] px-4 py-1.5 rounded-full font-bold tracking-wide">
-                  100% COMPLETADO
-                </span>
-              </div>
-
-              {/* Module Cards */}
-              <div className="space-y-3">
-                {[
-                  { title: "Introdução à Cadeia de Suprimentos Circular", aulas: "12 Aulas" },
-                  { title: "Redução de Carbono em Transportes", aulas: "08 Aulas" },
-                  { title: "Ética e Compliance Ambiental", aulas: "15 Aulas" },
-                ].map((item, index) => (
-                  <div
-                    key={index}
-                    className="card shadow-soft h-[80px] px-5 flex items-center justify-between hover:shadow-md transition-shadow"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-[#daf0dc] flex items-center justify-center shrink-0">
-                        <CheckCircle2 size={20} color="#0b8c22" />
-                      </div>
-                      <div>
-                        <span className="text-[#13861d] text-[11px] font-semibold">
-                          Módulo 0{index + 1}
-                        </span>
-                        <h3 className="font-bold text-[15px] text-[#222] leading-tight">
-                          {item.title}
-                        </h3>
-                      </div>
-                    </div>
-                    <span className="text-[#aaa] text-sm shrink-0 ml-4">
-                      {item.aulas}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Extra Stats Row */}
-              <div className="mt-5 grid grid-cols-3 gap-3">
-                {[
-                  { label: "Tempo total", value: "12h 45m" },
-                  { label: "Nota final", value: "9.6 / 10" },
-                  { label: "Posição", value: "Top 5%" },
-                ].map((stat, i) => (
-                  <div
-                    key={i}
-                    className="card shadow-soft p-4 flex flex-col items-center justify-center text-center"
-                  >
-                    <span className="text-[10px] text-[#999] uppercase tracking-wider font-semibold">
-                      {stat.label}
-                    </span>
-                    <span className="text-[20px] font-bold text-[#0b8c22] title-serif mt-1">
-                      {stat.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
+          {/* ========== CONTEÚDO CONCLUÍDO ========== */}
+          <div>
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-[0.15em]">
+                Jornada
+              </span>
+              <span className="text-[13px] text-gray-400">3 módulos</span>
+            </div>
+            <div className="flex items-center justify-between mb-5">
+              <h2 className="text-[18px] font-bold text-slate-800">
+                Conteúdo Concluído
+              </h2>
+              <span className="bg-[#0a8c21] text-white text-[11px] px-4 py-1.5 rounded-full font-bold tracking-wide">
+                100% COMPLETADO
+              </span>
             </div>
 
-            {/* Right — Certificado */}
-            <div className="w-[280px] shrink-0">
-              <div className="card shadow-soft p-5">
-                {/* Certificate Preview */}
-                <div className="w-full h-[200px] border border-[#e8e8e8] rounded-xl bg-[#fafafa] flex flex-col items-center justify-center gap-3">
-                  <span className="text-[#13861d] text-[10px] uppercase tracking-[0.15em] font-semibold">
-                    Certificado de conclusão
-                  </span>
-                  <div className="w-12 h-[1px] bg-[#13861d]/20" />
-                  <h2 className="text-[22px] font-bold title-serif text-[#222]">
-                    João Silva Pereira
-                  </h2>
-                  <span className="text-[10px] text-[#999]">
-                    Maestria em Logística Sustentável
+            {/* Module Cards */}
+            <div className="space-y-3">
+              {[
+                {
+                  title: "Introdução à Cadeia de Suprimentos Circular",
+                  aulas: "12 Aulas",
+                },
+                {
+                  title: "Redução de Carbono em Transportes",
+                  aulas: "08 Aulas",
+                },
+                {
+                  title: "Ética e Compliance Ambiental",
+                  aulas: "15 Aulas",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="card shadow-soft h-[80px] px-6 flex items-center justify-between hover:shadow-md transition-shadow cursor-pointer group"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-[#edf7ea] flex items-center justify-center shrink-0 group-hover:bg-[#d4f0d0] transition-colors">
+                      <CheckCircle2 size={20} color="#0b8c22" />
+                    </div>
+                    <div>
+                      <span className="text-[#13861d] text-[11px] font-semibold">
+                        Módulo 0{index + 1}
+                      </span>
+                      <h3 className="font-bold text-[15px] text-[#222] leading-tight">
+                        {item.title}
+                      </h3>
+                    </div>
+                  </div>
+                  <span className="text-[#bbb] text-[13px] shrink-0 ml-4">
+                    {item.aulas}
                   </span>
                 </div>
+              ))}
+            </div>
 
-                {/* Actions */}
-                <button className="w-full h-[46px] rounded-xl bg-[#0b8c22] hover:bg-[#0a7d1e] text-white font-semibold mt-4 flex items-center justify-center gap-2 text-[14px] transition-colors">
-                  <FileText size={16} />
-                  Acessar meu Certificado
-                </button>
+            {/* Stats Row */}
+            <div className="grid grid-cols-3 gap-4 mt-6">
+              {[
+                { label: "Tempo Total", value: "12h 45m" },
+                { label: "Nota Final", value: "9.6 / 10" },
+                { label: "Posição", value: "Top 5%" },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="card shadow-soft p-5 flex flex-col items-center justify-center text-center hover:shadow-md transition-shadow"
+                >
+                  <span className="text-[10px] text-[#999] uppercase tracking-[0.15em] font-semibold">
+                    {stat.label}
+                  </span>
+                  <span className="text-[22px] font-bold text-[#0b8c22] title-serif mt-1.5">
+                    {stat.value}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-                <button className="w-full h-[46px] rounded-xl bg-[#f0f0f0] hover:bg-[#e5e5e5] text-[#1d6a28] font-semibold mt-2.5 text-[14px] transition-colors">
-                  Explorar mais cursos
-                </button>
-              </div>
-
-              {/* Share Card */}
-              <div className="card shadow-soft p-5 mt-4">
-                <h4 className="text-[13px] font-bold text-[#222] mb-3">
+            {/* Share Section */}
+            <div className="card shadow-soft p-6 mt-6 flex items-center justify-between">
+              <div>
+                <h4 className="text-[14px] font-bold text-[#222]">
                   Compartilhar conquista
                 </h4>
-                <div className="flex gap-2">
-                  {["LinkedIn", "E-mail", "Link"].map((channel) => (
-                    <button
-                      key={channel}
-                      className="flex-1 h-9 rounded-lg bg-[#f0f0f0] hover:bg-[#e5e5e5] text-[11px] font-semibold text-[#555] transition-colors"
-                    >
-                      {channel}
-                    </button>
-                  ))}
-                </div>
+                <p className="text-[12px] text-[#999] mt-1">
+                  Mostre sua evolução para a rede
+                </p>
+              </div>
+              <div className="flex gap-2">
+                {["LinkedIn", "E-mail", "Link"].map((channel) => (
+                  <button
+                    key={channel}
+                    className="h-9 px-5 rounded-xl bg-[#f5f5f5] hover:bg-[#eaeaea] text-[11px] font-semibold text-[#555] transition-colors"
+                  >
+                    {channel}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
