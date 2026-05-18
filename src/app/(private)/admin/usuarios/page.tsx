@@ -108,7 +108,7 @@ export default function UsuariosAdminPage() {
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 bg-[#028202] hover:bg-[#026c02] text-white text-sm font-semibold px-8 py-3 rounded-lg transition-colors shadow-[0_8px_20px_rgba(171,26,0,0.2)]"
+          className="flex items-center gap-2 bg-heineken-green hover:bg-heineken-dark text-white text-sm font-semibold px-8 py-3 rounded-lg transition-colors shadow-[0_8px_20px_rgba(0,112,66,0.2)]"
         >
           <UserPlus size={18} />
           Adicionar Usuário
@@ -117,7 +117,7 @@ export default function UsuariosAdminPage() {
 
       {/* Filters Bar */}
       <div className="bg-[#F4F3F3] rounded-xl flex items-center p-6 gap-4">
-        <div className="flex-1 bg-white rounded-lg flex items-center px-4 py-3 border border-transparent focus-within:border-[#008200] transition-colors">
+        <div className="flex-1 bg-white rounded-lg flex items-center px-4 py-3 border border-transparent focus-within:border-heineken-green transition-colors">
           <Search size={18} className="text-[#6B7280] mr-3 shrink-0" />
           <input
             type="text"
@@ -129,12 +129,12 @@ export default function UsuariosAdminPage() {
         </div>
         <div className="flex items-center gap-4 shrink-0">
           <button className="flex items-center gap-2 bg-white px-6 py-3 rounded-lg text-sm font-medium text-[#1A1C1C] hover:bg-gray-50 transition-colors">
-            <CheckCircle2 size={16} className="text-[#008200]" />
+            <CheckCircle2 size={16} className="text-heineken-green" />
             Status: Todos
             <ChevronDown size={16} className="text-gray-400" />
           </button>
           <button className="flex items-center gap-2 bg-white px-6 py-3 rounded-lg text-sm font-medium text-[#1A1C1C] hover:bg-gray-50 transition-colors">
-            <Briefcase size={16} className="text-[#008200]" />
+            <Briefcase size={16} className="text-heineken-green" />
             Role: Todas
             <ChevronDown size={16} className="text-gray-400" />
           </button>
@@ -207,7 +207,7 @@ export default function UsuariosAdminPage() {
                   <span
                     className={`text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full ${
                       user.status === 'active'
-                        ? 'bg-[#E5F5E9] text-[#008200]'
+                        ? 'bg-[#E5F5E9] text-heineken-green'
                         : 'bg-gray-100 text-gray-500'
                     }`}
                   >
@@ -236,8 +236,8 @@ export default function UsuariosAdminPage() {
             <span className="text-sm text-gray-500">Mostrando 1 a {filtered.length} de {mockUsers.length}</span>
             <div className="flex items-center gap-2">
               <button className="px-3 py-1 text-sm font-medium text-gray-400 cursor-not-allowed">Anterior</button>
-              <button className="w-8 h-8 flex items-center justify-center bg-[#008200] text-white rounded-md text-sm font-medium">1</button>
-              <button className="px-3 py-1 text-sm font-medium text-[#008200] hover:bg-green-50 rounded-md transition-colors">Próxima</button>
+              <button className="w-8 h-8 flex items-center justify-center bg-heineken-green text-white rounded-md text-sm font-medium">1</button>
+              <button className="px-3 py-1 text-sm font-medium text-heineken-green hover:bg-green-50 rounded-md transition-colors">Próxima</button>
             </div>
           </div>
         )}
@@ -246,8 +246,8 @@ export default function UsuariosAdminPage() {
       {/* Dashboard Metric Section (Asymmetric) */}
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_288px] gap-6 pt-4">
         {/* Left Card: Growth */}
-        <div className="bg-[#006600] rounded-2xl p-10 relative overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.1),0_20px_25px_rgba(0,0,0,0.1)] flex flex-col justify-center min-h-[268px]">
-          <div className="absolute top-1/2 right-12 -translate-y-1/2 w-64 h-64 bg-[#008200] rounded-full blur-[64px] opacity-20 pointer-events-none" />
+        <div className="bg-heineken-dark rounded-2xl p-10 relative overflow-hidden shadow-[0_8px_20px_rgba(0,0,0,0.1),0_20px_25px_rgba(0,0,0,0.1)] flex flex-col justify-center min-h-[268px]">
+          <div className="absolute top-1/2 right-12 -translate-y-1/2 w-64 h-64 bg-heineken-green rounded-full blur-[64px] opacity-20 pointer-events-none" />
           <div className="absolute right-0 bottom-0 pointer-events-none select-none">
             <span className="font-serif font-black text-white/5 text-[96px] leading-none block translate-y-6">GROWTH</span>
           </div>
@@ -276,7 +276,7 @@ export default function UsuariosAdminPage() {
         {/* Right Card: Top Engajadores */}
         <div className="bg-[#E3E2E2] rounded-2xl border border-[#BECAB6]/20 p-8 flex flex-col justify-between shadow-sm min-h-[268px]">
           <div>
-            <Award className="text-[#008200] w-7 h-7 mb-4" />
+            <Award className="text-heineken-green w-7 h-7 mb-4" />
             <h4 className="text-[#1A1C1C] font-bold font-serif text-xl mb-2">Top Engajadores</h4>
             <p className="text-[#3F4A3A] text-sm leading-relaxed">
               Usuários com maior frequência de acesso nos últimos 7 dias.

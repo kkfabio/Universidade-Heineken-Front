@@ -1,3 +1,5 @@
 node_modules/
 .next/
 sp.md
+.kiro/
+.vscode/

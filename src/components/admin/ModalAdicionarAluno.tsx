@@ -36,9 +36,13 @@ export function ModalAdicionarAluno({ isOpen, onClose, onAdicionarAluno }: Props
         aria-modal="true"
       >
         {/* Red star decorator */}
-        <div className="absolute top-0 right-0 w-12 h-12 bg-[#AC1A00] flex items-center justify-center rounded-bl-2xl z-10 pointer-events-none">
+        <button
+          onClick={onClose}
+          aria-label="Fechar"
+          className="absolute top-0 right-0 w-12 h-12 bg-[#AC1A00] hover:bg-[#8B1400] flex items-center justify-center rounded-bl-2xl z-10 transition-colors cursor-pointer"
+        >
           <UserPlus size={18} className="text-white" />
-        </div>
+        </button>
 
         {/* Header */}
         <div className="px-8 pt-8 pb-6 border-b border-[#BECAB6]/30 flex items-start justify-between">

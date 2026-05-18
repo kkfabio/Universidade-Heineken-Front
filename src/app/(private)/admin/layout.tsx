@@ -6,16 +6,14 @@ import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 import { 
   LayoutDashboard, 
-  PlusCircle, 
   Users, 
-  TrendingUp, 
   GraduationCap, 
   Bot, 
   Zap, 
   LogOut, 
-  Bell,
   BookOpen
 } from 'lucide-react';
+import AdminTopbar from '@/components/admin/AdminTopbar';
 
 interface NavItem {
   href: string;
@@ -103,29 +101,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       {/* Main content */}
       <main className="flex-1 flex flex-col overflow-hidden">
         {/* Top bar */}
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0 shadow-sm">
-          <div>
-            <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wider">
-              Universidade Heineken
-            </h2>
-            <p className="text-xs text-gray-500">Painel Administrativo</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <button className="relative p-2 text-gray-500 hover:text-[#007042] transition-colors">
-              <Bell size={20} />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#FF2B00]" />
-            </button>
-            <div className="flex items-center gap-2.5 pl-4 border-l border-gray-200">
-              <div className="w-8 h-8 rounded-full bg-[#007042] flex items-center justify-center">
-                <span className="text-white font-bold text-xs">A</span>
-              </div>
-              <div className="leading-tight">
-                <p className="text-xs font-semibold text-gray-800">Admin</p>
-                <p className="text-[10px] text-gray-500">Instrutor</p>
-              </div>
-            </div>
-          </div>
-        </header>
+        <AdminTopbar />
 
         {/* Page content */}
         <div className="flex-1 overflow-y-auto">

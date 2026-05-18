@@ -1,20 +1,12 @@
 'use client';
 
-import Link from 'next/link';
+import { useState, useEffect, useRef } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { Users, BookOpen, GraduationCap, TrendingUp, BarChart2, MessageSquare, ArrowRight, FileText, Search } from 'lucide-react';
+import { ArrowRight, Search, AlertTriangle, Plus, Pencil, Trash2, X } from 'lucide-react';
+import Link from 'next/link';
+import * as Dialog from '@radix-ui/react-dialog';
 
 // --- Tipos --------------------------------------------------------------------
-
-interface StatCard {
-  title: string;
-  value: string | number;
-  subtitle: string;
-  icon: React.ReactNode;
-  color: string;
-  iconBg: string;
-  href: string;
-}
 
 interface RecentUser {
   id: string;
@@ -24,46 +16,35 @@ interface RecentUser {
   lastAccess: string;
 }
 
-// --- Mock Data -----------------------------------------------------------------
+interface InstructorProfile {
+  name: string;
+  email: string;
+  coursesCount: number;
+  studentsCount: number;
+}
 
-const statCards: StatCard[] = [
-  {
-    title: 'Usuários Ativos',
-    value: '1.248',
-    subtitle: '+12% este mês',
-    icon: <Users size={20} className="text-[#007042]" />,
-    color: 'text-gray-900',
-    iconBg: 'bg-green-50',
-    href: '/admin/usuarios',
-  },
-  {
-    title: 'Cursos Publicados',
-    value: 34,
-    subtitle: '3 novos esta semana',
-    icon: <BookOpen size={20} className="text-blue-600" />,
-    color: 'text-gray-900',
-    iconBg: 'bg-blue-50',
-    href: '/admin/cursos',
-  },
-  {
-    title: 'Certificados Emitidos',
-    value: '892',
-    subtitle: '+67 este mês',
-    icon: <GraduationCap size={20} className="text-purple-600" />,
-    color: 'text-gray-900',
-    iconBg: 'bg-purple-50',
-    href: '/admin/certificados',
-  },
-  {
-    title: 'Conclusão Média',
-    value: '74%',
-    subtitle: '+5% vs mês anterior',
-    icon: <TrendingUp size={20} className="text-orange-600" />,
-    color: 'text-gray-900',
-    iconBg: 'bg-orange-50',
-    href: '/admin/progresso',
-  },
-];
+interface CourseProgress {
+  id: string;
+  title: string;
+  weeklyAccesses: number;
+  completionRate: number; // 0–100
+}
+
+interface FeedPost {
+  id: string;
+  title: string;
+  body: string;
+  link?: string;
+  publishedAt: Date;
+}
+
+interface FeedPostFormData {
+  title: string;
+  body: string;
+  link: string;
+}
+
+// --- Mock Data -----------------------------------------------------------------
 
 const chartData = [
   { name: 'Seg', acessos: 120, conclusoes: 10 },
@@ -83,132 +64,458 @@ const recentUsers: RecentUser[] = [
   { id: '5', name: 'Bruno Alves', email: 'bruno.alves@heineken.com', progress: 12, lastAccess: '3 dias atrás' },
 ];
 
+const instructorProfile: InstructorProfile = {
+  name: 'João da Silva',
+  email: 'joao.silva@heineken.com',
+  coursesCount: 5,
+  studentsCount: 312,
+};
+
+const progressStats: CourseProgress[] = [
+  { id: '1', title: 'Cultura Cervejeira e Liderança', weeklyAccesses: 290, completionRate: 72 },
+  { id: '2', title: 'Segurança no Trabalho', weeklyAccesses: 185, completionRate: 41 },
+  { id: '3', title: 'Gestão de Equipes', weeklyAccesses: 134, completionRate: 58 },
+];
+
+const atRiskCount = 7;
+
+const initialPosts: FeedPost[] = [
+  {
+    id: '1',
+    title: 'Bem-vindos ao novo portal de treinamentos',
+    body: 'Estamos felizes em anunciar o lançamento da nova plataforma de aprendizado da Heineken. Aqui você encontrará todos os cursos, trilhas de desenvolvimento e certificações disponíveis para colaboradores.',
+    publishedAt: new Date('2025-01-15'),
+  },
+  {
+    id: '2',
+    title: 'Treinamento obrigatório: Segurança no Trabalho',
+    body: 'Lembramos que todos os colaboradores devem concluir o módulo de Segurança no Trabalho até o final do mês. O não cumprimento pode impactar sua avaliação de desempenho.',
+    link: 'https://heineken.com/seguranca',
+    publishedAt: new Date('2025-01-10'),
+  },
+];
+
+// --- Helpers ------------------------------------------------------------------
+
+function validateForm(data: FeedPostFormData): Partial<FeedPostFormData> {
+  const errors: Partial<FeedPostFormData> = {};
+  if (!data.title.trim()) errors.title = 'Título é obrigatório';
+  else if (data.title.length > 100) errors.title = 'Título deve ter no máximo 100 caracteres';
+  if (!data.body.trim()) errors.body = 'Conteúdo é obrigatório';
+  else if (data.body.length > 1000) errors.body = 'Conteúdo deve ter no máximo 1000 caracteres';
+  if (data.link && !/^https?:\/\/.+/.test(data.link)) errors.link = 'URL deve começar com http:// ou https://';
+  return errors;
+}
+
 // --- Page ----------------------------------------------------------------------
 
 export default function DashboardInstrutor() {
-  return (
-    <div className="p-8 space-y-12 max-w-[1280px] mx-auto w-full">
+  const [posts, setPosts] = useState<FeedPost[]>(initialPosts);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<FeedPost | null>(null);
+  const [deletingPostId, setDeletingPostId] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [formData, setFormData] = useState<FeedPostFormData>({ title: '', body: '', link: '' });
+  const [formErrors, setFormErrors] = useState<Partial<FeedPostFormData>>({});
+  const [isMounted, setIsMounted] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-      {/* Header - TopNavBar (Adjusted to Figma) */}
+  useEffect(() => {
+    setIsMounted(true);
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  function showSuccess(message: string) {
+    setSuccessMessage(message);
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setSuccessMessage(null), 3000);
+  }
+
+  function handleSubmit() {
+    const errors = validateForm(formData);
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    if (editingPost) {
+      setPosts(prev =>
+        prev.map(p =>
+          p.id === editingPost.id
+            ? { ...p, title: formData.title, body: formData.body, link: formData.link || undefined }
+            : p
+        )
+      );
+      showSuccess('Postagem atualizada com sucesso.');
+    } else {
+      const newPost: FeedPost = {
+        id: crypto.randomUUID(),
+        title: formData.title,
+        body: formData.body,
+        link: formData.link || undefined,
+        publishedAt: new Date(),
+      };
+      setPosts(prev => [newPost, ...prev]);
+      showSuccess('Postagem criada com sucesso.');
+    }
+    setIsModalOpen(false);
+    setEditingPost(null);
+    setFormData({ title: '', body: '', link: '' });
+    setFormErrors({});
+  }
+
+  function handleEdit(post: FeedPost) {
+    setEditingPost(post);
+    setFormData({ title: post.title, body: post.body, link: post.link ?? '' });
+    setFormErrors({});
+    setIsModalOpen(true);
+  }
+
+  function handleDeleteConfirm() {
+    if (!deletingPostId) return;
+    setPosts(prev => prev.filter(p => p.id !== deletingPostId));
+    setDeletingPostId(null);
+    showSuccess('Postagem removida com sucesso.');
+  }
+
+  function openNewPost() {
+    setEditingPost(null);
+    setFormData({ title: '', body: '', link: '' });
+    setFormErrors({});
+    setIsModalOpen(true);
+  }
+
+  return (
+    <div className="p-8 space-y-8 max-w-[1280px] mx-auto w-full">
+
+      {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-[#1A1C1C] font-serif">Painel do Instrutor</h1>
-        
         <div className="flex items-center gap-6">
-          {/* Search Input from Figma (Background: #EEEEEE) */}
           <div className="flex items-center bg-[#EEEEEE] rounded-full px-4 py-2 w-64">
             <Search size={18} className="text-gray-500 mr-2" />
-            <input 
-              type="text" 
-              placeholder="Buscar..." 
+            <input
+              type="text"
+              placeholder="Buscar..."
               className="bg-transparent border-none outline-none text-sm w-full text-gray-700 placeholder-gray-500"
             />
           </div>
         </div>
       </div>
 
-      {/* Hero Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-        {statCards.map((card) => (
-          <Link
-            key={card.title}
-            href={card.href}
-            className="group relative flex flex-col p-6 bg-white rounded-xl shadow-[0_4px_24px_rgba(0,34,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,34,0,0.08)] transition-all overflow-hidden"
-          >
-            <div className="flex items-start justify-between mb-8">
-              <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${card.iconBg}`}>
-                {card.icon}
-              </div>
-              <span className="text-xs font-semibold text-gray-400 group-hover:text-[#007042] transition-colors flex items-center gap-1">Ver detalhes <ArrowRight size={12} /></span>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">{card.title}</p>
-              <p className={`text-4xl font-black ${card.color}`}>{card.value}</p>
-              <p className="text-xs text-gray-400 mt-2 font-medium">{card.subtitle}</p>
-            </div>
-            {/* Overlay */}
-            <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#006600]/20 transition-all duration-300 group-hover:bg-[#007042]" />
-          </Link>
-        ))}
+      {/* Seção A — Perfil do Instrutor */}
+      <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,34,0,0.04)] p-6 flex items-center gap-6">
+        {/* Avatar */}
+        <div className="w-16 h-16 rounded-full bg-heineken-green flex items-center justify-center shrink-0">
+          <span className="text-white text-2xl font-black">
+            {instructorProfile.name ? instructorProfile.name.charAt(0).toUpperCase() : '?'}
+          </span>
+        </div>
+        {/* Info */}
+        <div className="flex-1 min-w-0">
+          <p className="text-lg font-bold text-gray-900 truncate">{instructorProfile.name || '—'}</p>
+          <p className="text-sm text-heineken-green font-semibold">Instrutor</p>
+          <p className="text-sm text-gray-500 truncate">{instructorProfile.email || '—'}</p>
+        </div>
+        {/* Divisor */}
+        <div className="w-px h-16 bg-gray-100 shrink-0" />
+        {/* Contadores */}
+        <div className="flex gap-8 shrink-0">
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-black text-heineken-green">{instructorProfile.coursesCount ?? 0}</span>
+            <span className="text-xs text-gray-500 text-center">cursos<br />gerenciados</span>
+          </div>
+          <div className="flex flex-col items-center">
+            <span className="text-2xl font-black text-heineken-green">{instructorProfile.studentsCount ?? 0}</span>
+            <span className="text-xs text-gray-500 text-center">alunos<br />matriculados</span>
+          </div>
+        </div>
       </div>
 
-      {/* Activity Chart & Asymmetric Section */}
+      {/* Grid — Seção B (Estatísticas) + Seção C (Feed) */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        
-        {/* Line Chart Placeholder Area */}
-        <div className="xl:col-span-2 bg-white rounded-xl shadow-[0_4px_24px_rgba(0,34,0,0.04)] p-8 flex flex-col min-h-[488px]">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-bold text-[#1A1C1C] text-lg">Atividade da Plataforma</h2>
-            <select className="text-sm bg-gray-50 border-none rounded-lg px-4 py-2 outline-none text-gray-600 font-semibold cursor-pointer">
-               <option>Últimos 7 dias</option>
-               <option>Últimos 30 dias</option>
-               <option>Este ano</option>
-            </select>
-          </div>
-          <div className="flex-1 w-full h-[280px] min-h-[280px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: -20 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F4F6" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 500 }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 500 }} dx={-10} />
-                <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 24px rgba(0,34,0,0.08)' }}
-                  cursor={{ stroke: '#E5E7EB', strokeWidth: 2, strokeDasharray: '5 5' }}
-                />
-                <Line type="monotone" name="Acessos" dataKey="acessos" stroke="#007042" strokeWidth={3} dot={{ r: 4, fill: '#007042', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6, fill: '#007042', stroke: '#fff', strokeWidth: 2 }} />
-                <Line type="monotone" name="Conclusões" dataKey="conclusoes" stroke="#3B82F6" strokeWidth={3} dot={{ r: 4, fill: '#3B82F6', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6, fill: '#3B82F6', stroke: '#fff', strokeWidth: 2 }} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
 
-        {/* Asymmetric Section Right Column (Bento Quick Access Grid) */}
-        <div className="flex flex-col gap-6">
-          
-          <h3 className="font-bold text-[#1A1C1C] text-sm">Funções Administrativas</h3>
-          
-          {/* 2x2 Grid for Admin Functions */}
-          <div className="grid grid-cols-2 gap-4 flex-1">
-            <Link href="/admin/usuarios" className="group flex flex-col items-center justify-center gap-3 p-6 rounded-xl bg-white shadow-[0_4px_24px_rgba(0,34,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,34,0,0.08)] text-gray-600 hover:text-[#007042] transition-all">
-              <Users size={24} className="text-[#007042] group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-semibold">Usuários</span>
-            </Link>
-            <Link href="/admin/progresso" className="group flex flex-col items-center justify-center gap-3 p-6 rounded-xl bg-white shadow-[0_4px_24px_rgba(0,34,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,34,0,0.08)] text-gray-600 hover:text-[#007042] transition-all">
-              <BarChart2 size={24} className="text-[#007042] group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-semibold">Relatórios</span>
-            </Link>
-            <Link href="/admin/certificados" className="group flex flex-col items-center justify-center gap-3 p-6 rounded-xl bg-white shadow-[0_4px_24px_rgba(0,34,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,34,0,0.08)] text-gray-600 hover:text-[#007042] transition-all">
-              <FileText size={24} className="text-[#007042] group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-semibold">Certificados</span>
-            </Link>
-            <Link href="/admin/ia-historico" className="group flex flex-col items-center justify-center gap-3 p-6 rounded-xl bg-white shadow-[0_4px_24px_rgba(0,34,0,0.04)] hover:shadow-[0_8px_32px_rgba(0,34,0,0.08)] text-gray-600 hover:text-[#007042] transition-all">
-              <MessageSquare size={24} className="text-[#007042] group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-semibold">Auditoria IA</span>
-            </Link>
-          </div>
+        {/* Seção B — Estatísticas de Progresso */}
+        <div className="xl:col-span-2 bg-white rounded-xl shadow-[0_4px_24px_rgba(0,34,0,0.04)] p-6 flex flex-col gap-4">
+          <h2 className="font-bold text-gray-900 text-lg">Estatísticas de Progresso</h2>
 
-          {/* Featured Course Overlap UI */}
-          <div className="relative rounded-xl overflow-hidden min-h-[148px] flex items-end p-6 group cursor-pointer bg-[#B3EEB1]">
-            <div className="absolute -right-6 -top-6 w-32 h-32 bg-white opacity-20 rounded-full blur-2xl z-0 transition-transform duration-500 group-hover:scale-110" />
-            
-            <div className="relative z-10 w-full flex items-center justify-between">
-              <div>
-                <p className="text-[#005a35] text-[10px] font-black uppercase tracking-widest mb-1.5 flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                  Destaque
-                </p>
-                <h3 className="text-[#007042] font-black leading-tight max-w-[160px] text-lg">Cultura Cervejeira e Liderança</h3>
-              </div>
-              <Link href="/admin/cursos/1" className="w-10 h-10 rounded-full bg-[#007042] hover:bg-[#005a35] text-white flex items-center justify-center transition-all shadow-md group-hover:scale-105">
-                <ArrowRight size={18} />
-              </Link>
+          {progressStats.length === 0 ? (
+            <p className="text-gray-500 text-sm">Nenhum acesso registrado nesta semana.</p>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {progressStats.map(course => (
+                <div
+                  key={course.id}
+                  className="flex items-center justify-between px-4 py-3 rounded-lg bg-heineken-light"
+                >
+                  <div className="flex-1 min-w-0 mr-4">
+                    <p className="text-sm font-semibold text-gray-800 truncate">{course.title}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">{course.weeklyAccesses} acessos esta semana</p>
+                  </div>
+                  <div className="flex items-center gap-1.5 shrink-0">
+                    {course.completionRate < 50 && (
+                      <AlertTriangle size={16} className="text-heineken-red" />
+                    )}
+                    <span
+                      className={`text-sm font-bold ${
+                        course.completionRate < 50 ? 'text-heineken-red' : 'text-heineken-green'
+                      }`}
+                    >
+                      {course.completionRate}%
+                    </span>
+                    <span className="text-xs text-gray-400">conclusão</span>
+                  </div>
+                </div>
+              ))}
             </div>
-          </div>
+          )}
 
+          {/* Card alunos em risco */}
+          {atRiskCount > 0 ? (
+            <Link
+              href="/admin/usuarios"
+              className="flex items-center justify-between bg-heineken-red text-white rounded-xl px-5 py-4 mt-2 hover:opacity-90 transition-opacity"
+            >
+              <div>
+                <span className="text-2xl font-black">{atRiskCount}</span>
+                <span className="text-sm font-semibold ml-2">alunos em risco</span>
+              </div>
+              <ArrowRight size={20} />
+            </Link>
+          ) : (
+            <div className="flex items-center justify-between bg-heineken-green text-white rounded-xl px-5 py-4 mt-2">
+              <div>
+                <span className="text-2xl font-black">0</span>
+                <span className="text-sm font-semibold ml-2">alunos em risco</span>
+              </div>
+            </div>
+          )}
         </div>
 
+        {/* Seção C — Feed da Empresa */}
+        <div className="xl:col-span-1 bg-white rounded-xl shadow-[0_4px_24px_rgba(0,34,0,0.04)] p-6 flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <h2 className="font-bold text-gray-900 text-lg">Feed da Empresa</h2>
+            <button
+              onClick={openNewPost}
+              className="flex items-center gap-1.5 bg-heineken-green text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-heineken-dark transition-colors"
+            >
+              <Plus size={14} />
+              Nova Postagem
+            </button>
+          </div>
+
+          {posts.length === 0 ? (
+            <div className="flex flex-col items-center justify-center gap-3 py-8 text-center">
+              <p className="text-gray-500 text-sm">Nenhuma postagem publicada ainda.</p>
+              <button
+                onClick={openNewPost}
+                className="flex items-center gap-1.5 bg-heineken-green text-white text-xs font-semibold px-3 py-2 rounded-lg hover:bg-heineken-dark transition-colors"
+              >
+                <Plus size={14} />
+                Nova Postagem
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3 overflow-y-auto max-h-[420px] pr-1">
+              {posts.map(post => (
+                <div
+                  key={post.id}
+                  className="border border-gray-100 rounded-lg p-4 flex flex-col gap-2 hover:shadow-sm transition-shadow"
+                >
+                  <div className="flex items-start justify-between gap-2">
+                    <p className="text-sm font-bold text-gray-900 leading-snug">{post.title}</p>
+                    <span className="text-xs text-gray-400 shrink-0">
+                      {post.publishedAt.toLocaleDateString('pt-BR')}
+                    </span>
+                  </div>
+                  <p className="text-xs text-gray-500 leading-relaxed">
+                    {post.body.length > 150 ? post.body.slice(0, 150) + '...' : post.body}
+                  </p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <button
+                      onClick={() => handleEdit(post)}
+                      className="flex items-center gap-1 text-xs font-semibold text-heineken-green hover:text-heineken-dark transition-colors"
+                    >
+                      <Pencil size={12} />
+                      Editar
+                    </button>
+                    <button
+                      onClick={() => setDeletingPostId(post.id)}
+                      className="flex items-center gap-1 text-xs font-semibold text-heineken-red hover:opacity-75 transition-opacity"
+                    >
+                      <Trash2 size={12} />
+                      Remover
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Recent Activity List (Divider-less) */}
+      {/* Modal de Criação/Edição */}
+      <Dialog.Root open={isModalOpen} onOpenChange={open => {
+        if (!open) {
+          setIsModalOpen(false);
+          setEditingPost(null);
+          setFormData({ title: '', body: '', link: '' });
+          setFormErrors({});
+        } else {
+          setIsModalOpen(true);
+        }
+      }}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/40 z-40" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-2xl shadow-2xl p-8 w-full max-w-lg flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <Dialog.Title className="text-lg font-bold text-gray-900">
+                {editingPost ? 'Editar Postagem' : 'Nova Postagem'}
+              </Dialog.Title>
+              <Dialog.Close asChild>
+                <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <X size={20} />
+                </button>
+              </Dialog.Close>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {/* Título */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-semibold text-gray-700">
+                  Título <span className="text-heineken-red">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={formData.title}
+                  onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder="Título da postagem"
+                  maxLength={100}
+                  className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-heineken-green transition-colors"
+                />
+                {formErrors.title && (
+                  <p className="text-xs text-heineken-red mt-1">{formErrors.title}</p>
+                )}
+              </div>
+
+              {/* Corpo */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-semibold text-gray-700">
+                  Conteúdo <span className="text-heineken-red">*</span>
+                </label>
+                <textarea
+                  value={formData.body}
+                  onChange={e => setFormData(prev => ({ ...prev, body: e.target.value }))}
+                  placeholder="Texto da postagem..."
+                  maxLength={1000}
+                  rows={5}
+                  className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-heineken-green transition-colors resize-none"
+                />
+                {formErrors.body && (
+                  <p className="text-xs text-heineken-red mt-1">{formErrors.body}</p>
+                )}
+              </div>
+
+              {/* Link */}
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-semibold text-gray-700">
+                  Link externo <span className="text-gray-400 font-normal">(opcional)</span>
+                </label>
+                <input
+                  type="url"
+                  value={formData.link}
+                  onChange={e => setFormData(prev => ({ ...prev, link: e.target.value }))}
+                  placeholder="https://..."
+                  className="border border-gray-200 rounded-lg px-4 py-2.5 text-sm outline-none focus:border-heineken-green transition-colors"
+                />
+                {formErrors.link && (
+                  <p className="text-xs text-heineken-red mt-1">{formErrors.link}</p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-3">
+              <Dialog.Close asChild>
+                <button className="px-5 py-2.5 text-sm font-semibold text-gray-600 hover:text-gray-800 transition-colors">
+                  Cancelar
+                </button>
+              </Dialog.Close>
+              <button
+                onClick={handleSubmit}
+                className="px-5 py-2.5 text-sm font-semibold bg-heineken-green text-white rounded-lg hover:bg-heineken-dark transition-colors"
+              >
+                {editingPost ? 'Salvar alterações' : 'Publicar'}
+              </button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      {/* Diálogo de Confirmação de Remoção */}
+      <Dialog.Root open={!!deletingPostId} onOpenChange={open => { if (!open) setDeletingPostId(null); }}>
+        <Dialog.Portal>
+          <Dialog.Overlay className="fixed inset-0 bg-black/40 z-40" />
+          <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 bg-white rounded-2xl shadow-2xl p-8 w-full max-w-sm flex flex-col gap-6">
+            <div className="flex items-center justify-between">
+              <Dialog.Title className="text-lg font-bold text-gray-900">Remover postagem</Dialog.Title>
+              <Dialog.Close asChild>
+                <button className="text-gray-400 hover:text-gray-600 transition-colors">
+                  <X size={20} />
+                </button>
+              </Dialog.Close>
+            </div>
+            <p className="text-sm text-gray-600">
+              Tem certeza que deseja remover esta postagem? Esta ação não pode ser desfeita.
+            </p>
+            <div className="flex items-center justify-end gap-3">
+              <Dialog.Close asChild>
+                <button className="px-5 py-2.5 text-sm font-semibold text-gray-600 hover:text-gray-800 transition-colors">
+                  Cancelar
+                </button>
+              </Dialog.Close>
+              <button
+                onClick={handleDeleteConfirm}
+                className="px-5 py-2.5 text-sm font-semibold bg-heineken-red text-white rounded-lg hover:opacity-90 transition-opacity"
+              >
+                Remover
+              </button>
+            </div>
+          </Dialog.Content>
+        </Dialog.Portal>
+      </Dialog.Root>
+
+      {/* Gráfico de Atividade da Plataforma */}
+      <div className="bg-white rounded-xl shadow-[0_4px_24px_rgba(0,34,0,0.04)] p-8 flex flex-col min-h-[488px] w-full">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="font-bold text-[#1A1C1C] text-lg">Atividade da Plataforma</h2>
+          <select className="text-sm bg-gray-50 border-none rounded-lg px-4 py-2 outline-none text-gray-600 font-semibold cursor-pointer">
+            <option>Últimos 7 dias</option>
+            <option>Últimos 30 dias</option>
+            <option>Este ano</option>
+          </select>
+        </div>
+        <div className="w-full" style={{ height: 280 }}>
+          {isMounted && (
+          <ResponsiveContainer width="100%" height={280}>
+            <LineChart data={chartData} margin={{ top: 5, right: 20, bottom: 5, left: -20 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F4F6" />
+              <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 500 }} dy={10} />
+              <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12, fontWeight: 500 }} dx={-10} />
+              <Tooltip
+                contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 24px rgba(0,34,0,0.08)' }}
+                cursor={{ stroke: '#E5E7EB', strokeWidth: 2, strokeDasharray: '5 5' }}
+              />
+              <Line type="monotone" name="Acessos" dataKey="acessos" stroke="#007042" strokeWidth={3} dot={{ r: 4, fill: '#007042', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6, fill: '#007042', stroke: '#fff', strokeWidth: 2 }} />
+              <Line type="monotone" name="Conclusões" dataKey="conclusoes" stroke="#3B82F6" strokeWidth={3} dot={{ r: 4, fill: '#3B82F6', strokeWidth: 2, stroke: '#fff' }} activeDot={{ r: 6, fill: '#3B82F6', stroke: '#fff', strokeWidth: 2 }} />
+            </LineChart>
+          </ResponsiveContainer>
+          )}
+        </div>
+      </div>
+
+      {/* Atividade Recente */}
       <div className="bg-[#F4F3F3] rounded-2xl p-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="font-bold text-[#1A1C1C] text-lg">Atividade Recente</h2>
@@ -242,7 +549,13 @@ export default function DashboardInstrutor() {
         </div>
       </div>
 
+      {/* Banner de sucesso */}
+      {successMessage && (
+        <div className="fixed bottom-6 right-6 bg-heineken-green text-white rounded-xl px-6 py-3 shadow-lg z-50 text-sm font-semibold">
+          {successMessage}
+        </div>
+      )}
+
     </div>
   );
 }
-

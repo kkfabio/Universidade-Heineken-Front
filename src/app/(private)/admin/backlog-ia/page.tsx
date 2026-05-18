@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   Bot, 
   Search, 
@@ -156,7 +156,7 @@ export default function BacklogIAPage() {
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto flex-1">
+          <div className="overflow-x-auto flex-1 min-w-0">
             <table className="w-full text-left border-collapse min-w-[700px]">
               <thead>
                 <tr className="bg-[#F8FAFC] border-b border-gray-100 text-[11px] uppercase tracking-wider text-gray-500 font-bold">

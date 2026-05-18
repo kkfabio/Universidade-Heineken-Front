@@ -1,9 +1,10 @@
 import { redirect } from 'next/navigation';
 
 interface Props {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
-export default function CourseDetailPage({ params }: Props) {
-  redirect(`/admin/cursos/${params.id}/informacao`);
+export default async function CourseDetailPage({ params }: Props) {
+  const { id } = await params;
+  redirect(`/admin/cursos/${id}/informacao`);
 }

@@ -100,7 +100,7 @@ export default function CourseEditLayout({ children }: { children: ReactNode }) 
             <div className="flex items-center gap-3 mt-1.5">
               <span className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full ${
                 curso.status === 'active'
-                  ? 'bg-[#E5F5E9] text-[#008200]'
+                  ? 'bg-[#E5F5E9] text-heineken-green'
                   : 'bg-gray-100 text-gray-500'
               }`}>
                 {curso.status === 'active' ? 'Ativo' : 'Rascunho'}

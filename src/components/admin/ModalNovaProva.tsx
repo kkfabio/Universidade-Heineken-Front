@@ -54,14 +54,16 @@ export function ModalNovaProva({ isOpen, onClose, provaExistente, onSalvar, tipo
     <Dialog.Root open={isOpen} onOpenChange={(open: boolean) => !open && onClose()}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-[#001D10]/40 backdrop-blur-sm z-50 transition-opacity" />
-        <Dialog.Content className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden z-50">
+        <Dialog.Content
+          aria-labelledby="modal-prova-title"
+          className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-3xl shadow-2xl w-full max-w-lg overflow-hidden z-50">
           
           <div className="bg-[#007042] px-6 py-5 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
                 <FileSpreadsheet className="text-white" size={20} />
               </div>
-              <Dialog.Title className="text-white font-serif font-bold text-lg">
+              <Dialog.Title id="modal-prova-title" className="text-white font-serif font-bold text-lg">
                 {provaExistente ? 'Editar Prova' : 'Nova Prova'}
                 <span className="block text-sm font-sans font-medium text-white/80">
                   {tipoProva === 'modulo' ? 'Prova de Conclusão do Módulo' : 'Prova Final do Curso'}

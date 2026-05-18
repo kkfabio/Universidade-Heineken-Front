@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Search, PlusCircle, ChevronDown, BookOpen, Clock, Tag, BarChart, CheckCircle2, ChevronRight, Edit, Trash2, LayoutList, Layers, SlidersHorizontal } from 'lucide-react';
+import { Search, PlusCircle, ChevronDown, BookOpen, Clock, Tag, BarChart, CheckCircle2, Edit, Trash2, LayoutList, Layers, SlidersHorizontal } from 'lucide-react';
 import { ModalNovoCurso } from '@/components/admin/ModalNovoCurso';
 
 // --- Types --------------------------------------------------------------------
@@ -92,7 +92,7 @@ function CourseAccordionItem({ course }: { course: Course }) {
 
          {/* Actions & Status */}
          <div className="flex items-center gap-6 self-end md:self-auto">
-            <span className={`text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm ${course.status === 'active' ? 'bg-[#E5F5E9] text-[#008200]' : 'bg-gray-100 text-gray-500'}`}>
+            <span className={`text-[11px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-sm ${course.status === 'active' ? 'bg-[#E5F5E9] text-heineken-green' : 'bg-gray-100 text-gray-500'}`}>
               {course.status === 'active' ? 'Ativo' : 'Rascunho'}
             </span>
             <div className={`w-10 h-10 rounded-full flex items-center justify-center bg-gray-50 group-hover:bg-[#007042]/10 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
@@ -190,11 +190,6 @@ export default function CursosAdminPage() {
       {/* Breadcrumbs & Editorial Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <div className="flex items-center gap-2 text-sm font-medium text-gray-500 mb-4">
-             <span className="hover:text-[#007042] cursor-pointer transition-colors">Painel Admin</span>
-             <ChevronRight size={14} className="text-gray-400" />
-             <span className="text-[#1A1C1C] font-bold">Cursos</span>
-          </div>
           <h1 className="text-4xl font-black font-serif text-[#1A1C1C] tracking-tight">Gestão de Cursos</h1>
           <p className="text-base text-gray-500 mt-2 font-medium max-w-xl">
             Crie, estruture e gerencie as trilhas de aprendizagem da Universidade Heineken.
@@ -202,7 +197,7 @@ export default function CursosAdminPage() {
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="flex items-center justify-center gap-2 bg-[#028202] hover:bg-[#026c02] text-white text-sm font-bold px-8 py-3.5 rounded-xl transition-all shadow-[0_8px_24px_rgba(2,130,2,0.25)] hover:shadow-[0_12px_28px_rgba(2,130,2,0.35)] hover:-translate-y-0.5"
+          className="flex items-center justify-center gap-2 bg-heineken-green hover:bg-heineken-dark text-white text-sm font-bold px-8 py-3.5 rounded-xl transition-all shadow-[0_8px_24px_rgba(0,112,66,0.25)] hover:shadow-[0_12px_28px_rgba(0,112,66,0.35)] hover:-translate-y-0.5"
         >
           <PlusCircle size={20} />
           Novo Curso
@@ -211,7 +206,7 @@ export default function CursosAdminPage() {
 
       {/* Action Bar (Filters) */}
       <div className="bg-[#F4F3F3] rounded-2xl flex flex-col sm:flex-row items-center p-4 sm:p-6 gap-4">
-        <div className="flex-1 w-full bg-white rounded-xl flex items-center px-4 py-3.5 border border-transparent focus-within:border-[#008200] transition-colors shadow-sm">
+        <div className="flex-1 w-full bg-white rounded-xl flex items-center px-4 py-3.5 border border-transparent focus-within:border-heineken-green transition-colors shadow-sm">
           <Search size={20} className="text-[#6B7280] mr-3 shrink-0" />
           <input
             type="text"
@@ -223,12 +218,12 @@ export default function CursosAdminPage() {
         </div>
         <div className="flex items-center gap-3 w-full sm:w-auto shrink-0 overflow-x-auto pb-2 sm:pb-0">
           <button className="flex items-center gap-2 bg-white px-5 py-3.5 rounded-xl text-sm font-bold text-[#1A1C1C] hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all shadow-sm whitespace-nowrap">
-            <CheckCircle2 size={18} className="text-[#008200]" />
+            <CheckCircle2 size={18} className="text-heineken-green" />
             Status: Todos
             <ChevronDown size={16} className="text-gray-400 ml-1" />
           </button>
           <button className="flex items-center gap-2 bg-white px-5 py-3.5 rounded-xl text-sm font-bold text-[#1A1C1C] hover:bg-gray-50 border border-transparent hover:border-gray-200 transition-all shadow-sm whitespace-nowrap">
-            <Tag size={18} className="text-[#008200]" />
+            <Tag size={18} className="text-heineken-green" />
             Categoria: Todas
             <ChevronDown size={16} className="text-gray-400 ml-1" />
           </button>

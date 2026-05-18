@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { 
@@ -82,7 +81,7 @@ export default function Sidebar() {
           Configurações
         </Link>
         <Link 
-          href="/login" 
+          href="/" 
           className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-300 hover:bg-red-900/20 hover:text-red-200 transition-all duration-200"
         >
           <LogOut size={18} />

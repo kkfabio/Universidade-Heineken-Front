@@ -21,7 +21,7 @@ const INITIAL_ALUNOS: AlunosCurso[] = [
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function StatusBadge({ status }: { status: AlunosCurso['status'] }) {
   const map = {
-    concluido: { label: 'Concluído', cls: 'bg-[#E5F5E9] text-[#008200]' },
+    concluido: { label: 'Concluído', cls: 'bg-[#E5F5E9] text-heineken-green' },
     ativo:     { label: 'Em Andamento', cls: 'bg-blue-50 text-blue-700' },
     inativo:   { label: 'Inativo',   cls: 'bg-gray-100 text-gray-500'   },
   } as const;

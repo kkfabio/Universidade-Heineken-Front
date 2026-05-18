@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import * as Switch from '@radix-ui/react-switch';
-import { Star, ChevronDown, User, Mail, Key, Briefcase, CheckCircle2 } from 'lucide-react';
+import { Star, ChevronDown, User, Mail, Key, Briefcase, CheckCircle2, Eye, EyeOff } from 'lucide-react';
 
 interface ModalNovoUsuarioProps {
   isOpen: boolean;
@@ -10,6 +10,8 @@ interface ModalNovoUsuarioProps {
 }
 
 export function ModalNovoUsuario({ isOpen, onClose }: ModalNovoUsuarioProps) {
+  const [senhaVisivel, setSenhaVisivel] = React.useState(false);
+
   if (!isOpen) return null;
 
   return (
@@ -28,9 +30,13 @@ export function ModalNovoUsuario({ isOpen, onClose }: ModalNovoUsuarioProps) {
         aria-labelledby="modal-title"
       >
         {/* Red Star Decorator (Heritage Branding) */}
-        <div className="absolute top-0 right-0 w-14 h-14 bg-[#AC1A00] flex items-center justify-center rounded-bl-2xl shadow-sm z-10 pointer-events-none">
+        <button
+          onClick={onClose}
+          aria-label="Fechar"
+          className="absolute top-0 right-0 w-14 h-14 bg-[#AC1A00] hover:bg-[#8B1400] flex items-center justify-center rounded-bl-2xl shadow-sm z-10 transition-colors cursor-pointer"
+        >
           <Star className="text-white fill-white" size={24} />
-        </div>
+        </button>
 
         {/* Content Container */}
         <div className="flex-1 overflow-y-auto p-10 pb-14 space-y-8">
@@ -83,12 +89,20 @@ export function ModalNovoUsuario({ isOpen, onClose }: ModalNovoUsuarioProps) {
                   <Key size={14} />
                   Senha Temporária
                 </label>
-                <div className="bg-[#F4F4F4] rounded-lg px-4 py-[15px] focus-within:ring-2 focus-within:ring-[#007042] transition-shadow">
+                <div className="bg-[#F4F4F4] rounded-lg px-4 py-[15px] focus-within:ring-2 focus-within:ring-[#007042] transition-shadow flex items-center gap-2">
                   <input 
-                    type="text" 
+                    type={senhaVisivel ? 'text' : 'password'}
                     placeholder="Gerar automaticamente"
                     className="w-full bg-transparent outline-none text-[#1A1C1C] placeholder-[#6F7B69] font-medium text-base"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setSenhaVisivel(v => !v)}
+                    className="text-[#6F7B69] hover:text-[#1A1C1C] transition-colors shrink-0"
+                    aria-label={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'}
+                  >
+                    {senhaVisivel ? <EyeOff size={16} /> : <Eye size={16} />}
+                  </button>
                 </div>
               </div>
 
