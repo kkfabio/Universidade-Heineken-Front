@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { Eye, Download } from "lucide-react"
-// CORRIGIDO: Agora aponta para o caminho correto usando o alias da raiz
 import { Button } from "@/components/ui/button"
 
 interface CertificateCardProps {

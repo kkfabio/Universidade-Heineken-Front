@@ -7,23 +7,20 @@ interface SettingSectionProps {
   title: string
   icon: LucideIcon
   children: React.ReactNode
-  isDark?: boolean
 }
 
-export function SettingSection({ title, icon: Icon, children, isDark }: SettingSectionProps) {
+export function SettingSection({ title, icon: Icon, children }: SettingSectionProps) {
   return (
-    <div className={`p-8 rounded-[32px] shadow-[0_4px_20px_rgba(0,0,0,0.05)] border transition-all ${
-      isDark ? "bg-[#1A1A1A] border-slate-800" : "bg-white border-slate-50"
-    }`}>
-      <div className="flex items-center gap-3 mb-8">
-        <div className="p-2 bg-[#007041]/10 rounded-lg">
-          <Icon className="h-6 w-6 text-[#007041]" strokeWidth={2} />
+    <div className="bg-white rounded-[32px] p-8 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:border-[#007041]/10 transition-all space-y-6">
+      <div className="flex items-center gap-4 pb-4 border-b border-slate-50">
+        <div className="p-3 bg-[#007041]/5 rounded-2xl text-[#007041]">
+          <Icon className="h-6 w-6" strokeWidth={2} />
         </div>
-        <h3 className={`text-2xl font-bold tracking-tight ${isDark ? "text-white" : "text-[#1A1A1A]"}`}>
-          {title}
-        </h3>
+        <div>
+          <h2 className="text-xl font-black text-slate-800 tracking-tight">{title}</h2>
+        </div>
       </div>
-      <div className="space-y-6">
+      <div className="pt-2">
         {children}
       </div>
     </div>

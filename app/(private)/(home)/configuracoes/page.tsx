@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useState } from "react"
 import { 
-  Bell, Lock, ShieldCheck, Globe, HelpCircle, FileText, Headphones, Star 
+  Bell, Lock, ShieldCheck, HelpCircle, FileText, Headphones, Star 
 } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
@@ -32,35 +32,39 @@ export default function SettingsPage() {
         <div className="lg:col-span-8 space-y-10">
           
           {/* Notificações */}
-          <SettingSection title="Notificações" icon={Bell} isDark={darkMode}>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-[#007041]/30 transition-colors">
-                <div>
-                  <p className="font-bold text-slate-900">Notificações por E-mail</p>
-                  <p className="text-xs text-slate-400">Alertas de cursos e certificados</p>
+          <SettingSection title="Notificações" icon={Bell}>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-[#007041]/30 transition-colors">
+                  <div>
+                    <p className="font-bold text-slate-900">Notificações por E-mail</p>
+                    <p className="text-xs text-slate-400">Alertas de cursos e certificados</p>
+                  </div>
+                  <Switch defaultChecked className="data-[state=checked]:bg-[#007041]" />
                 </div>
-                <Switch defaultChecked className="data-[state=checked]:bg-[#007041]" />
-              </div>
-              <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-[#007041]/30 transition-colors">
-                <div>
-                  <p className="font-bold text-slate-900">Push no Navegador</p>
-                  <p className="text-xs text-slate-400">Lembretes de aulas ao vivo</p>
+                <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-[#007041]/30 transition-colors">
+                  <div>
+                    <p className="font-bold text-slate-900">Push no Navegador</p>
+                    <p className="text-xs text-slate-400">Lembretes de aulas ao vivo</p>
+                  </div>
+                  <Switch defaultChecked className="data-[state=checked]:bg-[#007041]" />
                 </div>
-                <Switch defaultChecked className="data-[state=checked]:bg-[#007041]" />
               </div>
-            </div>
-            <div className="flex items-center justify-between p-6 bg-[#007041]/5 border-l-4 border-[#007041] rounded-r-2xl">
-              <div>
-                <p className="font-bold text-[#007041]">Newsletter Corporate Excellence</p>
-                <p className="text-xs text-slate-400">Insights mensais sobre liderança global</p>
+              <div className="flex items-center justify-between p-6 bg-[#007041]/5 border-l-4 border-[#007041] rounded-r-2xl">
+                <div>
+                  <p className="font-bold text-[#007041]">Newsletter Corporate Excellence</p>
+                  <p className="text-xs text-slate-400">Insights mensais sobre liderança global</p>
+                </div>
+                <Switch className="data-[state=checked]:bg-[#007041]" />
               </div>
-              <Switch className="data-[state=checked]:bg-[#007041]" />
             </div>
           </SettingSection>
 
           {/* Segurança e Privacidade */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <SettingSection title="Alterar Senha" icon={Lock} isDark={darkMode}>
+            
+            {/* Alterar Senha */}
+            <SettingSection title="Alterar Senha" icon={Lock}>
               <div className="space-y-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Senha Atual</label>
@@ -84,19 +88,23 @@ export default function SettingsPage() {
               </div>
             </SettingSection>
 
-            <SettingSection title="Privacidade" icon={ShieldCheck} isDark={darkMode}>
-              <p className="text-sm text-slate-500 mb-2 font-medium">Controle seus dados de progresso.</p>
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <span className="text-sm font-bold text-slate-700">Perfil visível na Wiki</span>
-                  <input type="checkbox" defaultChecked className="accent-[#007041] h-5 w-5" />
-                </div>
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <span className="text-sm font-bold text-slate-700">Compartilhar rankings</span>
-                  <input type="checkbox" className="accent-[#007041] h-5 w-5" />
+            {/* Privacidade */}
+            <SettingSection title="Privacidade" icon={ShieldCheck}>
+              <div className="space-y-4">
+                <p className="text-sm text-slate-500 font-medium">Controle seus dados de progresso.</p>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <span className="text-sm font-bold text-slate-700">Perfil visível na Wiki</span>
+                    <input type="checkbox" defaultChecked className="accent-[#007041] h-5 w-5" />
+                  </div>
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
+                    <span className="text-sm font-bold text-slate-700">Compartilhar rankings</span>
+                    <input type="checkbox" className="accent-[#007041] h-5 w-5" />
+                  </div>
                 </div>
               </div>
             </SettingSection>
+
           </div>
         </div>
 
@@ -143,6 +151,7 @@ export default function SettingsPage() {
                ))}
              </ul>
           </div>
+
         </div>
       </div>
     </div>
