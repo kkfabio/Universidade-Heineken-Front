@@ -24,10 +24,26 @@ const inProgressCourses = [
 ];
 
 const notStartedCourses = [
-  "Sustentabilidade 2030",
-  "Vendas Avançadas",
-  "Inovação Digital",
-  "Qualidade do Produto",
+  {
+    id: "curso-01",
+    title: "Sustentabilidade 2030",
+    image: "/images/cursos/sustentabilidade.jpg",
+  },
+  {
+    id: "curso-02",
+    title: "Vendas Avançadas",
+    image: "/images/cursos/vendas.jpg",
+  },
+  {
+    id: "curso-03",
+    title: "Inovação Digital",
+    image: "/images/cursos/inovacao.jpg",
+  },
+  {
+    id: "curso-04",
+    title: "Qualidade do Produto",
+    image: "/images/cursos/qualidade.jpg",
+  },
 ];
 
 const completedCourses = [
@@ -160,28 +176,24 @@ export default function CursosPage() {
 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 {notStartedCourses.map((course) => (
-                  <article
-                    key={course}
-                    className="h-full rounded-[20px] border border-black/5 bg-white p-4 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md"
-                  >
+                  <article key={course.id}>
                     <img
-                    src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=400&q=80"
-                    alt="Capa do curso"
-                    className="h-28 w-full rounded-[16px] object-cover"
+                      src={course.image}
+                      alt={course.title}
+                      className="h-40 w-full rounded-[16px] object-cover"
                     />
+                
                     <h3 className="mt-4 text-base font-semibold text-neutral-900">
-                      {course}
+                      {course.title}
                     </h3>
-                    <p className="mt-2 text-sm text-neutral-500">
-                      Disponível para começar
-                    </p>
-                    
+                
                     <Link
-                      href="/cursos/curso-01"
-                      className="mt-4 inline-flex items-center justify-center rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition duration-200 hover:bg-[#d8ebdf] hover:text-[#08461f] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5D2A] focus-visible:ring-offset-2"
-                    >
-                      Ver curso
-                    </Link>
+                     href={`/cursos/${course.id}`}
+                     className="mt-4 inline-flex items-center justify-center rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition duration-200 hover:bg-[#d8ebdf] hover:text-[#08461f] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5D2A] focus-visible:ring-offset-2"
+                   >
+                     Ver curso
+                      <span aria-hidden="true">→</span>
+                   </Link>
                   </article>
                 ))}
               </div>

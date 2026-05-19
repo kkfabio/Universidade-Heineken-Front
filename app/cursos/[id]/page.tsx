@@ -19,6 +19,8 @@ const courseData: Record<
     lessons: string;
     description: string;
     content: string[];
+    certificateImage: string;
+    videoUrl: string;
   }
 > = {
   "curso-01": {
@@ -36,6 +38,8 @@ const courseData: Record<
       "A Arte da Fermentação Controlada",
       "Filtragem e Envase Sustentável",
     ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/G1nb0T3Cnss?si=gp7bMU4rB09_RFd0",
   },
   "curso-02": {
     title: "Cultura Heineken e Jornada Institucional",
@@ -52,6 +56,8 @@ const courseData: Record<
       "Rituais e Colaboração",
       "Visão de Futuro",
     ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/TSuK4pbL_tM?si=-N4I-tWLAMGt_Ajf",
   },
 };
 
@@ -176,9 +182,14 @@ export default function CourseDetailsPage({ params }: CoursePageProps) {
                     nossa jornada educacional.
                   </p>
 
-                  <button className="mt-6 w-full rounded-2xl bg-[#0B5D2A] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#094a22]">
+                  <a
+                    href={course.videoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-[#0B5D2A] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#094a22]"
+                  >
                     Iniciar Curso
-                  </button>
+                  </a>
                 </div>
 
                 <div className="rounded-[28px] border border-black/5 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md">
@@ -187,9 +198,9 @@ export default function CourseDetailsPage({ params }: CoursePageProps) {
                   </p>
 
                   <img
-                  src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=600&q=80"
-                  alt="Certificado ilustrativo"
-                  className="mt-4 h-[180px] w-full rounded-[20px] object-cover"
+                    src={course.certificateImage}
+                    alt={`Certificado do curso ${course.title}`}
+                    className="mt-4 h-[180px] w-full rounded-[20px] object-cover"
                   />
 
                   <p className="mt-4 text-sm leading-6 text-neutral-500">
