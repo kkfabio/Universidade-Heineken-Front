@@ -1,12 +1,6 @@
 import Link from "next/link";
 import { Topbar } from "@/components/layout/Topbar";
 
-type CoursePageProps = {
-  params: {
-    id: string;
-  };
-};
-
 const courseData: Record<
   string,
   {
@@ -20,6 +14,8 @@ const courseData: Record<
     content: string[];
     certificateImage: string;
     videoUrl: string;
+    status: "not-started" | "in-progress" | "completed";
+    actionLabel: string;
   }
 > = {
   "curso-01": {
@@ -39,6 +35,8 @@ const courseData: Record<
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/G1nb0T3Cnss?si=gp7bMU4rB09_RFd0",
+    status: "not-started",
+    actionLabel: "Iniciar Curso",
   },
   "curso-02": {
     title: "Cultura Heineken e Jornada Institucional",
@@ -57,11 +55,189 @@ const courseData: Record<
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/TSuK4pbL_tM?si=-N4I-tWLAMGt_Ajf",
+    status: "not-started",
+    actionLabel: "Iniciar Curso",
   },
+
+  "curso-03": {
+    title: "Inovação Digital",
+    category: "Transformação Digital",
+    duration: "7 Horas",
+    modules: "4 Capítulos",
+    level: "Intermediário",
+    lessons: "14 Vídeos",
+    description:
+      "Curso voltado à digitalização de processos, inovação aplicada e uso estratégico de tecnologia no ambiente corporativo.",
+    content: [
+      "Cultura de Inovação",
+      "Ferramentas Digitais",
+      "Automação de Processos",
+      "Transformação no Ambiente de Trabalho",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/-SSDHhsxPtM?si=VJyRAJqoPdgP9YyC",
+    status: "not-started",
+    actionLabel: "Iniciar Curso",
+  },
+  
+  "curso-04": {
+    title: "Qualidade do Produto",
+    category: "Qualidade",
+    duration: "6 Horas",
+    modules: "4 Capítulos",
+    level: "Intermediário",
+    lessons: "12 Vídeos",
+    description:
+      "Curso focado em controle de qualidade, conformidade e padronização de processos para excelência do produto final.",
+    content: [
+      "Padrões de Qualidade",
+      "Controle e Inspeção",
+      "Boas Práticas",
+      "Melhoria Contínua",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/yn-hA6hQNDs?si=VMbQ8t7LeZpWlWG9",
+    status: "not-started",
+    actionLabel: "Iniciar Curso",
+  },
+
+  "curso-05": {
+    title: "Logística e Operações",
+    category: "Operações",
+    duration: "8 Horas",
+    modules: "4 Capítulos",
+    level: "Intermediário",
+    lessons: "12 Vídeos",
+    description:
+      "Curso voltado à organização de processos logísticos, controle operacional e melhoria da eficiência no fluxo de trabalho.",
+    content: [
+      "Fundamentos da Logística",
+      "Planejamento Operacional",
+      "Controle de Estoque e Distribuição",
+      "Indicadores de Eficiência",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/JRBK_0UYz48?si=-wEZASAS8nHL-iDb",
+    status: "in-progress",
+    actionLabel: "Continuar Curso",
+  },
+
+  "curso-06": {
+    title: "Estratégias de Marketing",
+    category: "Marketing",
+    duration: "6 Horas",
+    modules: "4 Capítulos",
+    level: "Intermediário",
+    lessons: "10 Vídeos",
+    description:
+      "Curso focado em posicionamento de marca, campanhas estratégicas e ações de comunicação voltadas para resultados.",
+    content: [
+      "Fundamentos do Marketing",
+      "Posicionamento e Público-Alvo",
+      "Planejamento de Campanhas",
+      "Métricas e Desempenho",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/CcxRFJY-0ZU?si=Lnaou66ED3kTC4CN",
+    status: "in-progress",
+    actionLabel: "Continuar Curso",
+  },
+
+  "curso-07": {
+    title: "Liderança de Equipes",
+    category: "Liderança",
+    duration: "7 Horas",
+    modules: "5 Capítulos",
+    level: "Intermediário",
+    lessons: "11 Vídeos",
+    description:
+      "Curso desenvolvido para fortalecer competências de liderança, comunicação, gestão de pessoas e tomada de decisão.",
+    content: [
+      "Perfil do Líder",
+      "Comunicação com a Equipe",
+      "Gestão de Conflitos",
+      "Tomada de Decisão",
+      "Desenvolvimento de Times",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/IddGRxARTdA?si=V90Q3tzY3drjjgCN",
+    status: "in-progress",
+    actionLabel: "Continuar Curso",
+  },
+
+  "curso-08": {
+    title: "Segurança do Trabalho",
+    category: "Segurança",
+    duration: "6 Horas",
+    modules: "4 Capítulos",
+    level: "Intermediário",
+    lessons: "10 Vídeos",
+    description:
+      "Curso voltado à prevenção de riscos, boas práticas no ambiente corporativo e fortalecimento da cultura de segurança nas operações.",
+    content: [
+      "Fundamentos de Segurança do Trabalho",
+      "Identificação de Riscos",
+      "Uso Correto de EPIs",
+      "Prevenção e Conduta em Situações de Incidente",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/J8d5DH0yDpk?si=SDCw84dKG7P7okXz",
+    status: "completed",
+    actionLabel: "Revisar Curso",
+  },
+  
+  "curso-09": {
+    title: "Ética e Compliance",
+    category: "Compliance",
+    duration: "5 Horas",
+    modules: "4 Capítulos",
+    level: "Intermediário",
+    lessons: "9 Vídeos",
+    description:
+      "Curso desenvolvido para reforçar princípios éticos, condutas esperadas, transparência e conformidade nas relações internas e externas da organização.",
+    content: [
+      "Princípios de Ética Corporativa",
+      "Código de Conduta",
+      "Compliance e Responsabilidade",
+      "Boas Práticas no Ambiente Profissional",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/2BDpJ6UMXb4?si=xGXvwErnXDDCa4i8",
+    status: "completed",
+    actionLabel: "Revisar Curso",
+  },
+  
+  "curso-10": {
+    title: "Onboarding Global",
+    category: "Integração",
+    duration: "4 Horas",
+    modules: "3 Capítulos",
+    level: "Iniciante",
+    lessons: "8 Vídeos",
+    description:
+      "Curso de integração criado para apresentar a cultura organizacional, os fluxos internos e os principais direcionamentos para novos colaboradores.",
+    content: [
+      "Boas-vindas e Visão da Empresa",
+      "Estrutura, Cultura e Processos",
+      "Primeiros Passos na Jornada do Colaborador",
+    ],
+    certificateImage: "/images/cursos/certificado-1.jpg",
+    videoUrl: "https://youtu.be/NV95U70ibhU?si=8uKV5DDmFcgyx0Dr",
+    status: "completed",
+    actionLabel: "Revisar Curso",
+  },
+
 };
 
-export default function CourseDetailsPage({ params }: CoursePageProps) {
-  const course = courseData[params.id] ?? courseData["curso-01"];
+type CoursePageProps = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
+export default async function CourseDetailsPage({ params }: CoursePageProps) {
+  const { id } = await params;
+  const course = courseData[id] ?? courseData["curso-01"];
 
   return (
     <div className="flex min-h-screen bg-[#F4F4F1] text-neutral-900">
@@ -84,8 +260,20 @@ export default function CourseDetailsPage({ params }: CoursePageProps) {
                   {course.title}
                 </h1>
 
-                <div className="mt-5 inline-flex rounded-full bg-[#F7C948] px-4 py-2 text-sm font-semibold text-[#3E2A00]">
-                  ⏳ Pendente — você ainda não iniciou este curso
+                <div
+                  className={`mt-5 inline-flex rounded-full px-4 py-2 text-sm font-semibold ${
+                    course.status === "completed"
+                      ? "bg-[#E8F3EC] text-[#0B5D2A]"
+                      : course.status === "in-progress"
+                      ? "bg-[#E8F3EC] text-[#0B5D2A]"
+                      : "bg-[#F7C948] text-[#3E2A00]"
+                  }`}
+                >
+                  {course.status === "completed"
+                    ? "✅ Concluído — você já finalizou este curso"
+                    : course.status === "in-progress"
+                    ? "📘 Em andamento — continue sua jornada"
+                    : "⏳ Pendente — você ainda não iniciou este curso"}
                 </div>
               </div>
             </div>
@@ -187,7 +375,7 @@ export default function CourseDetailsPage({ params }: CoursePageProps) {
                     rel="noopener noreferrer"
                     className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-[#0B5D2A] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#094a22]"
                   >
-                    Iniciar Curso
+                    {course.actionLabel}
                   </a>
                 </div>
 

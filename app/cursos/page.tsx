@@ -7,19 +7,36 @@ const featuredCourses = [
     title: "Beer Expert",
     subtitle: "Aprendizado Avançado",
     action: "Iniciar Módulo",
+    image: "/images/cursos/beer-expert.jpg",
   },
   {
     id: "curso-02",
     title: "Cultura Heineken",
     subtitle: "Trilha Institucional",
     action: "Continuar",
+    image: "/images/cursos/destaque-cultura.jpg",
   },
 ];
 
 const inProgressCourses = [
-  "Logística e Operações",
-  "Estratégias de Marketing",
-  "Liderança de Equipes",
+  {
+    id: "curso-05",
+    title: "Logística e Operações",
+    image: "/images/cursos/logistica.jpg",
+    progress: "65%",
+  },
+  {
+    id: "curso-06",
+    title: "Estratégias de Marketing",
+    image: "/images/cursos/marketing.jpg",
+    progress: "40%",
+  },
+  {
+    id: "curso-07",
+    title: "Liderança de Equipes",
+    image: "/images/cursos/lideranca.jpg",
+    progress: "40%",
+  },
 ];
 
 const notStartedCourses = [
@@ -46,9 +63,24 @@ const notStartedCourses = [
 ];
 
 const completedCourses = [
-  "Segurança do Trabalho",
-  "Ética e Compliance",
-  "Onboarding Global",
+  {
+    id: "curso-08",
+    title: "Segurança do Trabalho",
+    image: "/images/cursos/seguranca.jpg",
+    status: "Concluído",
+  },
+  {
+    id: "curso-09",
+    title: "Ética e Compliance",
+    image: "/images/cursos/etica.jpg",
+    status: "Concluído",
+  },
+  {
+    id: "curso-10",
+    title: "Onboarding Global",
+    image: "/images/cursos/onboarding.jpg",
+    status: "Concluído",
+  },
 ];
 
 export default function CursosPage() {
@@ -85,39 +117,49 @@ export default function CursosPage() {
                   Ver todos →
                 </button>
               </div>
+            </div>
 
               <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-               {featuredCourses.map((course, index) => (
-                 <article
+                {featuredCourses.map((course) => (
+                  <article
                     key={course.id}
-                   className={`overflow-hidden rounded-[24px] p-6 text-white transition duration-200 hover:-translate-y-1 hover:shadow-md ${
-                   index === 0 ? "bg-[#116B3A]" : "bg-[#6E7C3A]"
-                    }`}
-                   >
-                   <span className="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide">
-                      Curso em destaque
-                   </span>
-
-                   <div className="mt-12">
-                     <h3 className="text-2xl font-bold">{course.title}</h3>
-
-                     <p className="mt-2 text-sm text-white/80">
-                        {course.subtitle}
-                     </p>
-
-                     <Link
-                       href={`/cursos/${course.id}`}
-                       className="mt-6 inline-block rounded-full bg-white px-4 py-2 transition hover:bg-[#F3F6F0]"
-                       >
-                       <span className="block text-sm font-semibold text-[#0B5D2A]">
-                         Ver curso
-                       </span>
-                     </Link>
+                    className="relative overflow-hidden rounded-[24px] text-white transition duration-200 hover:-translate-y-1 hover:shadow-md"
+                  >
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+              
+                    <div className="absolute inset-0 bg-black/40" />
+              
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-transparent" />
+              
+                    <div className="relative z-10 p-6">
+                      <span className="inline-flex rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide backdrop-blur-sm">
+                        Curso em destaque
+                      </span>
+              
+                      <div className="mt-24">
+                        <h3 className="text-2xl font-bold">{course.title}</h3>
+              
+                        <p className="mt-2 text-sm text-white/80">
+                          {course.subtitle}
+                        </p>
+              
+                        <Link
+                          href={`/cursos/${course.id}`}
+                          className="mt-6 inline-flex rounded-full bg-white px-4 py-2 transition hover:bg-[#F3F6F0]"
+                        >
+                          <span className="block text-sm font-semibold text-[#0B5D2A]">
+                            {course.action}
+                          </span>
+                        </Link>
+                      </div>
                     </div>
-                   </article>
-                   ))}
-               </div>
-            </div>
+                  </article>
+                ))}
+              </div>
 
             <div className="mt-10">
               <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -134,28 +176,41 @@ export default function CursosPage() {
                   {inProgressCourses.length} cursos
                 </span>
               </div>
+            </div>
 
               <div className="grid auto-rows-fr grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {inProgressCourses.map((course) => (
                   <article
-                    key={course}
+                    key={course.id}
                     className="h-full rounded-[20px] border border-black/5 bg-[#F7F7F4] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
                   >
-                    <span className="inline-flex rounded-full bg-[#E8F3EC] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0B5D2A]">
+                    <img
+                      src={course.image}
+                      alt={course.title}
+                      className="h-40 w-full rounded-[16px] object-cover"
+                    />
+              
+                    <span className="mt-4 inline-flex rounded-full bg-[#E8F3EC] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0B5D2A]">
                       Em progresso
                     </span>
-                  
+              
                     <h3 className="mt-4 text-base font-semibold leading-snug text-neutral-900">
-                      {course}
+                      {course.title}
                     </h3>
-                  
+              
                     <p className="mt-2 text-sm text-neutral-500">
-                      Continue de onde parou
+                      Progresso: {course.progress}
                     </p>
+              
+                    <Link
+                      href={`/cursos/${course.id}`}
+                      className="mt-4 inline-flex items-center justify-center rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition duration-200 hover:bg-[#d8ebdf] hover:text-[#08461f] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5D2A] focus-visible:ring-offset-2"
+                    >
+                      Continuar curso
+                    </Link>
                   </article>
                 ))}
               </div>
-            </div>
 
             <div className="mt-10">
               <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -215,24 +270,37 @@ export default function CursosPage() {
               </div>
 
               <div className="grid auto-rows-fr grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-                {completedCourses.map((course) => (
-                  <article
-                    key={course}
-                    className="h-full flex items-center gap-3 rounded-[20px] border border-black/5 bg-[#F7F7F4] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
-                  >
-                    <div className="h-3 w-3 rounded-full bg-[#0B5D2A]" />
-
-                    <div>
-                      <p className="text-sm font-semibold text-neutral-900">
-                        {course}
-                      </p>
-                      <p className="mt-1 text-xs uppercase tracking-[0.16em] text-neutral-500">
-                        Concluído
-                      </p>
-                    </div>
-                  </article>
-                ))}
-              </div>
+                 {completedCourses.map((course) => (
+                   <article
+                     key={course.id}
+                     className="h-full rounded-[20px] border border-black/5 bg-[#F7F7F4] p-5 transition duration-200 hover:-translate-y-1 hover:shadow-md"
+                   >
+                     <img
+                       src={course.image}
+                       alt={course.title}
+                       className="h-40 w-full rounded-[16px] object-cover"
+                     />
+               
+                     <div className="mt-4 flex items-center gap-3">
+                       <div className="h-3 w-3 rounded-full bg-[#0B5D2A]" />
+                       <p className="text-sm font-semibold text-neutral-900">
+                         {course.title}
+                       </p>
+                     </div>
+               
+                     <p className="mt-2 text-xs uppercase tracking-[0.16em] text-neutral-500">
+                       {course.status}
+                     </p>
+               
+                     <Link
+                       href={`/cursos/${course.id}`}
+                       className="mt-4 inline-flex items-center justify-center rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition duration-200 hover:bg-[#d8ebdf] hover:text-[#08461f] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5D2A] focus-visible:ring-offset-2"
+                     >
+                       Revisar curso
+                     </Link>
+                   </article>
+                  ))}
+                </div>
             </div>
           </section>
         </main>
