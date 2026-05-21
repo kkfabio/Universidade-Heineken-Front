@@ -10,6 +10,7 @@ export default function Sidebar() {
       
       <nav className="flex-1 space-y-4">
         <a href="/dashboard" className="block p-2 hover:bg-[#005a35] rounded">Início</a>
+        <a href="/feed" className="block p-2 hover:bg-[#005a35] rounded">Feed</a>
         <a href="/cursos" className="block p-2 hover:bg-[#005a35] rounded">Meus Cursos</a>
         <a href="/biblioteca" className="block p-2 hover:bg-[#005a35] rounded">Biblioteca</a>
         <a href="/certificados" className="block p-2 hover:bg-[#005a35] rounded">Certificados</a>

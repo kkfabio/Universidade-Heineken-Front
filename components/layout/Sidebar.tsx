@@ -54,12 +54,7 @@ export function Sidebar() {
         </nav>
       </div>
 
-      <div className="p-3 xl:p-4">
-        <button className="flex w-full items-center justify-center gap-2 rounded-2xl bg-[#19A34A] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#15853c] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B5D2A]">
-        <span className="inline-block h-2 w-2 rounded-full bg-white" />
-        <span className="hidden xl:inline">Ask AI</span>
-      </button>
-      </div>
+      
     </aside>
   );
 }

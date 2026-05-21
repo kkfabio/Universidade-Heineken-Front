@@ -1,4 +1,3 @@
-import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 
 
@@ -48,7 +47,7 @@ const news = [
 export default function FeedPage() {
   return (
     <div className="flex min-h-screen bg-[#F3F3EF] text-neutral-900">
-      <Sidebar />
+      
 
       <div className="flex min-h-screen flex-1 flex-col">
         <Topbar />

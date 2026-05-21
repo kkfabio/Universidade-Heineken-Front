@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Sidebar } from "@/components/layout/Sidebar";
 import { Topbar } from "@/components/layout/Topbar";
 
 type CoursePageProps = {
@@ -66,7 +65,7 @@ export default function CourseDetailsPage({ params }: CoursePageProps) {
 
   return (
     <div className="flex min-h-screen bg-[#F4F4F1] text-neutral-900">
-      <Sidebar />
+     
 
       <div className="flex min-h-screen flex-1 flex-col">
         <Topbar />
