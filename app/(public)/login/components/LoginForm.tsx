@@ -3,10 +3,12 @@
 interface LoginFormProps {
   email: string;
   setEmail: (value: string) => void;
+  password: string;
+  setPassword: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
-export default function LoginForm({ email, setEmail, onSubmit }: LoginFormProps) {
+export default function LoginForm({ email, setEmail, password, setPassword, onSubmit }: LoginFormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-4 w-full max-w-sm">
       <div>
@@ -24,7 +26,9 @@ export default function LoginForm({ email, setEmail, onSubmit }: LoginFormProps)
       <div>
         <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Senha</label>
         <input 
-          type="password" 
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           placeholder="••••••••"
           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-heineken-green focus:ring-2 focus:ring-heineken-green/20 outline-none transition-all"
           required
