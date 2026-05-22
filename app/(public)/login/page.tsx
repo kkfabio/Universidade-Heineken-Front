@@ -2,19 +2,33 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import LoginForm from "./components/LoginForm";
-import Link from "next/link"; 
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (email.toLowerCase().endsWith("@heineken.com")) {
-      router.push("/dashboard"); 
-    } else {
-      alert("Acesso restrito: utilize seu e-mail @heineken.com");
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        router.push("/dashboard");
+      } else {
+        alert("E-mail ou senha incorretos");
+      }
+    } catch (error) {
+      alert("Erro ao conectar com o servidor");
     }
   };
 
@@ -32,30 +46,32 @@ export default function LoginPage() {
           UHNK — Universidade <br /> Heineken
         </h1>
         <p className="text-heineken-light/80 text-xs mt-2 tracking-[0.2em] font-medium uppercase">
-          Login de Acesso 
+          Login de Acesso
         </p>
       </div>
 
       {/* Card do Formulário com efeito de vidro */}
       <main className="z-10 w-full max-w-[400px] px-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl">
-          <LoginForm 
-            email={email} 
-            setEmail={setEmail} 
-            onSubmit={handleLogin} 
+          <LoginForm
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            onSubmit={handleLogin}
           />
-          
+
           {/* Botão Esqueci minha senha */}
           <div className="mt-6 text-center">
-            <Link 
-              href="/forgot-password" 
+            <Link
+              href="/forgot-password"
               className="text-white/60 hover:text-white text-xs font-medium uppercase tracking-widest transition-colors inline-block"
             >
               Esqueci minha senha
             </Link>
           </div>
         </div>
-        
+
         {/* Footer */}
         <p className="text-center text-heineken-light/50 text-[10px] mt-12 uppercase tracking-widest">
           © 2026 Heineken Heritage Learning
