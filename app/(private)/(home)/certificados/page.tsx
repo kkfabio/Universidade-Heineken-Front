@@ -117,7 +117,7 @@ export default function CertificadosPage() {
           </div>
           
           <div style="text-align: center; width: 220px;">
-            <div style="font-family: 'Georgia', serif; font-style: italic; font-size: 18px; color: #2e4053; margin-bottom: 5px; height: 30px; line-height: 30px;">Thiago Silva</div>
+            <div style="font-family: 'Georgia', serif; font-style: italic; font-size: 18px; color: #2e4053; margin-bottom: 5px; height: 30px; line-height: 30px;">João Silva</div>
             <div style="border-top: 1px solid #cbd5e1; padding-top: 5px; font-size: 11px; font-weight: bold; color: #475569; text-transform: uppercase; tracking: 0.5px;">Colaborador</div>
             <div style="font-size: 9px; color: #94a3b8; margin-top: 2px;">Supervisor de Logística</div>
           </div>
