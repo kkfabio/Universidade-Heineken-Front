@@ -22,7 +22,7 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token);
+        document.cookie = `token=${data.token}; path=/; max-age=86400`;
         router.push("/dashboard");
       } else {
         alert("E-mail ou senha incorretos");
