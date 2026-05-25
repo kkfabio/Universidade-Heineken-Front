@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const menuItems = [
+  { label: "Dashboard", href: "/dashboard" },
   { label: "Feed", href: "/feed" },
   { label: "Meus Cursos", href: "/cursos" },
   { label: "Certificados", href: "/certificados" },
