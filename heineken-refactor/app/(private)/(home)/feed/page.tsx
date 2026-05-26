@@ -1,4 +1,7 @@
-import { Topbar } from "@/components/layout/Topbar";
+"use client"
+
+import * as React from "react"
+import Image from "next/image"
 
 const news = [
   {
@@ -25,7 +28,7 @@ const news = [
   {
     id: 4,
     title: "Atualização das diretrizes de diversidade e inclusão 2026.",
-    description: "Boas práticas, metas e compromissos atualizados para fortalecer a cultura organizacional.",
+    description: "Boas práticas, metas e compromissos updated para fortalecer a cultura organizacional.",
     tag: "Comunicado",
     image: "/images/feed/2026.jpg",
   },
@@ -36,7 +39,7 @@ const news = [
     tag: "Negócios",
     image: "/images/feed/ceo.jpg",
   },
-];
+]
 
 export default function FeedPage() {
   return (
@@ -54,7 +57,7 @@ export default function FeedPage() {
               </h1>
               <p className="mt-4 max-w-2xl text-sm leading-6 text-neutral-500 md:text-base">
                 Explore as últimas notícias, comunicados e iniciativas da empresa
-                em um espaço pensado para manter todos conectados ao que importa.
+                em um space pensado para manter todos conectados ao que importa.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <button className="rounded-full bg-[#0B5D2A] px-4 py-2 text-sm font-semibold text-white transition-colors duration-200 hover:bg-[#08461f] active:scale-[0.98]">
@@ -65,13 +68,14 @@ export default function FeedPage() {
 
             <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-12">
 
-              {/* Card Destaque */}
               <article className="relative overflow-hidden rounded-[24px] text-white transition-transform duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-4 lg:row-span-2">
-                <img
+                <Image
                   src="/images/feed/destaque.jpg"
                   alt="Metas verdes"
+                  fill
+                  sizes="(max-w-1024px) 100vw, 33vw"
+                  priority
                   className="absolute inset-0 h-full w-full object-cover"
-                  fetchPriority="high"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
                 <div className="relative z-10 flex h-full min-h-[280px] flex-col justify-between p-5">
@@ -89,13 +93,13 @@ export default function FeedPage() {
                 </div>
               </article>
 
-              {/* Card Community */}
               <article className="relative overflow-hidden rounded-[24px] text-white transition-transform duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-3">
-                <img
+                <Image
                   src="/images/feed/community.jpg"
                   alt="Festival"
+                  fill
+                  sizes="(max-w-1024px) 100vw, 25vw"
                   className="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 <div className="relative z-10 flex min-h-[180px] flex-col justify-between p-5">
@@ -104,13 +108,13 @@ export default function FeedPage() {
                 </div>
               </article>
 
-              {/* Card Diversidade */}
               <article className="relative overflow-hidden rounded-[24px] text-white transition-transform duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-3">
-                <img
+                <Image
                   src="/images/feed/atualizacao.jpg"
                   alt="Diversidade"
+                  fill
+                  sizes="(max-w-1024px) 100vw, 25vw"
                   className="absolute inset-0 h-full w-full object-cover"
-                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
                 <div className="relative z-10 flex min-h-[180px] flex-col justify-between p-5">
@@ -119,7 +123,6 @@ export default function FeedPage() {
                 </div>
               </article>
 
-              {/* Card IA */}
               <article className="relative overflow-hidden rounded-[24px] text-white transition-transform duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-2">
                 <div className="absolute inset-0 bg-[#0B5D2A]/90" />
                 <div className="relative z-10 flex h-full min-h-[180px] flex-col justify-end p-5">
@@ -127,18 +130,20 @@ export default function FeedPage() {
                 </div>
               </article>
 
-              {/* Loop das notícias */}
               {news.map((item) => (
                 <article
                   key={item.id}
                   className="rounded-[24px] border border-black/5 bg-white p-5 shadow-sm transition-transform duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-4"
                 >
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="mb-4 h-[200px] w-full rounded-[20px] object-cover"
-                    loading="lazy"
-                  />
+                  <div className="relative mb-4 h-[200px] w-full overflow-hidden rounded-[20px]">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-w-1024px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
                   <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-500">
                     {item.tag}
                   </span>
@@ -152,5 +157,5 @@ export default function FeedPage() {
         </main>
       </div>
     </div>
-  );
+  )
 }
