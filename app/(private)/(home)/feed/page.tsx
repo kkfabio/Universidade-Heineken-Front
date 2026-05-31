@@ -1,3 +1,6 @@
+"use client";
+import { useEffect, useState } from "react";
+
 const news = [
   {
     id: 1,
@@ -42,6 +45,19 @@ const news = [
 ];
 
 export default function FeedPage() {
+  const [selectedPost, setSelectedPost] = useState<(typeof news)[number] | null>(null);
+
+  useEffect(() => {
+    const handleEsc = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedPost(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
   return (
     <main className="flex-1 px-4 py-6 md:px-6 xl:px-8">
       <section className="rounded-[28px] bg-white p-6 shadow-sm md:p-8">
@@ -67,7 +83,6 @@ export default function FeedPage() {
         </div>
 
         <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-12">
-
           <article className="relative overflow-hidden rounded-[24px] text-white transition duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-4 lg:row-span-2">
             <img
               src="/images/feed/destaque.jpg"
@@ -169,20 +184,73 @@ export default function FeedPage() {
                 loading="lazy"
                 decoding="async"
               />
+
               <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-500">
                 {item.tag}
               </span>
+
               <h3 className="mt-4 text-lg font-semibold leading-snug text-neutral-900">
                 {item.title}
               </h3>
+
               <p className="mt-3 text-sm leading-6 text-neutral-500">
                 {item.description}
               </p>
+
+              <button
+                type="button"
+                onClick={() => setSelectedPost(item)}
+                className="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition-colors duration-200 hover:bg-[#d8ebdf]"             
+               >
+                Leia mais
+                <span aria-hidden="true">→</span>
+              </button>
             </article>
           ))}
-
         </div>
       </section>
+
+      {selectedPost && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-sm"
+          onClick={() => setSelectedPost(null)}
+        >
+          <div
+            className="relative w-full max-w-2xl rounded-[24px] bg-white p-6 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setSelectedPost(null)}
+              className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#F3F6F0] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition-colors duration-200 hover:bg-[#E8F3EC]"           
+             >
+              ← Voltar
+            </button>
+
+            <div className="overflow-hidden rounded-[20px] border border-black/5 bg-white">
+              <img
+                src={selectedPost.image}
+                alt={selectedPost.title}
+                className="h-64 w-full object-cover"
+              />
+
+              <div className="p-5">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0B5D2A]">
+                  {selectedPost.tag}
+                </p>
+
+                <h3 className="mt-2 text-2xl font-bold text-neutral-900">
+                  {selectedPost.title}
+                </h3>
+
+                <p className="mt-4 text-sm leading-7 text-neutral-600">
+                  {selectedPost.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

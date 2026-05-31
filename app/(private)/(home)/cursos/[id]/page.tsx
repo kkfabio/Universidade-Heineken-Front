@@ -11,7 +11,10 @@ const courseData: Record<
     level: string;
     lessons: string;
     description: string;
-    content: string[];
+    content: {
+    title: string;
+    videoUrl: string;
+    }[];
     certificateImage: string;
     videoUrl: string;
     status: "not-started" | "in-progress" | "completed";
@@ -175,10 +178,22 @@ const courseData: Record<
     description:
       "Curso voltado à prevenção de riscos, boas práticas no ambiente corporativo e fortalecimento da cultura de segurança nas operações.",
     content: [
-      "Fundamentos de Segurança do Trabalho",
-      "Identificação de Riscos",
-      "Uso Correto de EPIs",
-      "Prevenção e Conduta em Situações de Incidente",
+      {
+        title: "Fundamentos de Segurança do Trabalho",
+        videoUrl: "https://youtu.be/J8d5DH0yDpk?si=SDCw84dKG7P7okXz",
+      },
+      {
+        title: "Identificação de Riscos",
+        videoUrl: "https://youtu.be/XeQN47rl70Y?si=rNjpTVJGz_4Y9NT9",
+      },
+      {
+        title: "Uso Correto de EPIs",
+        videoUrl: "https://youtu.be/OeCtamAHi4A?si=uFmk0rwz4_qp0z0p",
+      },
+      {
+        title: "Prevenção e Conduta em Situações de Incidente",
+        videoUrl: "https://youtu.be/YszzzrkGjDc?si=z4j-_mUxMmba3v-a",
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/J8d5DH0yDpk?si=SDCw84dKG7P7okXz",
@@ -196,10 +211,22 @@ const courseData: Record<
     description:
       "Curso desenvolvido para reforçar princípios éticos, condutas esperadas, transparência e conformidade nas relações internas e externas da organização.",
     content: [
-      "Princípios de Ética Corporativa",
-      "Código de Conduta",
-      "Compliance e Responsabilidade",
-      "Boas Práticas no Ambiente Profissional",
+      {
+        title: "Princípios de Ética Corporativa",
+        videoUrl: "https://youtu.be/DB-egMDjlr8?si=pvlwFo6-JVRqp3rz"
+      },
+      {
+        title: "Código de Conduta",
+        videoUrl: "https://youtu.be/K_GOXVoDiu0?si=NjToPHzO2p26fokL"
+      },
+      {
+        title: "Compliance e Responsabilidades",
+        videoUrl: "https://youtu.be/dbxDJoSaQSc?si=bc3LhwHvJ8S3n0WF" 
+      },
+      {
+        title: "Boas Práticas no Ambiente Profissional",
+        videoUrl: "https://youtu.be/ypt0YZKqwo8?si=axJTHsbDNQrEJzyf"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/2BDpJ6UMXb4?si=xGXvwErnXDDCa4i8",
@@ -336,24 +363,34 @@ export default async function CourseDetailsPage({ params }: CoursePageProps) {
 
                   <div className="mt-5 space-y-3">
                     {course.content.map((item, index) => (
-                      <div
-                        key={item}
-                        className="flex items-center justify-between rounded-[18px] border border-black/5 bg-[#F7F7F4] px-4 py-4 transition-all duration-200 hover:-translate-y-1 hover:bg-[#ECECE6] hover:shadow-md"
-                      >
-                        <div className="flex items-center gap-4">
-                          <span className="text-sm font-semibold text-neutral-400">
-                            {String(index + 1).padStart(2, "0")}
-                          </span>
-                          <p className="text-sm font-medium text-neutral-800 md:text-base">
-                            {item}
-                          </p>
-                        </div>
-
-                        <span className="text-neutral-400">
-                          {index === 0 ? "⌄" : "🔒"}
-                        </span>
-                      </div>
-                    ))}
+                     <div
+                       key={item.title}
+                       className="flex items-center justify-between rounded-[18px] border border-black/5 bg-[#F7F7F4] px-4 py-4 transition-all duration-200 hover:-translate-y-1 hover:bg-[#ECECE6] hover:shadow-md"
+                     >
+                       <div className="flex items-center gap-4">
+                         <span className="text-sm font-semibold text-neutral-400">
+                           {String(index + 1).padStart(2, "0")}
+                         </span>
+                   
+                         <p className="text-sm font-medium text-neutral-800 md:text-base">
+                           {item.title}
+                         </p>
+                       </div>
+                   
+                       {index === 0 ? (
+                         <a
+                           href={item.videoUrl}
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           className="text-neutral-400 transition hover:text-[#0B5D2A]"
+                         >
+                           ⌄
+                         </a>
+                       ) : (
+                         <span className="text-neutral-400">🔒</span>
+                       )}
+                     </div>
+                   ))}
                   </div>
                 </div>
               </div>
