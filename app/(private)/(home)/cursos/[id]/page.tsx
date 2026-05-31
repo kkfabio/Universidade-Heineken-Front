@@ -31,10 +31,22 @@ const courseData: Record<
     description:
       "Mergulhe na profundidade da ciência cervejeira. Este curso foi pensado para profissionais que buscam evolução operacional na produção global da Heineken. Cobrimos da seleção biológica do lúpulo até as técnicas de fermentação de precisão que garantem sabor icônico em qualquer lugar do mundo.",
     content: [
-      "Fundamentos da Matéria-Prima",
-      "Bio-Química da Mosturação",
-      "A Arte da Fermentação Controlada",
-      "Filtragem e Envase Sustentável",
+      {
+        title: "Fundamentos da Matéria-Prima",
+        videoUrl: "https://youtu.be/78tRimI-ryo?si=EyxQ8emKT3Y0RhLS"
+      },
+      {
+        title: "Bio-Química da Mosturação",
+        videoUrl: "https://youtu.be/ZVKB4F7XpHo?si=xlu85u24EzkfVYYJ"
+      },
+      {
+        title: "A Arte da Fermentação Controlada",
+        videoUrl: "https://www.youtube.com/live/JWH_r3vNDNM?si=3GMr1xX2oPadnoBu"
+      },
+      {
+        title: "Filtragem e Envase Sustentável",
+        videoUrl: "https://youtu.be/14IxPad-68E?si=UUMLmC8FNB7JYg6_"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/G1nb0T3Cnss?si=gp7bMU4rB09_RFd0",
@@ -51,10 +63,22 @@ const courseData: Record<
     description:
       "Conheça a história, os valores, os rituais e a visão de futuro da organização em uma trilha feita para fortalecer cultura, alinhamento e pertencimento.",
     content: [
-      "Origem da Marca",
-      "Valores e Liderança",
-      "Rituais e Colaboração",
-      "Visão de Futuro",
+      {
+        title: "Origem da Marca",
+        videoUrl: "https://youtu.be/TSuK4pbL_tM?si=CQ2y3nFCTttAbksP"
+      },
+      {
+        title: "Valores e Liderança",
+        videoUrl: "https://youtu.be/_qGP0E9FtYo?si=sr_6IIXGqlR-lMkE"
+      },
+      {
+        title: "Rituais e Colaboração",
+        videoUrl: "https://youtu.be/a8NJoHu_7dI?si=XFx0glhgFqa94uoE"
+      },
+      {
+        title: "Visão de Futuro",
+        videoUrl: "https://youtu.be/B_nJNfGsKI8?si=_zcrzwC9dKT4WoJc"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/TSuK4pbL_tM?si=-N4I-tWLAMGt_Ajf",
@@ -72,10 +96,22 @@ const courseData: Record<
     description:
       "Curso voltado à digitalização de processos, inovação aplicada e uso estratégico de tecnologia no ambiente corporativo.",
     content: [
-      "Cultura de Inovação",
-      "Ferramentas Digitais",
-      "Automação de Processos",
-      "Transformação no Ambiente de Trabalho",
+      {
+        title: "Cultura de Inovação",
+        videoUrl: "https://youtu.be/MFqZte_Gsm0?si=L9G8t97r-beHx_4H"
+      },
+      {
+        title: "Ferramentas Digitais",
+        videoUrl: "https://youtu.be/7-pe7s9_68Y?si=a15wwJMd6h6bUiGI"
+      },
+      {
+        title: "Automação de Processos",
+        videoUrl: "https://youtu.be/0axOKIo83k4?si=NulJKMyxfg24bsJ1"
+      },
+      {
+        title: "Transformação no Ambiente de Trabalho",
+        videoUrl: "https://youtu.be/DYfVxOPrBXg?si=V_wZ7Kce-9Kci3UX"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/-SSDHhsxPtM?si=VJyRAJqoPdgP9YyC",
@@ -93,10 +129,22 @@ const courseData: Record<
     description:
       "Curso focado em controle de qualidade, conformidade e padronização de processos para excelência do produto final.",
     content: [
-      "Padrões de Qualidade",
-      "Controle e Inspeção",
-      "Boas Práticas",
-      "Melhoria Contínua",
+      {
+        title: "Padrões de Qualidade",
+        videoUrl: "https://youtu.be/iBbk60UWiMU?si=1cjnvpS-oyPKlEaX"
+      },
+      {
+        title: "Controle e Inspeção",
+        videoUrl: "https://youtu.be/bf2R8FfM9m4?si=jWxruKVPWD6IQ0JK"
+      },
+      {
+        title: "Boas Práticas",
+        videoUrl: "https://youtu.be/iAGvRI-Kg-0?si=RN7tZU9DvKCsefQ7"
+      },
+      {
+        title: "Melhoria Contínua",
+        videoUrl: "https://youtu.be/34XyVMnDqyg?si=UZ87i6IfUp6MESPU"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/yn-hA6hQNDs?si=VMbQ8t7LeZpWlWG9",
@@ -114,10 +162,22 @@ const courseData: Record<
     description:
       "Curso voltado à organização de processos logísticos, controle operacional e melhoria da eficiência no fluxo de trabalho.",
     content: [
-      "Fundamentos da Logística",
-      "Planejamento Operacional",
-      "Controle de Estoque e Distribuição",
-      "Indicadores de Eficiência",
+      {
+        title: "Fundamentos da Logística",
+        videoUrl: "https://youtu.be/63o70UWJthM?si=XeoHVEfv1vCwamll"
+      },
+      {
+        title: "Planejamento Operacional",
+        videoUrl: "https://youtu.be/JjwZfXnNb3o?si=-T9jzNzg6bQe11gj"
+      },
+      {
+        title: "Controle de Estoque e Distribuição",
+        videoUrl: "https://youtu.be/H5O-BHmkUh4?si=chAgOsc7upfIRAZX"
+      },
+      {
+        title: "Indicadores de Eficiência",
+        videoUrl: "https://youtu.be/f3tZiS2FAsQ?si=OiWTBnnjZDour7GU"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/JRBK_0UYz48?si=-wEZASAS8nHL-iDb",
@@ -135,10 +195,22 @@ const courseData: Record<
     description:
       "Curso focado em posicionamento de marca, campanhas estratégicas e ações de comunicação voltadas para resultados.",
     content: [
-      "Fundamentos do Marketing",
-      "Posicionamento e Público-Alvo",
-      "Planejamento de Campanhas",
-      "Métricas e Desempenho",
+      {
+        title: "Fundamentos do Marketing",
+        videoUrl: "https://youtu.be/mzAgIFptqQ4?si=vXn4tEbeT2Xx2eYD"
+      },
+      {
+        title: "Posicionamento e Público-Alvo",
+        videoUrl: "https://youtu.be/qn5w9_q-kIE?si=AAh_TphOFGCa6tMD"
+      },
+      {
+        title: "Planejamento de Campanhas",
+        videoUrl: "https://youtu.be/82NoBEH0pWk?si=2o_Qqsz4NTxIxyV6"
+      },
+      {
+        title: "Métricas e Desempenho",
+        videoUrl: "https://youtu.be/7EMVB5YidCo?si=uRtERlERdYoFc3mH"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/CcxRFJY-0ZU?si=Lnaou66ED3kTC4CN",
@@ -156,11 +228,26 @@ const courseData: Record<
     description:
       "Curso desenvolvido para fortalecer competências de liderança, comunicação, gestão de pessoas e tomada de decisão.",
     content: [
-      "Perfil do Líder",
-      "Comunicação com a Equipe",
-      "Gestão de Conflitos",
-      "Tomada de Decisão",
-      "Desenvolvimento de Times",
+      {
+        title: "Perfil do Líder",
+        videoUrl: "https://youtu.be/aKTa4yr_tuU?si=99diO8heZhgICK6L"
+      },
+      {
+        title: "Comunicação com a Equipe",
+        videoUrl: "https://youtu.be/awuLAbNtW2c?si=g1B3r23X2gfpy5XZ"
+      },
+      {
+        title: "Gestão de Conflitos",
+        videoUrl: "https://youtu.be/klivMgjC1ys?si=WEjs8nhH2MndfYoT"
+      },
+      {
+        title: "Tomada de Decisão",
+        videoUrl: "https://youtu.be/i1QX27OcC6M?si=gvlY416mifyU72M4"
+      },
+      {
+        title: "Desenvolvimento de Times",
+        videoUrl: "https://youtu.be/Wz0sHDu4aW8?si=qOrsQlKyAfJu5umN"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/IddGRxARTdA?si=V90Q3tzY3drjjgCN",
@@ -244,9 +331,18 @@ const courseData: Record<
     description:
       "Curso de integração criado para apresentar a cultura organizacional, os fluxos internos e os principais direcionamentos para novos colaboradores.",
     content: [
-      "Boas-vindas e Visão da Empresa",
-      "Estrutura, Cultura e Processos",
-      "Primeiros Passos na Jornada do Colaborador",
+      {
+        title: "Boas-vindas e Visão da Empresa",
+        videoUrl: "https://youtu.be/aDOuoBu0_24?si=nuxAW2kYmAwj-_IE"
+      },
+      {
+        title: "Estrutura, Cultura e Processos",
+        videoUrl: "https://youtu.be/A8qpKpzNLLQ?si=_AuOh2pfJ05ZWSvd"
+      },
+      {
+        title: "Primeiros Passos na Jornada do Colaborador",
+        videoUrl: "https://youtu.be/qJBvlXLGnoA?si=RS2OQIF0ZnPgNwlW"
+      },
     ],
     certificateImage: "/images/cursos/certificado-1.jpg",
     videoUrl: "https://youtu.be/NV95U70ibhU?si=8uKV5DDmFcgyx0Dr",
