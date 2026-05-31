@@ -603,8 +603,9 @@ export default async function CourseDetailsPage({ params }: CoursePageProps) {
                 
               </aside>
             </div>
-          </section>
-          <div className="mt-6">
+          </section>    
+        </main>
+        <div className="mt-6">
                  <CoursePlayer 
                    courseId={id}
                    lessons={course.content.map((item) => ({
@@ -617,7 +618,6 @@ export default async function CourseDetailsPage({ params }: CoursePageProps) {
                    }))}
                  />
                </div>
-        </main>
       </div>
     </div>
   );
