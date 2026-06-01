@@ -2,7 +2,9 @@ export interface Modulo {
   id: string
   titulo: string
   duracao: number
-  aulas: number
+  ordem?: number
+  descricao?: string
+  aulas: Aula[] | number
 }
 
 export interface Aluno {
