@@ -1,10 +1,31 @@
+export interface Aula {
+  id: string
+  titulo: string
+  tipo: 'video' | 'texto' | 'quiz' | 'documento'
+  duracao: number
+  ordem?: number
+  descricao?: string
+  url?: string
+}
+
+export interface Prova {
+  id: string
+  titulo: string
+  descricao?: string
+ questoes?: number
+  qntdQuestoes?: number
+  pontuacaoMinima?: number
+  tempoLimite?: number
+}
+
 export interface Modulo {
   id: string
   titulo: string
   duracao: number
   ordem?: number
   descricao?: string
-  aulas: Aula[] | number
+  aulas: Aula[]
+  prova?: Prova
 }
 
 export interface Aluno {
@@ -29,22 +50,4 @@ export interface CursoCompleto {
   status: 'active' | 'draft'
   modulos: Modulo[]
   alunos: Aluno[]
-}
-
-export interface Aula {
-  id: string
-  titulo: string
-  tipo: 'video' | 'texto' | 'quiz' | 'documento'
-  duracao: number
-  ordem?: number
-  descricao?: string
-  url?: string
-}
-
-export interface Prova {
-  id: string
-  titulo: string
-  descricao?: string
-  questoes: number
-  tempoLimite?: number
 }

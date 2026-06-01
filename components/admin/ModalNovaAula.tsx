@@ -15,7 +15,7 @@ export function ModalNovaAula({ isOpen, onClose, aulaExistente, onSalvar }: Prop
   const isEdit = !!aulaExistente;
 
   const [titulo, setTitulo] = React.useState(aulaExistente?.titulo ?? '');
-  const [tipo,   setTipo]   = React.useState<'video' | 'documento'>(aulaExistente?.tipo ?? 'video');
+  const [tipo, setTipo] = React.useState<'video' | 'texto' | 'quiz' | 'documento'>(aulaExistente?.tipo ?? 'video');
   const [duracao, setDuracao] = React.useState(aulaExistente?.duracao ?? 0);
   const [url,    setUrl]    = React.useState(aulaExistente?.url ?? '');
 
