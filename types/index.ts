@@ -34,8 +34,9 @@ export interface CursoCompleto {
 export interface Aula {
   id: string
   titulo: string
-  tipo: 'video' | 'texto' | 'quiz'
+  tipo: 'video' | 'texto' | 'quiz' | 'documento'
   duracao: number
+  ordem?: number
   descricao?: string
   url?: string
 }
