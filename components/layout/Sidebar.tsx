@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { LayoutDashboard, Newspaper, BookOpen, Trophy, Settings } from "lucide-react";
 
 const menuItems = [
@@ -12,17 +13,31 @@ const menuItems = [
   { label: "Configurações", href: "/configuracoes", icon: Settings },
 ];
 
+const user = {
+  name: "João Silva",
+  role: "Knowledge Platform",
+  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face", // mesma imagem usada no card de configurações
+};
+
 export function Sidebar() {
   const pathname = usePathname();
 
   return (
     <aside className="flex min-h-screen w-[88px] flex-col justify-between self-stretch bg-[#0B5D2A] text-white xl:w-[220px]">
       <div>
+        {/* Header com foto e nome */}
         <div className="flex items-center gap-3 border-b border-white/10 px-4 py-5 xl:px-6">
-          <div className="h-10 w-10 rounded-full bg-white/20" />
+          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-white/30">
+            <Image
+              src={user.avatar}
+              alt={user.name}
+              fill
+              className="object-cover"
+            />
+          </div>
           <div className="hidden xl:block">
-            <p className="text-sm font-semibold leading-none">Learning Journey</p>
-            <p className="mt-1 text-xs text-white/70">Knowledge Platform</p>
+            <p className="text-sm font-semibold leading-none">{user.name}</p>
+            <p className="mt-1 text-xs text-white/70">{user.role}</p>
           </div>
         </div>
 

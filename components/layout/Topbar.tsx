@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const pageTitles: Record<string, string> = {
   "/dashboard": "Dashboard",
@@ -10,6 +11,11 @@ const pageTitles: Record<string, string> = {
   "/certificados": "Certificados",
   "/profile": "Perfil",
   "/configuracoes": "Configurações",
+};
+
+const user = {
+  name: "João Silva",
+  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
 };
 
 export function Topbar() {
@@ -45,8 +51,15 @@ export function Topbar() {
         </button>
         <button
           aria-label="Abrir perfil"
-          className="h-10 w-10 rounded-full bg-[#CBE8B8] ring-2 ring-white transition hover:scale-[1.03] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5D2A] focus-visible:ring-offset-2"
-        />
+          className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white transition hover:scale-[1.03] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B5D2A] focus-visible:ring-offset-2"
+        >
+          <Image
+            src={user.avatar}
+            alt={user.name}
+            fill
+            className="object-cover"
+          />
+        </button>
       </div>
     </header>
   );

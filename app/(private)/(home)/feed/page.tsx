@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 const news = [
   {
@@ -8,7 +9,7 @@ const news = [
     description:
       "Conheça o plano da empresa para acelerar sustentabilidade, eficiência e inovação industrial.",
     tag: "Destaque",
-    image: "/images/feed/2030.jpg",
+    image: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e",
   },
   {
     id: 2,
@@ -16,7 +17,7 @@ const news = [
     description:
       "Nossa plataforma centraliza conteúdos, trilhas e atualizações para todos os colaboradores.",
     tag: "Tecnologia",
-    image: "/images/feed/ia.jpg",
+    image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5",
   },
   {
     id: 3,
@@ -24,7 +25,7 @@ const news = [
     description:
       "Uma nova etapa de cooperação fortalece qualidade, rastreabilidade e impacto regional.",
     tag: "Sustentabilidade",
-    image: "/images/feed/fazenda.jpg",
+    image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854",
   },
   {
     id: 4,
@@ -32,7 +33,7 @@ const news = [
     description:
       "Boas práticas, metas e compromissos atualizados para fortalecer a cultura organizacional.",
     tag: "Comunicado",
-    image: "/images/feed/2026.jpg",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
   },
   {
     id: 5,
@@ -40,7 +41,7 @@ const news = [
     description:
       "Uma visão estratégica sobre performance, crescimento e prioridades do próximo ciclo.",
     tag: "Negócios",
-    image: "/images/feed/ceo.jpg",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
   },
 ];
 
@@ -72,7 +73,7 @@ export default function FeedPage() {
 
           <p className="mt-4 max-w-2xl text-sm leading-6 text-neutral-500 md:text-base">
             Explore as últimas notícias, comunicados e iniciativas da empresa
-            em um espaço pensado para manter todos conectados ao que importa.
+            em um space pensado para manter todos conectados ao que importa.
           </p>
 
           <div className="mt-6 flex flex-wrap gap-3">
@@ -84,12 +85,13 @@ export default function FeedPage() {
 
         <div className="mt-8 grid grid-cols-1 gap-5 lg:grid-cols-12">
           <article className="relative overflow-hidden rounded-[24px] text-white transition duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-4 lg:row-span-2">
-            <img
-              src="/images/feed/destaque.jpg"
+            <Image
+              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
               alt="Metas verdes e inovação para o próximo ciclo industrial"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="eager"
-              decoding="async"
+              fill
+              sizes="(max-width: 1024px) 100vw, 33vw"
+              className="object-cover"
+              priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
             <div className="relative z-10 flex h-full min-h-[280px] flex-col justify-between p-5">
@@ -109,12 +111,12 @@ export default function FeedPage() {
           </article>
 
           <article className="relative overflow-hidden rounded-[24px] text-white transition duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-3">
-            <img
-              src="/images/feed/community.jpg"
+            <Image
+              src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4"
               alt="Brewing Better Future Festival 2026"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
+              fill
+              sizes="(max-width: 1024px) 100vw, 25vw"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
             <div className="relative z-10 flex min-h-[180px] flex-col justify-between p-5">
@@ -133,12 +135,12 @@ export default function FeedPage() {
           </article>
 
           <article className="relative overflow-hidden rounded-[24px] text-white transition duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-3">
-            <img
-              src="/images/feed/atualizacao.jpg"
+            <Image
+              src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e"
               alt="Atualização das diretrizes de diversidade e inclusão 2026"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
+              fill
+              sizes="(max-width: 1024px) 100vw, 25vw"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-transparent" />
             <div className="relative z-10 flex min-h-[180px] flex-col justify-between p-5">
@@ -157,12 +159,12 @@ export default function FeedPage() {
           </article>
 
           <article className="relative overflow-hidden rounded-[24px] text-white transition duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-2">
-            <img
-              src="/images/feed/plataforma.jpg"
+            <Image
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3"
               alt="Plataforma com IA para aprendizagem personalizada"
-              className="absolute inset-0 h-full w-full object-cover"
-              loading="lazy"
-              decoding="async"
+              fill
+              sizes="(max-width: 1024px) 100vw, 20vw"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-black/55" />
             <div className="relative z-10 flex min-h-[180px] flex-col justify-end p-5">
@@ -177,13 +179,15 @@ export default function FeedPage() {
               key={item.id}
               className="rounded-[24px] border border-black/5 bg-white p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md lg:col-span-4"
             >
-              <img
-                src={item.image}
-                alt={item.title}
-                className="mb-4 h-[220px] w-full rounded-[20px] object-cover"
-                loading="lazy"
-                decoding="async"
-              />
+              <div className="relative mb-4 h-[220px] w-full overflow-hidden rounded-[20px]">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
 
               <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-semibold text-neutral-500">
                 {item.tag}
@@ -200,8 +204,8 @@ export default function FeedPage() {
               <button
                 type="button"
                 onClick={() => setSelectedPost(item)}
-                className="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition-colors duration-200 hover:bg-[#d8ebdf]"             
-               >
+                className="mt-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#E8F3EC] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition-colors duration-200 hover:bg-[#d8ebdf]"
+              >
                 Leia mais
                 <span aria-hidden="true">→</span>
               </button>
@@ -222,17 +226,21 @@ export default function FeedPage() {
             <button
               type="button"
               onClick={() => setSelectedPost(null)}
-              className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#F3F6F0] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition-colors duration-200 hover:bg-[#E8F3EC]"           
-             >
+              className="mb-4 inline-flex cursor-pointer items-center gap-2 rounded-full bg-[#F3F6F0] px-4 py-2 text-sm font-semibold text-[#0B5D2A] transition-colors duration-200 hover:bg-[#E8F3EC]"
+            >
               ← Voltar
             </button>
 
             <div className="overflow-hidden rounded-[20px] border border-black/5 bg-white">
-              <img
-                src={selectedPost.image}
-                alt={selectedPost.title}
-                className="h-64 w-full object-cover"
-              />
+              <div className="relative h-64 w-full">
+                <Image
+                  src={selectedPost.image}
+                  alt={selectedPost.title}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              </div>
 
               <div className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#0B5D2A]">

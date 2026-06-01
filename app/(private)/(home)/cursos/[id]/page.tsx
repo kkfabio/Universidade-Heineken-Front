@@ -37,7 +37,7 @@ const courseData: Record<
       {
         id: "aula-01",
         title: "Fundamentos da Matéria-Prima",
-        videoUrl: "https://youtu.be/78tRimI-ryo?si=EyxQ8emKT3Y0RhLS"
+        videoUrl: "https://www.youtube.com/watch?v=mAXUbJd60zc"
       },
       {
         id: "aula-02",

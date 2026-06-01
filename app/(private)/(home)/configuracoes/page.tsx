@@ -2,27 +2,26 @@
 
 import * as React from "react"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { 
-  Bell, Lock, ShieldCheck, HelpCircle, FileText, Headphones, Star, CheckCircle, Eye, EyeOff, AlertCircle, X, MessageSquare 
+  Bell, Lock, ShieldCheck, HelpCircle, FileText, Headphones, Star, CheckCircle, Eye, EyeOff, AlertCircle, X, LogOut
 } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { SettingSection } from "./components/SettingSection"
 
 export default function SettingsPage() {
+  const router = useRouter()
   const [darkMode, setDarkMode] = useState(false)
   const [mensagem, setMensagem] = useState<{ tipo: "sucesso" | "erro"; texto: string } | null>(null)
 
-  // Switches de Notificação
   const [notifEmail, setNotifEmail] = useState(true)
   const [notifPush, setNotifPush] = useState(true)
   const [notifNewsletter, setNotifNewsletter] = useState(false)
 
-  // Estados de Privacidade
   const [perfilWiki, setPerfilWiki] = useState(true)
   const [compartilharRankings, setCompartilharRankings] = useState(false)
 
-  // Estados de Senha
   const [senhaAtual, setSenhaAtual] = useState("")
   const [novaSenha, setNovaSenha] = useState("")
   const [confirmarSenha, setConfirmarSenha] = useState("")
@@ -31,7 +30,6 @@ export default function SettingsPage() {
   const [verNovaSenha, setVerNovaSenha] = useState(false)
   const [verConfirmarSenha, setVerConfirmarSenha] = useState(false)
 
-  // Estados do painel de akjuda
   const [abrirModalFAQ, setAbrirModalFAQ] = useState(false)
   const [abrirModalSuporte, setAbrirModalSuporte] = useState(false)
   const [abrirModalTermos, setAbrirModalTermos] = useState(false)
@@ -39,6 +37,11 @@ export default function SettingsPage() {
   const mostrarFeedback = (tipo: "sucesso" | "erro", texto: string) => {
     setMensagem({ tipo, texto })
     setTimeout(() => setMensagem(null), 4000)
+  }
+
+  const handleLogout = () => {
+    document.cookie = "token=; path=/; max-age=0"
+    router.push("/login")
   }
 
   const handleSalvarNotificacoes = () => {
@@ -49,7 +52,7 @@ export default function SettingsPage() {
     mostrarFeedback("sucesso", "Configurações de privacidade salvas localmente!")
   }
 
-  const handleAtualizarSenha = (e: React.FormEvent) => {
+  const handleAtualizarSenha = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (!senhaAtual || !novaSenha || !confirmarSenha) {
@@ -67,15 +70,45 @@ export default function SettingsPage() {
       return
     }
 
-    mostrarFeedback("sucesso", "Senha atualizada com sucesso na plataforma!")
-    setSenhaAtual("")
-    setNovaSenha("")
-    setConfirmarSenha("")
+    try {
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1]
+
+      if (!token) {
+        mostrarFeedback("erro", "Sessão expirada. Faça login novamente.")
+        return
+      }
+
+      const payload = JSON.parse(atob(token.split(".")[1]))
+      const email = payload.sub
+
+      const response = await fetch("http://localhost:8080/api/password/change", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          currentPassword: senhaAtual,
+          newPassword: novaSenha,
+        }),
+      })
+
+      if (response.ok) {
+        mostrarFeedback("sucesso", "Senha atualizada com sucesso!")
+        setSenhaAtual("")
+        setNovaSenha("")
+        setConfirmarSenha("")
+      } else {
+        mostrarFeedback("erro", "Senha atual incorreta.")
+      }
+    } catch (error) {
+      mostrarFeedback("erro", "Erro ao conectar com o servidor.")
+    }
   }
 
   return (
     <div className={`min-h-screen p-8 md:p-16 transition-colors duration-500 ${darkMode ? "bg-[#121212]" : "bg-[#F8FAFB]"}`}>
-      
 
       {mensagem && (
         <div className={`fixed top-5 right-5 px-6 py-4 rounded-2xl shadow-2xl z-50 flex items-center gap-3 font-bold text-sm border animate-in fade-in duration-300 ${
@@ -101,44 +134,27 @@ export default function SettingsPage() {
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        
 
         <div className="lg:col-span-8 space-y-10">
           
           <SettingSection title="Notificações" icon={Bell}>
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                
-                {/* Notificação E-mail */}
                 <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-[#007041]/30 transition-colors">
                   <div>
                     <p className="font-bold text-slate-900">Notificações por E-mail</p>
                     <p className="text-xs text-slate-400">Alertas de cursos e certificados</p>
                   </div>
-                  <div className="flex items-center">
-                    <Switch 
-                      checked={notifEmail} 
-                      onCheckedChange={(v) => { setNotifEmail(v); mostrarFeedback("sucesso", `E-mail: ${v ? "Ativado" : "Desativado"}`); }}
-                      className="border border-slate-300 data-[state=checked]:bg-[#007041] data-[state=unchecked]:bg-slate-200" 
-                    />
-                  </div>
+                  <Switch checked={notifEmail} onCheckedChange={(v) => { setNotifEmail(v); mostrarFeedback("sucesso", `E-mail: ${v ? "Ativado" : "Desativado"}`); }} className="border border-slate-300 data-[state=checked]:bg-[#007041] data-[state=unchecked]:bg-slate-200" />
                 </div>
 
-      
                 <div className="flex items-center justify-between p-6 bg-slate-50 rounded-2xl border border-slate-100 hover:border-[#007041]/30 transition-colors">
                   <div>
                     <p className="font-bold text-slate-900">Push no Navegador</p>
                     <p className="text-xs text-slate-400">Lembretes de aulas ao vivo</p>
                   </div>
-                  <div className="flex items-center">
-                    <Switch 
-                      checked={notifPush} 
-                      onCheckedChange={(v) => { setNotifPush(v); mostrarFeedback("sucesso", `Push: ${v ? "Ativado" : "Desativado"}`); }}
-                      className="border border-slate-300 data-[state=checked]:bg-[#007041] data-[state=unchecked]:bg-slate-200" 
-                    />
-                  </div>
+                  <Switch checked={notifPush} onCheckedChange={(v) => { setNotifPush(v); mostrarFeedback("sucesso", `Push: ${v ? "Ativado" : "Desativado"}`); }} className="border border-slate-300 data-[state=checked]:bg-[#007041] data-[state=unchecked]:bg-slate-200" />
                 </div>
-
               </div>
 
               <div className="flex items-center justify-between p-6 bg-[#007041]/5 border-l-4 border-[#007041] rounded-r-2xl">
@@ -146,11 +162,7 @@ export default function SettingsPage() {
                   <p className="font-bold text-[#007041]">Newsletter Corporate Excellence</p>
                   <p className="text-xs text-slate-400">Insights mensais sobre liderança global</p>
                 </div>
-                <Switch 
-                  checked={notifNewsletter} 
-                  onCheckedChange={(v) => { setNotifNewsletter(v); mostrarFeedback("sucesso", `Newsletter: ${v ? "Ativada" : "Desativada"}`); }}
-                  className="border border-slate-300 data-[state=checked]:bg-[#007041] data-[state=unchecked]:bg-slate-200" 
-                />
+                <Switch checked={notifNewsletter} onCheckedChange={(v) => { setNotifNewsletter(v); mostrarFeedback("sucesso", `Newsletter: ${v ? "Ativada" : "Desativada"}`); }} className="border border-slate-300 data-[state=checked]:bg-[#007041] data-[state=unchecked]:bg-slate-200" />
               </div>
 
               <div className="flex justify-end pt-2">
@@ -162,24 +174,13 @@ export default function SettingsPage() {
           </SettingSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            
             <SettingSection title="Alterar Senha" icon={Lock}>
               <form onSubmit={handleAtualizarSenha} className="space-y-4">
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Senha Atual</label>
                   <div className="relative">
-                    <input 
-                      type={verSenhaAtual ? "text" : "password"} 
-                      placeholder="••••••••" 
-                      value={senhaAtual}
-                      onChange={(e) => setSenhaAtual(e.target.value)}
-                      className="w-full p-4 pr-12 bg-slate-50 rounded-xl border border-slate-100 text-sm font-bold focus:ring-2 focus:ring-[#007041] outline-none transition-all placeholder:text-slate-300" 
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setVerSenhaAtual(!verSenhaAtual)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                    >
+                    <input type={verSenhaAtual ? "text" : "password"} placeholder="••••••••" value={senhaAtual} onChange={(e) => setSenhaAtual(e.target.value)} className="w-full p-4 pr-12 bg-slate-50 rounded-xl border border-slate-100 text-sm font-bold focus:ring-2 focus:ring-[#007041] outline-none transition-all placeholder:text-slate-300" />
+                    <button type="button" onClick={() => setVerSenhaAtual(!verSenhaAtual)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
                       {verSenhaAtual ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
@@ -188,18 +189,8 @@ export default function SettingsPage() {
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Nova Senha</label>
                   <div className="relative">
-                    <input 
-                      type={verNovaSenha ? "text" : "password"} 
-                      placeholder="••••••••" 
-                      value={novaSenha}
-                      onChange={(e) => setNovaSenha(e.target.value)}
-                      className="w-full p-4 pr-12 bg-slate-50 rounded-xl border border-slate-100 text-sm font-bold focus:ring-2 focus:ring-[#007041] outline-none transition-all placeholder:text-slate-300" 
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setVerNovaSenha(!verNovaSenha)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                    >
+                    <input type={verNovaSenha ? "text" : "password"} placeholder="••••••••" value={novaSenha} onChange={(e) => setNovaSenha(e.target.value)} className="w-full p-4 pr-12 bg-slate-50 rounded-xl border border-slate-100 text-sm font-bold focus:ring-2 focus:ring-[#007041] outline-none transition-all placeholder:text-slate-300" />
+                    <button type="button" onClick={() => setVerNovaSenha(!verNovaSenha)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
                       {verNovaSenha ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
@@ -208,18 +199,8 @@ export default function SettingsPage() {
                 <div className="space-y-1">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest ml-1">Confirmar Nova Senha</label>
                   <div className="relative">
-                    <input 
-                      type={verConfirmarSenha ? "text" : "password"} 
-                      placeholder="••••••••" 
-                      value={confirmarSenha}
-                      onChange={(e) => setConfirmarSenha(e.target.value)}
-                      className="w-full p-4 pr-12 bg-slate-50 rounded-xl border border-slate-100 text-sm font-bold focus:ring-2 focus:ring-[#007041] outline-none transition-all placeholder:text-slate-300" 
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setVerConfirmarSenha(!verConfirmarSenha)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                    >
+                    <input type={verConfirmarSenha ? "text" : "password"} placeholder="••••••••" value={confirmarSenha} onChange={(e) => setConfirmarSenha(e.target.value)} className="w-full p-4 pr-12 bg-slate-50 rounded-xl border border-slate-100 text-sm font-bold focus:ring-2 focus:ring-[#007041] outline-none transition-all placeholder:text-slate-300" />
+                    <button type="button" onClick={() => setVerConfirmarSenha(!verConfirmarSenha)} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors">
                       {verConfirmarSenha ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
@@ -228,8 +209,8 @@ export default function SettingsPage() {
                 <Button type="submit" className="w-full bg-[#007041] hover:bg-[#005a34] text-white h-14 rounded-xl font-bold shadow-lg shadow-[#007041]/20 transition-all active:scale-[0.98] mt-2">
                   Atualizar Senha
                 </Button>
-                </form>
-                </SettingSection>
+              </form>
+            </SettingSection>
 
             <SettingSection title="Privacidade" icon={ShieldCheck}>
               <div className="space-y-4">
@@ -237,21 +218,11 @@ export default function SettingsPage() {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                     <span className="text-sm font-bold text-slate-700">Perfil visível na Wiki</span>
-                    <input 
-                      type="checkbox" 
-                      checked={perfilWiki} 
-                      onChange={(e) => setPerfilWiki(e.target.checked)}
-                      className="accent-[#007041] h-5 w-5 cursor-pointer" 
-                    />
+                    <input type="checkbox" checked={perfilWiki} onChange={(e) => setPerfilWiki(e.target.checked)} className="accent-[#007041] h-5 w-5 cursor-pointer" />
                   </div>
                   <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                     <span className="text-sm font-bold text-slate-700">Compartilhar rankings</span>
-                    <input 
-                      type="checkbox" 
-                      checked={compartilharRankings} 
-                      onChange={(e) => setCompartilharRankings(e.target.checked)}
-                      className="accent-[#007041] h-5 w-5 cursor-pointer" 
-                    />
+                    <input type="checkbox" checked={compartilharRankings} onChange={(e) => setCompartilharRankings(e.target.checked)} className="accent-[#007041] h-5 w-5 cursor-pointer" />
                   </div>
                 </div>
                 <div className="flex justify-end pt-2">
@@ -261,71 +232,59 @@ export default function SettingsPage() {
                 </div>
               </div>
             </SettingSection>
-
           </div>
         </div>
 
         <div className="lg:col-span-4 space-y-10">
-          
           <div className="bg-[#007041] p-10 rounded-[40px] text-white text-center shadow-2xl relative overflow-hidden">
-            <div className="w-24 h-24 rounded-full border-4 border-white/20 mx-auto mb-4 overflow-hidden shadow-xl bg-white/10 flex items-center justify-center">
-               <span className="text-3xl font-black">JS</span>
+            <div className="w-24 h-24 rounded-full border-4 border-white/20 mx-auto mb-4 overflow-hidden shadow-xl">
+              <img
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face"
+                alt="João Silva"
+                className="w-full h-full object-cover"
+              />
             </div>
             <h4 className="text-2xl font-black">João Silva</h4>
             <p className="text-[10px] opacity-70 mb-8 uppercase tracking-[3px] font-bold leading-tight">
               Brand Manager<br/>Supply Chain Excellence
             </p>
-            
             <div className="bg-black/20 rounded-full h-3 w-full mb-2">
               <div className="bg-[#5CFF9B] h-full w-[85%] rounded-full shadow-[0_0_15px_rgba(92,255,155,0.8)]"></div>
             </div>
             <p className="text-[10px] font-black text-right mb-8 text-[#5CFF9B]">NÍVEL DE PERFIL: 85%</p>
-            
             <p className="text-sm italic opacity-90 leading-relaxed font-medium">
               "O aprendizado contínuo é o fermento do nosso sucesso."
             </p>
-          </div>
 
+            {/* Botão de Logout */}
+            <button
+              onClick={handleLogout}
+              className="mt-6 flex items-center justify-center gap-2 w-full bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-3 rounded-2xl text-xs uppercase tracking-widest transition-all"
+            >
+              <LogOut className="h-4 w-4" />
+              Sair da conta
+            </button>
+          </div>
 
           <div className="p-4">
-             <h4 className="text-[#007041] font-black mb-6 flex items-center gap-2 text-xl uppercase tracking-tighter">
-               <HelpCircle className="h-6 w-6" /> Precisa de ajuda?
-             </h4>
-             <ul className="space-y-4">
-               
-               <li 
-                 onClick={() => setAbrirModalFAQ(true)}
-                 className="flex items-center gap-4 p-3 rounded-xl border border-transparent text-slate-500 font-bold hover:text-[#007041] hover:bg-slate-50 cursor-pointer transition-all group"
-               >
-                 <div className="p-2 bg-slate-100 rounded-xl group-hover:bg-[#007041]/10">
-                   <FileText className="h-5 w-5" />
-                 </div>
-                 Perguntas Frequentes (FAQ)
-               </li>
-
-               <li 
-                 onClick={() => setAbrirModalSuporte(true)}
-                 className="flex items-center gap-4 p-3 rounded-xl border border-transparent text-slate-500 font-bold hover:text-[#007041] hover:bg-slate-50 cursor-pointer transition-all group"
-               >
-                 <div className="p-2 bg-slate-100 rounded-xl group-hover:bg-[#007041]/10">
-                   <Headphones className="h-5 w-5" />
-                 </div>
-                 Contatar Suporte Técnico
-               </li>
-
-               <li 
-                 onClick={() => setAbrirModalTermos(true)}
-                 className="flex items-center gap-4 p-3 rounded-xl border border-transparent text-slate-500 font-bold hover:text-[#007041] hover:bg-slate-50 cursor-pointer transition-all group"
-               >
-                 <div className="p-2 bg-slate-100 rounded-xl group-hover:bg-[#007041]/10">
-                   <ShieldCheck className="h-5 w-5" />
-                 </div>
-                 Termos de Uso e Privacidade
-               </li>
-
-             </ul>
+            <h4 className="text-[#007041] font-black mb-6 flex items-center gap-2 text-xl uppercase tracking-tighter">
+              <HelpCircle className="h-6 w-6" /> Precisa de ajuda?
+            </h4>
+            <ul className="space-y-4">
+              <li onClick={() => setAbrirModalFAQ(true)} className="flex items-center gap-4 p-3 rounded-xl border border-transparent text-slate-500 font-bold hover:text-[#007041] hover:bg-slate-50 cursor-pointer transition-all group">
+                <div className="p-2 bg-slate-100 rounded-xl group-hover:bg-[#007041]/10"><FileText className="h-5 w-5" /></div>
+                Perguntas Frequentes (FAQ)
+              </li>
+              <li onClick={() => setAbrirModalSuporte(true)} className="flex items-center gap-4 p-3 rounded-xl border border-transparent text-slate-500 font-bold hover:text-[#007041] hover:bg-slate-50 cursor-pointer transition-all group">
+                <div className="p-2 bg-slate-100 rounded-xl group-hover:bg-[#007041]/10"><Headphones className="h-5 w-5" /></div>
+                Contatar Suporte Técnico
+              </li>
+              <li onClick={() => setAbrirModalTermos(true)} className="flex items-center gap-4 p-3 rounded-xl border border-transparent text-slate-500 font-bold hover:text-[#007041] hover:bg-slate-50 cursor-pointer transition-all group">
+                <div className="p-2 bg-slate-100 rounded-xl group-hover:bg-[#007041]/10"><ShieldCheck className="h-5 w-5" /></div>
+                Termos de Uso e Privacidade
+              </li>
+            </ul>
           </div>
-
         </div>
       </div>
 
@@ -370,27 +329,16 @@ export default function SettingsPage() {
             </div>
             <div className="space-y-4">
               <p className="text-sm text-slate-500 font-medium">Relate o problema técnico encontrado na plataforma Universidade UHNK:</p>
-              <textarea 
-                placeholder="Descreva detalhadamente a instabilidade ou dúvida..." 
-                className="w-full h-32 p-4 bg-slate-50 border border-slate-100 rounded-xl text-sm font-medium outline-none focus:ring-2 focus:ring-[#007041] placeholder:text-slate-300 resize-none"
-              />
+              <textarea placeholder="Descreva detalhadamente a instabilidade ou dúvida..." className="w-full h-32 p-4 bg-slate-50 border border-slate-100 rounded-xl text-sm font-medium outline-none focus:ring-2 focus:ring-[#007041] placeholder:text-slate-300 resize-none" />
               <div className="flex gap-3 pt-2">
-                <Button variant="outline" onClick={() => setAbrirModalSuporte(false)} className="flex-1 border-slate-200 text-slate-500 font-bold rounded-xl h-12 text-xs uppercase">
-                  Cancelar
-                </Button>
-                <Button 
-                  onClick={() => { setAbrirModalSuporte(false); mostrarFeedback("sucesso", "Chamado aberto sob o protocolo #UHNK-2026!"); }}
-                  className="flex-1 bg-[#007041] hover:bg-[#005a34] text-white font-black rounded-xl h-12 text-xs uppercase tracking-wider"
-                >
-                  Enviar Chamado
-                </Button>
+                <Button variant="outline" onClick={() => setAbrirModalSuporte(false)} className="flex-1 border-slate-200 text-slate-500 font-bold rounded-xl h-12 text-xs uppercase">Cancelar</Button>
+                <Button onClick={() => { setAbrirModalSuporte(false); mostrarFeedback("sucesso", "Chamado aberto sob o protocolo #UHNK-2026!"); }} className="flex-1 bg-[#007041] hover:bg-[#005a34] text-white font-black rounded-xl h-12 text-xs uppercase tracking-wider">Enviar Chamado</Button>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* ================= MODAL DE TERMOS E PRIVACIDADE ================= */}
       {abrirModalTermos && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center animate-in fade-in duration-200">
           <div className="bg-white rounded-[32px] p-8 w-full max-w-lg shadow-2xl border border-slate-100 m-4 max-h-[75vh] overflow-y-auto animate-in zoom-in-95 duration-200">
@@ -416,7 +364,6 @@ export default function SettingsPage() {
           </div>
         </div>
       )}
-
     </div>
   )
 }

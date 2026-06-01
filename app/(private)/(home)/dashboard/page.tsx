@@ -1,14 +1,19 @@
 "use client";
 import { useState, useEffect } from "react";
-import NewsModal from "@/components/dashboard/NewsModal";
-import NotificationListModal from "@/components/dashboard/NotificationListModal";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import Image from "next/image";
+
+const NewsModal = dynamic(() => import("@/components/dashboard/NewsModal"), { ssr: false });
+const NotificationListModal = dynamic(() => import("@/components/dashboard/NotificationListModal"), { ssr: false });
 
 export default function DashboardPage() {
   const [showNews, setShowNews] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const alreadySeen = sessionStorage.getItem("dashboard_news_seen");
     if (!alreadySeen) {
       setShowNews(true);
@@ -21,19 +26,18 @@ export default function DashboardPage() {
     setShowNotifications(true);
   };
 
-  const isOverlayActive = showNews || showNotifications;
+  const isOverlayActive = mounted && (showNews || showNotifications);
 
   return (
     <div className="relative min-h-screen bg-white">
       <div
-        className={`transition-all duration-700 ${
-          isOverlayActive ? "blur-xl scale-95 origin-center" : "blur-0 scale-100"
+        className={`transition-all duration-300 ${
+          isOverlayActive ? "blur-sm scale-[0.98] origin-center" : "blur-0 scale-100"
         }`}
       >
         <main className="p-8 max-w-7xl mx-auto bg-[#f5f5f5] min-h-screen">
-
-          <div className="mb-8">
-            <h1 className="text-5xl font-bold text-[#1b1b1b] mb-2">
+          <div className="mb-4">
+            <h1 className="text-5xl font-bold text-[#1b1b1b] mb-1">
               Olá, João Silva! ☀️ Bom dia.
             </h1>
             <p className="text-gray-500">
@@ -42,15 +46,18 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
             <div className="lg:col-span-3 bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition">
               <Link href="https://www.heinekenbrasil.com.br/" target="_blank">
-                <img
-                  src="https://images.unsplash.com/photo-1513828583688-c52646db42da"
-                  alt="Heineken"
-                  className="w-full h-[350px] object-cover hover:scale-105 transition duration-500"
-                  loading="lazy"
-                />
+                <div className="relative w-full h-[350px]">
+                  <Image
+                    src="https://images.unsplash.com/photo-1513828583688-c52646db42da"
+                    alt="Heineken"
+                    fill
+                    className="object-cover hover:scale-105 transition duration-500"
+                    sizes="(max-width: 1024px) 100vw, 75vw"
+                    priority
+                  />
+                </div>
               </Link>
               <div className="p-8">
                 <span className="bg-heineken-green text-white text-xs px-3 py-1 rounded-full">
@@ -110,19 +117,20 @@ export default function DashboardPage() {
                 </Link>
               </div>
             </div>
-
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-
             <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition">
               <Link href="https://www.heinekenbrasil.com.br/sustentabilidade" target="_blank">
-                <img
-                  src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
-                  alt="Nature"
-                  className="w-full h-52 object-cover hover:scale-105 transition duration-500"
-                  loading="lazy"
-                />
+                <div className="relative w-full h-52">
+                  <Image
+                    src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+                    alt="Nature"
+                    fill
+                    className="object-cover hover:scale-105 transition duration-500"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
               </Link>
               <div className="p-5">
                 <span className="text-red-500 text-xs font-bold">SUSTENTABILIDADE</span>
@@ -132,12 +140,15 @@ export default function DashboardPage() {
 
             <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition">
               <Link href="https://www.heineken.com/" target="_blank">
-                <img
-                  src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
-                  alt="People"
-                  className="w-full h-52 object-cover hover:scale-105 transition duration-500"
-                  loading="lazy"
-                />
+                <div className="relative w-full h-52">
+                  <Image
+                    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d"
+                    alt="People"
+                    fill
+                    className="object-cover hover:scale-105 transition duration-500"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
               </Link>
               <div className="p-5">
                 <span className="text-heineken-green text-xs font-bold">COMMUNITY</span>
@@ -147,21 +158,22 @@ export default function DashboardPage() {
 
             <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition">
               <Link href="https://www.heineken.com/br/pt/nossa-historia" target="_blank">
-                <img
-                  src="https://images.unsplash.com/photo-1578662996442-48f60103fc96"
-                  alt="Beer"
-                  className="w-full h-52 object-cover hover:scale-105 transition duration-500"
-                  loading="lazy"
-                />
+                <div className="relative w-full h-52">
+                  <Image
+                    src="https://images.unsplash.com/photo-1578662996442-48f60103fc96"
+                    alt="Beer"
+                    fill
+                    className="object-cover hover:scale-105 transition duration-500"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
               </Link>
               <div className="p-5">
                 <span className="text-gray-500 text-xs font-bold">HERITAGE</span>
                 <h3 className="text-2xl font-bold mt-3 text-[#1b1b1b]">O Segredo do Fermento Revelado</h3>
               </div>
             </div>
-
           </div>
-
         </main>
       </div>
 
