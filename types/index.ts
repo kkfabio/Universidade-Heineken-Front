@@ -1,5 +1,6 @@
 export type { Course } from './course'
 export type { Post } from './post'
+export type AlunosCurso = Aluno
 
 export interface Modulo {
   id: string
