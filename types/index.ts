@@ -14,6 +14,7 @@ export interface Aluno {
   nome: string
   email: string
   progresso: number
+  funcao?: string 
 }
 
 export interface CursoCompleto {
