@@ -84,7 +84,7 @@ export default function SettingsPage() {
       const payload = JSON.parse(atob(token.split(".")[1]))
       const email = payload.sub
 
-      const response = await fetch("http://localhost:8080/api/password/change", {
+      const response = await fetch("${process.env.NEXT_PUBLIC_API_URL}/api/password/change", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
