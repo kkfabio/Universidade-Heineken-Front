@@ -25,7 +25,7 @@ function StatusBadge({ status }: { status: AlunosCurso['status'] }) {
     ativo:     { label: 'Em Andamento', cls: 'bg-blue-50 text-blue-700' },
     inativo:   { label: 'Inativo',   cls: 'bg-gray-100 text-gray-500'   },
   } as const;
-  const { label, cls } = map[status];
+const { label, cls } = map[status ?? 'ativo'];
   return (
     <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${cls}`}>
       {label}
