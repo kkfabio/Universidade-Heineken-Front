@@ -1,7 +1,3 @@
-export type { Course } from './course'
-export type { Post } from './post'
-export type AlunosCurso = Aluno
-
 export interface Modulo {
   id: string
   titulo: string
@@ -14,8 +10,12 @@ export interface Aluno {
   nome: string
   email: string
   progresso: number
-  funcao?: string 
+  funcao?: string
+  matriculadoEm?: string
+  status?: 'concluido' | 'ativo' | 'inativo'
 }
+
+export type AlunosCurso = Aluno
 
 export interface CursoCompleto {
   id: string
