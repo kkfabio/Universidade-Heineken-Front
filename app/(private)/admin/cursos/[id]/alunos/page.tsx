@@ -57,7 +57,7 @@ export default function AlunosPage() {
   const filtered = alunos.filter(a =>
     a.nome.toLowerCase().includes(search.toLowerCase()) ||
     a.email.toLowerCase().includes(search.toLowerCase()) ||
-    a.funcao.toLowerCase().includes(search.toLowerCase())
+ (a.funcao ?? '').toLowerCase().includes(search.toLowerCase())
   );
 
   function removerAluno(id: string) {
