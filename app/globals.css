@@ -4,9 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* --- EXTENSÃO DO TEMA GLOBAL (TAILWIND v4) --- */
 @theme {
-  --color-heineken-green: #008200;
-  --color-heineken-dark: #005e00;
+  --color-heineken-green: #007041;
+  --color-heineken-dark: #005431;
   --color-heineken-red: #FF2B00;
   --color-heineken-light: #F4F4F4;
   --color-heineken-white: #FFFFFF;
@@ -14,16 +15,17 @@
 
 @layer base {
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
   * {
     @apply border-border outline-ring/50;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
   }
 }
 
+/* --- COMPATIBILIDADE INLINE COM SHADCN VARIABLES --- */
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
@@ -67,6 +69,7 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* --- TOKENS DE COR EM SEMI-ESPAÇO OKLCH --- */
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -135,14 +138,19 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-/* Scrollbar personalizada */
+
+/* --- BARRA DE ROLAGEM EXCLUSIVA (BRAND ALIGNED) --- */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #F8FAFB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #007042;
-  border-radius: 10px;
+  background: #007041;
+  border-radius: 100px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #005431;
 }

@@ -1,5 +1,16 @@
 import { CoursePlayer } from "@/app/(private)/(home)/certificados/components/CoursePlayer";
 import Link from "next/link";
+import { 
+  Clock, 
+  Layers, 
+  Award, 
+  BookOpen, 
+  Lock, 
+  PlayCircle, 
+  CheckCircle2, 
+  AlertCircle, 
+  ArrowLeft 
+} from "lucide-react";
 
 const courseData: Record<
   string,
@@ -13,9 +24,9 @@ const courseData: Record<
     description: string;
     coverImage: string;
     content: {
-    id: string;
-    title: string;
-    videoUrl: string;
+      id: string;
+      title: string;
+      videoUrl: string;
     }[];
     certificateImage: string;
     videoUrl: string;
@@ -97,7 +108,6 @@ const courseData: Record<
     status: "not-started",
     actionLabel: "Iniciar Curso",
   },
-
   "curso-03": {
     title: "Inovação Digital",
     category: "Transformação Digital",
@@ -135,7 +145,6 @@ const courseData: Record<
     status: "not-started",
     actionLabel: "Iniciar Curso",
   },
-  
   "curso-04": {
     title: "Qualidade do Produto",
     category: "Qualidade",
@@ -173,7 +182,6 @@ const courseData: Record<
     status: "not-started",
     actionLabel: "Iniciar Curso",
   },
-
   "curso-05": {
     title: "Logística e Operações",
     category: "Operações",
@@ -211,7 +219,6 @@ const courseData: Record<
     status: "in-progress",
     actionLabel: "Continuar Curso",
   },
-
   "curso-06": {
     title: "Estratégias de Marketing",
     category: "Marketing",
@@ -249,7 +256,6 @@ const courseData: Record<
     status: "in-progress",
     actionLabel: "Continuar Curso",
   },
-
   "curso-07": {
     title: "Liderança de Equipes",
     category: "Liderança",
@@ -292,7 +298,6 @@ const courseData: Record<
     status: "in-progress",
     actionLabel: "Continuar Curso",
   },
-
   "curso-08": {
     title: "Segurança do Trabalho",
     category: "Segurança",
@@ -330,7 +335,6 @@ const courseData: Record<
     status: "completed",
     actionLabel: "Revisar Curso",
   },
-  
   "curso-09": {
     title: "Ética e Compliance",
     category: "Compliance",
@@ -368,7 +372,6 @@ const courseData: Record<
     status: "completed",
     actionLabel: "Revisar Curso",
   },
-  
   "curso-10": {
     title: "Onboarding Global",
     category: "Integração",
@@ -387,7 +390,7 @@ const courseData: Record<
       },
       {
         id: "aula-02",
-        title: "Estrutura, Cultura e Processos",
+        title: "Estrutura, Culture e Processos",
         videoUrl: "https://youtu.be/A8qpKpzNLLQ?si=_AuOh2pfJ05ZWSvd"
       },
       {
@@ -401,7 +404,6 @@ const courseData: Record<
     status: "completed",
     actionLabel: "Revisar Curso",
   },
-
 };
 
 type CoursePageProps = {
@@ -415,209 +417,221 @@ export default async function CourseDetailsPage({ params }: CoursePageProps) {
   const course = courseData[id] ?? courseData["curso-01"];
 
   if (!course) {
-    return <div className="p-6">Curso não encontrado.</div>;
+    return <div className="p-6 font-bold text-slate-700">Curso não encontrado.</div>;
   }
 
   return (
-    <div className="flex min-h-screen bg-[#F4F4F1] text-neutral-900">
-
-      <div className="flex min-h-screen flex-1 flex-col">
-
-        <main className="flex-1 px-4 py-6 md:px-6 xl:px-8">
-          <section className="overflow-hidden rounded-[28px] bg-white shadow-sm">
-            <div className="relative min-h-[280px] overflow-hidden md:min-h-[340px]">
+    <div className="flex min-h-screen bg-[#F8FAFB] text-neutral-900 w-full">
+      <div className="flex min-h-screen flex-1 flex-col w-full min-w-0">
+        
+        <main className="flex-1 p-4 sm:p-6 md:p-8 w-full">
+          <section className="overflow-hidden rounded-[24px] sm:rounded-[32px] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.02)] border border-slate-100">
+            
+            {/* --- BANNER DE CAPA --- */}
+            <div className="relative min-h-[260px] overflow-hidden md:min-h-[340px] flex items-end">
               <img
                 src={course.coverImage}
                 alt={`Capa do curso ${course.title}`}
                 className="absolute inset-0 h-full w-full object-cover"
               />
+              <div className="absolute inset-0 bg-black/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent" />
             
-              <div className="absolute inset-0 bg-black/45" />
-            
-              <div className="relative z-10 p-6 text-white md:p-8">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
-                  Curso • {course.category}
+              <div className="relative z-10 p-5 sm:p-8 text-white w-full">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-white/70">
+                  Curso de Aperfeiçoamento • {course.category}
                 </p>
             
-                <h1 className="mt-4 text-3xl font-bold leading-tight md:text-5xl">
+                <h1 className="mt-2 text-2xl sm:text-4xl md:text-5xl font-black leading-tight tracking-tight max-w-4xl">
                   {course.title}
                 </h1>
             
-                
-            
-                <div
-                  className={`mt-5 inline-flex rounded-full px-4 py-2 text-sm font-semibold ${
-                    course.status === "completed"
-                      ? "bg-[#E8F3EC] text-[#0B5D2A]"
-                      : course.status === "in-progress"
-                      ? "bg-[#E8F3EC] text-[#0B5D2A]"
-                      : "bg-[#F7C948] text-[#3E2A00]"
-                  }`}
-                >
-                  {course.status === "completed"
-                    ? "✅ Concluído — você já finalizou este curso"
-                    : course.status === "in-progress"
-                    ? "📘 Em andamento — continue sua jornada"
-                    : "⏳ Pendente — você ainda não iniciou este curso"}
+                {/* Status customizado por badges */}
+                <div className="mt-4 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-wider backdrop-blur-md border">
+                  {course.status === "completed" && (
+                    <span className="flex items-center gap-1.5 text-emerald-300">
+                      <CheckCircle2 className="h-4 w-4" /> Concluído — Trilha Finalizada
+                    </span>
+                  )}
+                  {course.status === "in-progress" && (
+                    <span className="flex items-center gap-1.5 text-sky-300">
+                      <Clock className="h-4 w-4" /> Em andamento — Continue estudando
+                    </span>
+                  )}
+                  {course.status === "not-started" && (
+                    <span className="flex items-center gap-1.5 text-amber-300">
+                      <AlertCircle className="h-4 w-4" /> Pendente — Não iniciado
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-6 p-6 md:p-8 xl:grid-cols-12">
-              <div className="xl:col-span-8">
-                <div className="rounded-[24px] bg-[#F7F7F4] p-6">
-                  <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
-                        Duração
-                      </p>
-                      <p className="mt-2 text-sm font-semibold text-neutral-900">
-                        {course.duration}
-                      </p>
+            {/* --- CONTEÚDO PRINCIPAL --- */}
+            <div className="grid grid-cols-1 gap-6 p-5 sm:p-8 xl:grid-cols-12 w-full">
+              
+              {/* Coluna da Esquerda (Informações e Aulas) */}
+              <div className="xl:col-span-8 space-y-6 min-w-0">
+                <div className="rounded-[24px] bg-slate-50/70 border border-slate-100 p-5 sm:p-6">
+                  
+                  {/* Grid de Metadados */}
+                  <div className="grid grid-cols-2 gap-4 md:grid-cols-4 border-b border-slate-200/60 pb-6">
+                    <div className="flex items-start gap-2.5">
+                      <Clock className="h-5 w-5 text-[#007041] mt-0.5 shrink-0" />
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Duração</p>
+                        <p className="mt-0.5 text-sm font-black text-slate-800">{course.duration}</p>
+                      </div>
                     </div>
 
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
-                        Módulos
-                      </p>
-                      <p className="mt-2 text-sm font-semibold text-neutral-900">
-                        {course.modules}
-                      </p>
+                    <div className="flex items-start gap-2.5">
+                      <Layers className="h-5 w-5 text-[#007041] mt-0.5 shrink-0" />
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Módulos</p>
+                        <p className="mt-0.5 text-sm font-black text-slate-800">{course.modules}</p>
+                      </div>
                     </div>
 
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
-                        Nível
-                      </p>
-                      <p className="mt-2 text-sm font-semibold text-neutral-900">
-                        {course.level}
-                      </p>
+                    <div className="flex items-start gap-2.5">
+                      <Award className="h-5 w-5 text-[#007041] mt-0.5 shrink-0" />
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Nível</p>
+                        <p className="mt-0.5 text-sm font-black text-slate-800">{course.level}</p>
+                      </div>
                     </div>
 
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-neutral-400">
-                        Aulas
-                      </p>
-                      <p className="mt-2 text-sm font-semibold text-neutral-900">
-                        {course.lessons}
-                      </p>
+                    <div className="flex items-start gap-2.5">
+                      <BookOpen className="h-5 w-5 text-[#007041] mt-0.5 shrink-0" />
+                      <div>
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Aulas</p>
+                        <p className="mt-0.5 text-sm font-black text-slate-800">{course.lessons}</p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="mt-8">
-                    <h2 className="text-2xl font-bold text-neutral-900">
+                  {/* Descrição */}
+                  <div className="mt-6">
+                    <h2 className="text-xl font-black text-slate-800 uppercase tracking-tight">
                       Sobre este curso
                     </h2>
-                    <p className="mt-4 max-w-3xl text-sm leading-7 text-neutral-600 md:text-base">
+                    <p className="mt-3 text-sm leading-relaxed text-slate-600 font-medium">
                       {course.description}
                     </p>
                   </div>
                 </div>
 
-                
-                <div className="mt-6">
-                  <h2 className="text-2xl font-bold text-neutral-900">
-                    Conteúdo Programático
+                {/* Lista de Aulas */}
+                <div>
+                  <h2 className="text-xl font-black text-slate-800 uppercase tracking-tight mb-4 flex items-center gap-2">
+                    <Layers className="h-5 w-5 text-[#007041]" /> Conteúdo Programático
                   </h2>
 
-                  <div className="mt-5 space-y-3">
+                  <div className="space-y-2.5">
                     {course.content.map((item, index) => (
-                     <div
-                       key={item.title}
-                       className="flex items-center justify-between rounded-[18px] border border-black/5 bg-[#F7F7F4] px-4 py-4 transition-all duration-200 hover:-translate-y-1 hover:bg-[#ECECE6] hover:shadow-md"
-                     >
-                       <div className="flex items-center gap-4">
-                         <span className="text-sm font-semibold text-neutral-400">
-                           {String(index + 1).padStart(2, "0")}
-                         </span>
-                   
-                         <p className="text-sm font-medium text-neutral-800 md:text-base">
-                           {item.title}
-                         </p>
-                       </div>
-                   
-                       {index === 0 ? (
-                         <a
-                           href={item.videoUrl}
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           className="text-neutral-400 transition hover:text-[#0B5D2A]"
-                         >
-                           ⌄
-                         </a>
-                       ) : (
-                         <span className="text-neutral-400">🔒</span>
-                       )}
-                     </div>
-                   ))}
+                      <div
+                        key={item.id}
+                        className="flex items-center justify-between rounded-[16px] border border-slate-100 bg-slate-50/50 px-4 py-4 transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-100/80 hover:shadow-sm"
+                      >
+                        <div className="flex items-center gap-4 min-w-0">
+                          <span className="text-xs font-bold text-slate-400 font-mono bg-white border border-slate-100 h-7 w-7 rounded-lg flex items-center justify-center shrink-0">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <p className="text-sm sm:text-base font-bold text-slate-700 truncate">
+                            {item.title}
+                          </p>
+                        </div>
+                    
+                        {index === 0 ? (
+                          <a
+                            href={item.videoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-slate-400 hover:text-[#007041] p-1 transition-colors shrink-0"
+                            title="Assistir Aula"
+                          >
+                            <PlayCircle className="h-5 w-5 text-[#007041]" />
+                          </a>
+                        ) : (
+                          <span className="text-slate-300 p-1 shrink-0" title="Conteúdo bloqueado">
+                            <Lock className="h-4 w-4" />
+                          </span>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
-              
-
-              <aside className="xl:col-span-4 space-y-6">
-                <div className="rounded-[28px] border border-black/5 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md">
-                  <h3 className="text-xl font-bold text-neutral-900">
+              {/* Coluna da Direita (Painéis Laterais de Ação e Certificado) */}
+              <aside className="xl:col-span-4 space-y-5 lg:w-full">
+                
+                {/* Card de CTA Principal */}
+                <div className="rounded-[24px] border border-slate-100 bg-slate-50/50 p-5 sm:p-6 shadow-sm">
+                  <h3 className="text-lg font-black text-slate-800 uppercase tracking-tight">
                     Pronto para começar?
                   </h3>
-
-                  <p className="mt-3 text-sm leading-6 text-neutral-500">
-                    Inicie hoje o desenvolvimento e avance com os conteúdos da
-                    nossa jornada educacional.
+                  <p className="mt-2 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium">
+                    Acelere o seu desenvolvimento corporativo e ganhe relevância na plataforma completando as etapas de vídeo e questionários.
                   </p>
-
                   <a
                     href={course.videoUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-[#0B5D2A] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#094a22]"
+                    className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-[#007041] px-4 py-3 text-xs font-bold uppercase tracking-wider text-white transition hover:bg-[#005a34] active:scale-95 shadow-md shadow-[#007041]/10"
                   >
                     {course.actionLabel}
                   </a>
                 </div>
 
-                <div className="rounded-[28px] border border-black/5 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">
-                    Certificação Heineken
+                {/* Card do Certificado */}
+                <div className="rounded-[24px] border border-slate-100 bg-white p-5 sm:p-6 shadow-sm">
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
+                    Certificação Acadêmica
                   </p>
 
-                  <img
-                    src={course.certificateImage}
-                    alt={`Certificado do curso ${course.title}`}
-                    className="mt-4 h-[180px] w-full rounded-[20px] object-cover"
-                  />
+                  <div className="mt-3 relative h-[160px] w-full rounded-[16px] overflow-hidden group border border-slate-100">
+                    <img
+                      src={course.certificateImage}
+                      alt={`Certificado do curso ${course.title}`}
+                      className="h-full w-full object-cover grayscale transition duration-300 group-hover:grayscale-0"
+                    />
+                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                  </div>
 
-                  <p className="mt-4 text-sm leading-6 text-neutral-500">
-                    Conclua as etapas para desbloquear seu certificado ao final
-                    da jornada.
+                  <p className="mt-4 text-xs sm:text-sm leading-relaxed text-slate-500 font-medium">
+                    Conclua com sucesso 100% dos módulos e atinja os critérios mínimos de avaliação para desbloquear e exportar seu diploma.
                   </p>
 
-                  <Link
-                    href="/cursos"
-                    className="mt-4 inline-flex text-sm font-semibold text-[#0B5D2A]"
-                  >
-                    ← Voltar para cursos
-                  </Link>
+                  <div className="mt-5 pt-4 border-t border-slate-100 w-full">
+                    <Link
+                      href="/cursos"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#007041] hover:text-[#005a34] transition-colors"
+                    >
+                      <ArrowLeft className="h-3.5 w-3.5" /> Voltar para lista
+                    </Link>
+                  </div>
                 </div>
                 
               </aside>
             </div>
           </section>    
         </main>
-        <div className="mt-6">
-                 <CoursePlayer 
-                   courseId={id}
-                   lessons={course.content.map((item) => ({
-                     id: item.id,
-                     title: item.title,
-                     videoId:
-                       item.videoUrl.match(
-                         /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/live\/)([^?&/]+)/
-                       )?.[1] ?? "",
-                   }))}
-                 />
-               </div>
+
+        {/* --- REPRODUTOR DE VIDEO ACOPLADO --- */}
+        <div className="px-4 pb-8 md:px-6 xl:px-8 w-full">
+          <CoursePlayer 
+            courseId={id}
+            lessons={course.content.map((item) => ({
+              id: item.id,
+              title: item.title,
+              videoId:
+                item.videoUrl.match(
+                  /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/live\/)([^?&/]+)/
+                )?.[1] ?? "",
+            }))}
+          />
+        </div>
+        
       </div>
     </div>
   );

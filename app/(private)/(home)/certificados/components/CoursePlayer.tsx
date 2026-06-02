@@ -187,112 +187,121 @@ export function CoursePlayer({ courseId, lessons }: CoursePlayerProps) {
   const canMarkAsDone = !!selectedProgress?.watchedToEnd;
 
   return (
-    <div className="space-y-6">
-      <div className="overflow-hidden rounded-[24px] bg-black p-3 shadow-sm">
-        <div className="aspect-video overflow-hidden rounded-[18px] bg-neutral-900">
-          <div id="youtube-player" className="h-full w-full" />
-        </div>
-      </div>
+    <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+      {/* Grid Principal: Muda de 1 coluna (mobile) para 12 colunas (desktop) */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:gap-8 items-start">
+        
+        {/* Coluna da Esquerda (Player e Controles) - Ocupa 8 de 12 colunas no PC */}
+        <div className="space-y-4 sm:space-y-6 lg:col-span-8">
+          <div className="overflow-hidden rounded-[20px] sm:rounded-[24px] bg-black p-2 sm:p-3 shadow-sm">
+            <div className="aspect-video overflow-hidden rounded-[14px] sm:rounded-[18px] bg-neutral-900">
+              <div id="youtube-player" className="h-full w-full" />
+            </div>
+          </div>
 
-      <div className="flex flex-wrap gap-3">
-        <button
-          type="button"
-          onClick={markAsDone}
-          disabled={!canMarkAsDone}
-          className={`inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition ${
-            canMarkAsDone
-              ? "bg-[#0B5D2A] text-white hover:bg-[#094a22]"
-              : "cursor-not-allowed bg-neutral-200 text-neutral-500"
-          }`}
-        >
-          {selectedProgress?.markedDone ? "Aula concluída" : "Marcar aula como concluída"}
-        </button>
+          {/* Área de Botões Responsiva */}
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              type="button"
+              onClick={markAsDone}
+              disabled={!canMarkAsDone}
+              className={`inline-flex items-center justify-center rounded-full px-6 py-3.5 text-sm font-semibold transition w-full sm:w-auto ${
+                canMarkAsDone
+                  ? "bg-[#0B5D2A] text-white hover:bg-[#094a22]"
+                  : "cursor-not-allowed bg-neutral-200 text-neutral-500"
+              }`}
+            >
+              {selectedProgress?.markedDone ? "Aula concluída" : "Marcar aula como concluída"}
+            </button>
 
-        {selectedLesson && (
-          <a
-            href={`https://www.youtube.com/watch?v=${selectedLesson.videoId}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center rounded-full bg-[#E8F3EC] px-5 py-3 text-sm font-semibold text-[#0B5D2A] transition hover:bg-[#d8ebdf]"
-          >
-            Abrir no YouTube
-          </a>
-        )}
-      </div>
-
-      <div>
-        <h2 className="text-2xl font-bold text-neutral-900">
-          Conteúdo Programático
-        </h2>
-
-        <div className="mt-5 space-y-3">
-          {lessons.map((lesson, index) => {
-            const unlocked = isUnlocked(index);
-            const lessonProgress = progress[lesson.id];
-            const active = selectedLessonId === lesson.id;
-
-            return (
-              <div
-                key={lesson.id}
-                className={`rounded-[18px] border px-4 py-4 transition-all duration-200 ${
-                  unlocked
-                    ? "border-black/5 bg-[#F7F7F4] hover:bg-[#ECECE6] hover:shadow-md"
-                    : "border-black/5 bg-[#F1F1ED] opacity-70"
-                } ${active ? "ring-2 ring-[#0B5D2A]" : ""}`}
+            {selectedLesson && (
+              <a
+                href={`https://www.youtube.com/watch?v=${selectedLesson.videoId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[#E8F3EC] px-6 py-3.5 text-sm font-semibold text-[#0B5D2A] transition hover:bg-[#d8ebdf] w-full sm:w-auto text-center"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <button
-                    type="button"
-                    onClick={() => unlocked && setSelectedLessonId(lesson.id)}
-                    disabled={!unlocked}
-                    className={`flex flex-1 items-center justify-between gap-4 text-left ${
-                      unlocked ? "cursor-pointer" : "cursor-not-allowed"
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm font-semibold text-neutral-400">
+                Abrir no YouTube
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Coluna da Direita (Syllabus/Conteúdo) - Ocupa 4 de 12 colunas no PC */}
+        <div className="lg:col-span-4 mt-2 lg:mt-0">
+          <h2 className="text-xl sm:text-2xl font-bold text-neutral-900">
+            Conteúdo Programático
+          </h2>
+
+          {/* Adicionado max-h e scroll interno para não esticar a tela do PC para baixo infinitamente */}
+          <div className="mt-4 sm:mt-5 space-y-3 max-h-[50vh] lg:max-h-[calc(100vh-14rem)] overflow-y-auto pr-1 scrollbar-thin">
+            {lessons.map((lesson, index) => {
+              const unlocked = isUnlocked(index);
+              const lessonProgress = progress[lesson.id];
+              const active = selectedLessonId === lesson.id;
+
+              return (
+                <div
+                  key={lesson.id}
+                  className={`rounded-[16px] sm:rounded-[18px] border p-3 sm:p-4 transition-all duration-200 ${
+                    unlocked
+                      ? "border-black/5 bg-[#F7F7F4] hover:bg-[#ECECE6] hover:shadow-sm"
+                      : "border-black/5 bg-[#F1F1ED] opacity-70"
+                  } ${active ? "ring-2 ring-[#0B5D2A] bg-[#ECECE6]" : ""}`}
+                >
+                  <div className="flex items-center justify-between gap-3 min-w-0">
+                    <button
+                      type="button"
+                      onClick={() => unlocked && setSelectedLessonId(lesson.id)}
+                      disabled={!unlocked}
+                      className={`flex flex-1 items-center gap-3 sm:gap-4 text-left min-w-0 ${
+                        unlocked ? "cursor-pointer" : "cursor-not-allowed"
+                      }`}
+                    >
+                      <span className="text-xs sm:text-sm font-semibold text-neutral-400 shrink-0">
                         {String(index + 1).padStart(2, "0")}
                       </span>
 
-                      <div>
-                        <p className="text-sm font-medium text-neutral-800 md:text-base">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-neutral-800 md:text-base truncate sm:whitespace-normal sm:line-clamp-2">
                           {lesson.title}
                         </p>
 
                         {lessonProgress?.watchedToEnd && (
-                          <p className="mt-1 text-xs font-medium text-[#0B5D2A]">
+                          <p className="mt-0.5 text-[11px] font-medium text-[#0B5D2A]">
                             Vídeo assistido até o final
                           </p>
                         )}
 
                         {lessonProgress?.markedDone && (
-                          <p className="mt-1 text-xs font-medium text-[#0B5D2A]">
+                          <p className="mt-0.5 text-[11px] font-medium text-[#0B5D2A]">
                             Aula marcada como concluída
                           </p>
                         )}
                       </div>
-                    </div>
 
-                    <span className="text-neutral-400">
-                      {!unlocked ? "🔒" : lessonProgress?.markedDone ? "✅" : "▶"}
-                    </span>
-                  </button>
+                      <span className="text-neutral-400 shrink-0 text-xs sm:text-sm pl-1">
+                        {!unlocked ? "🔒" : lessonProgress?.markedDone ? "✅" : "▶"}
+                      </span>
+                    </button>
 
-                  {unlocked && (
-                    <a
-                      href={`https://www.youtube.com/watch?v=${lesson.videoId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0 rounded-full bg-white px-3 py-2 text-xs font-semibold text-[#0B5D2A] transition hover:bg-[#E8F3EC]"
-                    >
-                      Link
-                    </a>
-                  )}
+                    {unlocked && (
+                      <a
+                        href={`https://www.youtube.com/watch?v=${lesson.videoId}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shrink-0 rounded-full bg-white px-2.5 py-1.5 text-[11px] font-semibold text-[#0B5D2A] transition hover:bg-[#E8F3EC] border border-neutral-200/60 shadow-sm"
+                      >
+                        Link
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
+
       </div>
     </div>
   );
