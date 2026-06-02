@@ -1,23 +1,29 @@
 "use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import LoginForm from "./components/LoginForm";
 import Link from "next/link";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 
@@ -39,29 +45,80 @@ export default function LoginPage() {
         <span className="text-[40rem] leading-none">★</span>
       </div>
 
-      {/* Header da Tela */}
+      {/* Header */}
       <div className="z-10 text-center mb-8">
         <div className="text-heineken-red text-3xl mb-2">★</div>
+
         <h1 className="text-white text-3xl font-bold uppercase tracking-tight">
           UHNK — Universidade <br /> Heineken
         </h1>
+
         <p className="text-heineken-light/80 text-xs mt-2 tracking-[0.2em] font-medium uppercase">
           Login de Acesso
         </p>
       </div>
 
-      {/* Card do Formulário com efeito de vidro */}
+      {/* Card */}
       <main className="z-10 w-full max-w-[400px] px-4">
         <div className="bg-white/10 backdrop-blur-md border border-white/10 p-8 rounded-2xl shadow-2xl">
-          <LoginForm
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
-            onSubmit={handleLogin}
-          />
+          <form onSubmit={handleLogin} className="space-y-5">
+            {/* Email */}
+            <div>
+              <label className="block text-white text-sm mb-2">
+                E-mail
+              </label>
 
-          {/* Botão Esqueci minha senha */}
+              <input
+                type="email"
+                placeholder="Digite seu e-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 outline-none focus:border-heineken-light transition"
+                required
+              />
+            </div>
+
+            {/* Senha */}
+            <div>
+              <label className="block text-white text-sm mb-2">
+                Senha
+              </label>
+
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Digite sua senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 pr-12 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/50 outline-none focus:border-heineken-light transition"
+                  required
+                />
+
+                {/* Olho */}
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition"
+                >
+                  {showPassword ? (
+                    <EyeOff size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Botão Entrar */}
+            <button
+              type="submit"
+              className="w-full bg-white text-heineken-green hover:bg-heineken-light font-bold py-3 rounded-xl uppercase tracking-wider transition-all duration-300"
+            >
+              Entrar
+            </button>
+          </form>
+
+          {/* Esqueci minha senha */}
           <div className="mt-6 text-center">
             <Link
               href="/forgot-password"
