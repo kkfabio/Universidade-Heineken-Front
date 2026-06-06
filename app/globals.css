@@ -148,9 +148,9 @@
   background: #F8FAFB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #007041;
+  background: #008200; /* ← era #007041 */
   border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #005431;
+  background: #008200; /* ← era #005431 */
 }
