@@ -209,8 +209,8 @@ export default function CertificadosPage() {
               <Button 
                 onClick={() => alert("Módulos Inclusos: Cadeia Integrada Intercontinental, Distribuição Inversa Eficiente e Controles de Qualidade.")}
                 variant="outline" 
-                className="w-full border-white/20 text-white hover:bg-white/10 h-14 md:h-16 rounded-2xl font-bold uppercase tracking-widest text-[11px]"
-              >
+                
+              >className="w-full border-white/20 text-black bg-white hover:bg-white/90 h-14 md:h-16 rounded-2xl font-bold uppercase tracking-widest text-[11px]"
                 Visualizar Detalhes
               </Button>
             </div>
