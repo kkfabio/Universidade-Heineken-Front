@@ -75,19 +75,19 @@ Acesse [http://localhost:3000](http://localhost:3000)
 
 ## 📁 Estrutura do Projeto
 
-src/
-├── app/
-│   ├── (public)/
-│   │   ├── login/
-│   │   └── forgot-password/
-│   └── (private)/
-│       └── (home)/
-│           ├── dashboard/
-│           ├── cursos/
-│           └── configuracoes/
-├── components/
-└── middleware.ts
-
+```
+app/
+├── (public)/
+│   ├── login/
+│   └── forgot-password/
+└── (private)/
+    └── (home)/
+        ├── dashboard/
+        ├── cursos/
+        └── configuracoes/
+components/
+middleware.ts
+```
 ---
 
 ## 👤 Usuário de teste 
