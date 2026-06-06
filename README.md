@@ -1,32 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍺 Universidade Heineken (UHNK) — Frontend
 
-## Getting Started
+Interface web da plataforma de e-learning corporativo da Heineken, desenvolvida com Next.js 14, TypeScript e Tailwind CSS.
 
-First, run the development server:
+## 🔗 Links
+
+- **Produção:** https://universidade-heineken-front-mu.vercel.app
+- **Backend:** https://github.com/kkfabio/Universidade-Heineken-Backend
+
+---
+
+## 🚀 Tecnologias
+
+- [Next.js 14](https://nextjs.org/) — App Router
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- JWT (autenticação stateless via cookie)
+- BCrypt (hash de senhas)
+
+---
+
+## ✨ Funcionalidades
+
+- **Login** com validação de credenciais via JWT
+- **Recuperação de senha** com validação de CPF e geração de senha temporária (expira em 5 minutos)
+- **Troca de senha** com validação de força e verificação da senha atual via BCrypt
+- **Proteção de rotas** via middleware Next.js (cookie JWT)
+- **Logout** com limpeza de cookie e redirecionamento
+- **Dashboard** com cursos e progresso do usuário
+
+---
+
+## 🔐 Arquitetura de Autenticação
+Usuário → Vercel (Next.js) → Railway (Spring Boot) → Supabase (PostgreSQL)
+
+- Senhas armazenadas com **BCrypt**
+- Autenticação via **JWT stateless** (sem sessão no servidor)
+- Token salvo em **cookie HTTP** com expiração de 24h
+- Rotas privadas protegidas por **middleware** que valida o cookie
+
+---
+
+## ⚙️ Rodando localmente
+
+### Pré-requisitos
+
+- Node.js 18+
+- Backend rodando (ver repositório do backend)
+
+### Instalação
+
+```bash
+git clone https://github.com/kkfabio/Universidade-Heineken-Front
+cd Universidade-Heineken-Front
+npm install
+```
+
+### Variáveis de ambiente
+
+Crie um arquivo `.env.local` na raiz:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080
+```
+
+### Rodando
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Estrutura do Projeto
 
-## Learn More
+src/
+├── app/
+│   ├── (public)/
+│   │   ├── login/
+│   │   └── forgot-password/
+│   └── (private)/
+│       └── (home)/
+│           ├── dashboard/
+│           ├── cursos/
+│           └── configuracoes/
+├── components/
+└── middleware.ts
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 👤 Usuário de teste 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Email: joaosilva@heineken.com
+Senha: Joao@!2021
+CPF:   123.456.789-00
 
+---
 
+## 📄 Licença
+
+Projeto desenvolvido para fins educacionais.
