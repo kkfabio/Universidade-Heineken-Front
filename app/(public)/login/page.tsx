@@ -23,7 +23,12 @@ export default function LoginPage() {
 
       if (response.ok) {
         document.cookie = `token=${data.token}; path=/; max-age=86400`;
-        router.push("/dashboard");
+        document.cookie = `role=${data.role}; path=/; max-age=86400`;
+        if (data.role === "ADMIN") {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/dashboard");
+        }
       } else {
         alert("E-mail ou senha incorretos");
       }
